@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Autismappar.se — Fria appar för barn med autism och språkstörning</title>
+<meta name="description" content="Gratis GTK4-appar med bildstöd, PECS, bildschema och mer — för barn och vuxna med autism, språkstörning och ADHD.">
+<meta property="og:title" content="Autismappar.se — Fria appar för barn med autism och språkstörning">
+<meta property="og:description" content="Gratis öppen källkod-appar med bildstöd, PECS, bildschema och mer.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://autismappar.se">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --blue:#3584e4;--green:#2ec27e;--purple:#9141ac;--orange:#e66100;
+  --red:#e01b24;--dark:#1e1e1e;--light:#fafafa;--card:#fff;
+  --text:#333;--muted:#666;--border:#e0e0e0;
+}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--text);background:var(--light);line-height:1.6;}
+a{color:var(--blue);text-decoration:none;}
+a:hover{text-decoration:underline;}
+
+/* Hero */
+.hero{
+  background:linear-gradient(135deg,#1a5fb4 0%,#3584e4 40%,#62a0ea 100%);
+  color:#fff;padding:80px 24px 60px;text-align:center;
+}
+.hero h1{font-size:clamp(2rem,5vw,3.2rem);font-weight:800;margin-bottom:12px;}
+.hero .subtitle{font-size:clamp(1rem,2.5vw,1.3rem);opacity:0.9;max-width:700px;margin:0 auto 32px;}
+.hero .badges{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.hero .badge{
+  background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);
+  padding:8px 20px;border-radius:24px;font-size:14px;font-weight:600;
+  backdrop-filter:blur(4px);
+}
+
+/* Section */
+.section{max-width:1100px;margin:0 auto;padding:60px 24px;}
+.section-title{font-size:1.8rem;font-weight:700;text-align:center;margin-bottom:8px;}
+.section-sub{text-align:center;color:var(--muted);margin-bottom:40px;max-width:600px;margin-left:auto;margin-right:auto;}
+
+/* App grid */
+.apps{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px;}
+.app-card{
+  background:var(--card);border:1px solid var(--border);border-radius:16px;
+  overflow:hidden;transition:transform 0.2s,box-shadow 0.2s;
+}
+.app-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,0.1);}
+.app-card img{width:100%;height:200px;object-fit:cover;border-bottom:1px solid var(--border);}
+.app-info{padding:20px;}
+.app-name{font-size:1.2rem;font-weight:700;margin-bottom:4px;}
+.app-desc{color:var(--muted);font-size:0.9rem;margin-bottom:12px;}
+.app-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px;}
+.tag{
+  font-size:11px;font-weight:600;padding:3px 10px;border-radius:12px;
+  text-transform:uppercase;letter-spacing:0.5px;
+}
+.tag-arasaac{background:#e8f5e9;color:#2e7d32;}
+.tag-tts{background:#e3f2fd;color:#1565c0;}
+.tag-pecs{background:#f3e5f5;color:#7b1fa2;}
+.tag-timer{background:#fff3e0;color:#e65100;}
+.tag-phonics{background:#fce4ec;color:#c62828;}
+.app-links{display:flex;gap:8px;}
+.app-links a{
+  font-size:13px;font-weight:600;padding:6px 14px;border-radius:8px;
+  background:var(--blue);color:#fff;transition:background 0.2s;
+}
+.app-links a:hover{background:#1a5fb4;text-decoration:none;}
+.app-links a.gh{background:#333;}
+.app-links a.gh:hover{background:#555;}
+
+/* Target audience */
+.audience{
+  background:#f0f4ff;border-radius:20px;padding:40px;margin-top:20px;
+}
+.audience-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px;margin-top:20px;}
+.audience-item{text-align:center;padding:20px;}
+.audience-item .emoji{font-size:2.5rem;margin-bottom:8px;}
+.audience-item h3{font-size:1rem;font-weight:600;margin-bottom:4px;}
+.audience-item p{font-size:0.85rem;color:var(--muted);}
+
+/* Install */
+.install{background:#f8f8f8;border-radius:16px;padding:32px;margin-top:20px;}
+.install h3{font-size:1.1rem;font-weight:700;margin-bottom:12px;}
+.install pre{
+  background:#1e1e1e;color:#e0e0e0;padding:16px;border-radius:10px;
+  overflow-x:auto;font-size:13px;line-height:1.5;margin-bottom:16px;
+}
+.install code{font-family:'SF Mono','Fira Code',monospace;}
+
+/* ARASAAC */
+.arasaac-section{
+  background:linear-gradient(135deg,#e8f5e9,#f1f8e9);
+  border-radius:20px;padding:40px;text-align:center;margin-top:40px;
+}
+.arasaac-section img{height:60px;margin-bottom:16px;}
+.arasaac-section p{max-width:600px;margin:0 auto;color:var(--muted);}
+
+/* Footer */
+.footer{
+  text-align:center;padding:40px 24px;color:var(--muted);font-size:0.85rem;
+  border-top:1px solid var(--border);margin-top:60px;
+}
+.footer a{color:var(--blue);}
+
+/* Responsive */
+@media(max-width:600px){
+  .hero{padding:50px 16px 40px;}
+  .section{padding:40px 16px;}
+  .apps{grid-template-columns:1fr;}
+  .audience-grid{grid-template-columns:1fr 1fr;}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>🧩 Autismappar</h1>
+  <p class="subtitle">Fria appar med bildstöd för barn och vuxna med autism, språkstörning och ADHD</p>
+  <div class="badges">
+    <span class="badge">🆓 Helt gratis</span>
+    <span class="badge">🔓 Öppen källkod</span>
+    <span class="badge">🐧 Linux / Ubuntu / Fedora</span>
+    <span class="badge">🌍 Flerspråkigt</span>
+  </div>
+</div>
+
+<div class="section">
+  <h2 class="section-title">Apparna</h2>
+  <p class="section-sub">Moderna GTK4/Adwaita-appar designade för tillgänglighet och enkelhet</p>
+
+  <div class="apps">
+
+    <div class="app-card">
+      <img src="https://raw.githubusercontent.com/yeager/bildstod/main/screenshots/main.png" alt="Bildstöd">
+      <div class="app-info">
+        <div class="app-name">Bildstöd</div>
+        <div class="app-desc">Visuellt schema och bildkommunikation med ARASAAC-piktogram. Skapa dagliga scheman med bilder och text.</div>
+        <div class="app-tags">
+          <span class="tag tag-arasaac">ARASAAC</span>
+        </div>
+        <div class="app-links">
+          <a href="https://github.com/yeager/bildstod/releases">Ladda ner</a>
+          <a href="https://github.com/yeager/bildstod" class="gh">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="app-card">
+      <img src="https://raw.githubusercontent.com/yeager/bildschema/main/screenshots/main.png" alt="Bildschema">
+      <div class="app-info">
+        <div class="app-name">Bildschema</div>
+        <div class="app-desc">Visuellt dagsschema med drag-and-drop. Planera dagen med bilder för morgon, skola, eftermiddag och kväll.</div>
+        <div class="app-tags">
+          <span class="tag tag-arasaac">ARASAAC</span>
+        </div>
+        <div class="app-links">
+          <a href="https://github.com/yeager/bildschema/releases">Ladda ner</a>
+          <a href="https://github.com/yeager/bildschema" class="gh">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="app-card">
+      <img src="https://raw.githubusercontent.com/yeager/pecsbrada/main/screenshots/main.png" alt="PECS-bräda">
+      <div class="app-info">
+        <div class="app-name">PECS-bräda</div>
+        <div class="app-desc">Digital PECS-kommunikationstavla med talsyntes. Tryck på bildkort för att höra ordet uppläst.</div>
+        <div class="app-tags">
+          <span class="tag tag-arasaac">ARASAAC</span>
+          <span class="tag tag-tts">Talsyntes</span>
+          <span class="tag tag-pecs">PECS</span>
+        </div>
+        <div class="app-links">
+          <a href="https://github.com/yeager/pecsbrada/releases">Ladda ner</a>
+          <a href="https://github.com/yeager/pecsbrada" class="gh">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="app-card">
+      <img src="https://raw.githubusercontent.com/yeager/bildordbok/main/screenshots/main.png" alt="Bildordbok">
+      <div class="app-info">
+        <div class="app-name">Bildordbok</div>
+        <div class="app-desc">Tvåspråkig bildordbok med uppläsning. 80+ ord i 6 kategorier med ARASAAC-piktogram och spaced repetition.</div>
+        <div class="app-tags">
+          <span class="tag tag-arasaac">ARASAAC</span>
+          <span class="tag tag-tts">Talsyntes</span>
+        </div>
+        <div class="app-links">
+          <a href="https://github.com/yeager/bildordbok/releases">Ladda ner</a>
+          <a href="https://github.com/yeager/bildordbok" class="gh">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="app-card">
+      <img src="https://raw.githubusercontent.com/yeager/rutinkompis/main/screenshots/main.png" alt="Rutinkompis">
+      <div class="app-info">
+        <div class="app-name">Rutinkompis</div>
+        <div class="app-desc">Visuella steg-för-steg-rutiner. Skapa checklistor med bilder och piktogram för vardagliga aktiviteter.</div>
+        <div class="app-tags">
+          <span class="tag tag-arasaac">ARASAAC</span>
+        </div>
+        <div class="app-links">
+          <a href="https://github.com/yeager/rutinkompis/releases">Ladda ner</a>
+          <a href="https://github.com/yeager/rutinkompis" class="gh">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="app-card">
+      <img src="https://raw.githubusercontent.com/yeager/tidskollen/main/screenshots/main.png" alt="Tidskollen">
+      <div class="app-info">
+        <div class="app-name">Tidskollen</div>
+        <div class="app-desc">Visuell tidtimer med färgkodade zoner. Perfekt för klassrum, terapi och hemma. Förinställda intervaller.</div>
+        <div class="app-tags">
+          <span class="tag tag-timer">Timer</span>
+        </div>
+        <div class="app-links">
+          <a href="https://github.com/yeager/tidskollen/releases">Ladda ner</a>
+          <a href="https://github.com/yeager/tidskollen" class="gh">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="app-card">
+      <img src="https://raw.githubusercontent.com/yeager/ordbyggaren/main/screenshots/main.png" alt="Ordbyggaren">
+      <div class="app-info">
+        <div class="app-name">Ordbyggaren</div>
+        <div class="app-desc">Fonologisk träning — bygg ord av ljud och bokstäver. Progressiv svårighetsgrad med visuell feedback.</div>
+        <div class="app-tags">
+          <span class="tag tag-phonics">Fonologi</span>
+        </div>
+        <div class="app-links">
+          <a href="https://github.com/yeager/ordbyggaren/releases">Ladda ner</a>
+          <a href="https://github.com/yeager/ordbyggaren" class="gh">GitHub</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Target audience -->
+  <div class="audience">
+    <h2 class="section-title">Vem är apparna för?</h2>
+    <div class="audience-grid">
+      <div class="audience-item">
+        <div class="emoji">🧩</div>
+        <h3>Autism (ASD)</h3>
+        <p>Visuellt stöd för kommunikation, schemaläggning och vardagsrutiner</p>
+      </div>
+      <div class="audience-item">
+        <div class="emoji">💬</div>
+        <h3>Språkstörning (DLD)</h3>
+        <p>Bildstöd och talsyntes för att stärka ordförråd och kommunikation</p>
+      </div>
+      <div class="audience-item">
+        <div class="emoji">🧠</div>
+        <h3>ADHD</h3>
+        <p>Visuella timers och rutinscheman för struktur i vardagen</p>
+      </div>
+      <div class="audience-item">
+        <div class="emoji">🌍</div>
+        <h3>Nyanlända</h3>
+        <p>Tvåspråkig bildordbok med uppläsning för att lära sig svenska</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Install -->
+  <div class="install" id="install">
+    <h2 class="section-title" style="text-align:left;">Installation</h2>
+    <p style="color:var(--muted);margin-bottom:20px;">Alla appar finns som .deb (Ubuntu/Debian) och .rpm (Fedora) paket.</p>
+
+    <h3>Ubuntu / Debian</h3>
+    <pre><code>echo "deb [signed-by=/usr/share/keyrings/yeager-keyring.gpg] https://yeager.github.io/debian-repo stable main" \
+  | sudo tee /etc/apt/sources.list.d/yeager.list
+curl -fsSL https://yeager.github.io/debian-repo/yeager-keyring.gpg \
+  | sudo tee /usr/share/keyrings/yeager-keyring.gpg > /dev/null
+sudo apt update
+
+# Installera valfri app:
+sudo apt install bildstod bildschema pecsbrada bildordbok rutinkompis tidskollen ordbyggaren</code></pre>
+
+    <h3>Fedora / openSUSE</h3>
+    <pre><code>sudo dnf config-manager --add-repo https://yeager.github.io/rpm-repo/yeager.repo
+
+# Installera valfri app:
+sudo dnf install bildstod bildschema pecsbrada bildordbok rutinkompis tidskollen ordbyggaren</code></pre>
+  </div>
+
+  <!-- ARASAAC -->
+  <div class="arasaac-section">
+    <img src="https://static.arasaac.org/images/arasaac-logo.png" alt="ARASAAC" onerror="this.style.display='none'">
+    <h2 class="section-title">ARASAAC-piktogram</h2>
+    <p style="margin-top:12px;">
+      Fem av apparna använder <a href="https://arasaac.org">ARASAAC</a> — ett fritt bibliotek med över 13 000 piktogram
+      som används världen över inom specialpedagogik och habilitering.
+    </p>
+    <p style="margin-top:12px;font-size:0.8rem;color:#888;">
+      Piktografiska symboler © Gobierno de Aragón, skapade av Sergio Palao för
+      <a href="https://arasaac.org">ARASAAC</a>, distribuerade under
+      <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>.
+    </p>
+  </div>
+</div>
+
+<div class="footer">
+  <p>
+    Skapat av <a href="https://danielnylander.se">Daniel Nylander</a> ·
+    <a href="https://github.com/yeager">GitHub</a> ·
+    Alla appar är <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0</a> öppen källkod
+  </p>
+  <p style="margin-top:8px;">🇸🇪 Gjort i Sverige</p>
+</div>
+
+</body>
+</html>
