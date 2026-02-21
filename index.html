@@ -99,6 +99,11 @@ a:hover{text-decoration:underline;}
 
 /* App grid */
 .apps{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px;}
+.lang-flags{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin:20px auto;max-width:700px;}
+.lang-flag{display:flex;align-items:center;gap:6px;background:var(--card-bg,#f8f9fa);border:1px solid var(--border,#e2e8f0);border-radius:20px;padding:6px 14px;font-size:14px;transition:transform 0.2s;}
+.lang-flag:hover{transform:scale(1.05);}
+.flag-emoji{font-size:20px;}
+.flag-name{font-weight:500;color:var(--text,#333);}
 .app-card{
   background:var(--card);border:1px solid var(--border);border-radius:16px;
   overflow:hidden;transition:transform 0.2s,box-shadow 0.2s;
@@ -591,7 +596,26 @@ sudo dnf install bildstod bildschema pecsbrada bildordbok rutinkompis tidskollen
   <!-- Translate -->
   <section class="translate-section">
     <h2 class="section-title" data-sv="Hjälp oss översätta!" data-en="Help us translate!"></h2>
-    <div class="flags">🇸🇪 🇬🇧 🇩🇪 🇫🇷 🇪🇸 🇮🇹 🇧🇷 🇵🇱 🇳🇱 🇯🇵 🇰🇷 🇨🇳 🇷🇺 🇹🇷 🇸🇦 🇮🇳 🇹🇭 🇻🇳</div>
+    <div class="lang-flags">
+      <span class="lang-flag"><span class="flag-emoji">🇸🇪</span><span class="flag-name">Svenska</span></span>
+      <span class="lang-flag"><span class="flag-emoji">🇬🇧</span><span class="flag-name">English</span></span>
+      <span class="lang-flag"><span class="flag-emoji">🇩🇰</span><span class="flag-name">Dansk</span></span>
+      <span class="lang-flag"><span class="flag-emoji">🇩🇪</span><span class="flag-name">Deutsch</span></span>
+      <span class="lang-flag"><span class="flag-emoji">🇪🇸</span><span class="flag-name">Español</span></span>
+      <span class="lang-flag"><span class="flag-emoji">🇫🇮</span><span class="flag-name">Suomi</span></span>
+      <span class="lang-flag"><span class="flag-emoji">🇫🇷</span><span class="flag-name">Français</span></span>
+      <span class="lang-flag"><span class="flag-emoji">🇮🇹</span><span class="flag-name">Italiano</span></span>
+      <span class="lang-flag"><span class="flag-emoji">🇳🇴</span><span class="flag-name">Norsk</span></span>
+      <span class="lang-flag"><span class="flag-emoji">🇳🇱</span><span class="flag-name">Nederlands</span></span>
+      <span class="lang-flag"><span class="flag-emoji">🇵🇱</span><span class="flag-name">Polski</span></span>
+      <span class="lang-flag"><span class="flag-emoji">🇧🇷</span><span class="flag-name">Português</span></span>
+      <span class="lang-flag"><span class="flag-emoji">🇯🇵</span><span class="flag-name">日本語</span></span>
+      <span class="lang-flag"><span class="flag-emoji">🇰🇷</span><span class="flag-name">한국어</span></span>
+      <span class="lang-flag"><span class="flag-emoji">🇨🇳</span><span class="flag-name">中文</span></span>
+      <span class="lang-flag"><span class="flag-emoji">🇷🇺</span><span class="flag-name">Русский</span></span>
+      <span class="lang-flag"><span class="flag-emoji">🇹🇷</span><span class="flag-name">Türkçe</span></span>
+      <span class="lang-flag"><span class="flag-emoji">🇸🇦</span><span class="flag-name">العربية</span></span>
+    </div>
     <p style="max-width:600px;margin:0 auto;color:var(--muted);" data-sv="Apparna finns på 18 språk tack vare volontäröversättare världen över. Alla översättningar görs via Transifex — registrera dig och börja bidra!" data-en="The apps are available in 18 languages thanks to volunteer translators worldwide. All translations are managed on Transifex — sign up and start contributing!"></p>
     <p style="margin-top:16px;">
       <a href="https://www.transifex.com/danielnylander/" style="display:inline-block;padding:10px 24px;background:var(--blue);color:#fff;border-radius:8px;font-weight:600;font-size:14px;" data-sv="Översätt på Transifex →" data-en="Translate on Transifex →"></a>
@@ -679,5 +703,6 @@ document.addEventListener('keydown', e => {
 
 </body>
 </html>
+
 
 
