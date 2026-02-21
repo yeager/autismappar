@@ -3,14 +3,55 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Autismappar — Free apps for autism and language disorders</title>
-<meta name="description" content="Free GTK4 apps with visual support, PECS, visual schedules and more — for children and adults with autism, language disorders and ADHD.">
-<meta property="og:title" content="Autismappar — Free apps for autism and language disorders">
-<meta property="og:description" content="Free open source apps with visual support, PECS, visual schedules and more.">
+<title>Autismappar — Fria appar för autism, språkstörning och ADHD</title>
+<meta name="description" content="Fria appar med bildstöd, PECS, visuella scheman och talsyntes för barn och vuxna med autism, språkstörning, ADHD och NPF. Perfekt för skola, hemma, habilitering och logopedi. Från Föreningen för språkutveckling med NPF.">
+<meta name="keywords" content="autism, autismappar, språkstörning, DLD, ADHD, NPF, bildstöd, PECS, alternativ kommunikation, AKK, visuellt schema, specialpedagogik, habilitering, logopedi, språkutveckling, barn, skola, hemma, föräldrar, Linux, Ubuntu, öppen källkod, ARASAAC, piktogram, talsyntes, särskola, anpassning, tillgänglighet, kognitiv funktionsnedsättning, executive function">
+<link rel="canonical" href="https://autismappar.se">
+<meta property="og:title" content="Autismappar — Fria appar för autism, språkstörning och ADHD">
+<meta property="og:description" content="Fria appar med bildstöd, PECS, visuella scheman och talsyntes. Perfekt för skola, hemma och habilitering. Från Föreningen för språkutveckling med NPF.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://autismappar.se">
+<meta property="og:image" content="https://raw.githubusercontent.com/yeager/bildstod/main/screenshot.png">
+<meta property="og:locale" content="sv_SE">
+<meta property="og:locale:alternate" content="en_GB">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Autismappar — Fria appar för autism, språkstörning och ADHD">
+<meta name="twitter:description" content="Fria appar med bildstöd, PECS och visuella scheman för barn och vuxna med NPF.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- Structured Data (JSON-LD) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Autismappar",
+  "url": "https://autismappar.se",
+  "description": "Fria appar med bildstöd för barn och vuxna med autism, språkstörning och ADHD",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Föreningen för språkutveckling med NPF",
+    "url": "https://autismappar.se"
+  },
+  "inLanguage": ["sv", "en"]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Autismappar",
+  "applicationCategory": "EducationalApplication",
+  "operatingSystem": "Linux",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "SEK" },
+  "description": "Fria GTK4-appar med bildstöd, PECS, visuella scheman och talsyntes för personer med autism, språkstörning och ADHD",
+  "author": {
+    "@type": "Organization",
+    "name": "Föreningen för språkutveckling med NPF"
+  }
+}
+</script>
+
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 :root{
@@ -42,7 +83,8 @@ a:hover{text-decoration:underline;}
   color:#fff;padding:80px 24px 60px;text-align:center;
 }
 .hero h1{font-size:clamp(2rem,5vw,3.2rem);font-weight:800;margin-bottom:12px;}
-.hero .subtitle{font-size:clamp(1rem,2.5vw,1.3rem);opacity:0.9;max-width:700px;margin:0 auto 32px;}
+.hero .subtitle{font-size:clamp(1rem,2.5vw,1.3rem);opacity:0.9;max-width:700px;margin:0 auto 16px;}
+.hero .org-name{font-size:0.95rem;opacity:0.75;margin-bottom:28px;font-style:italic;}
 .hero .badges{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
 .hero .badge{
   background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);
@@ -62,7 +104,15 @@ a:hover{text-decoration:underline;}
   overflow:hidden;transition:transform 0.2s,box-shadow 0.2s;
 }
 .app-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,0.1);}
-.app-card img{width:100%;height:200px;object-fit:cover;border-bottom:1px solid var(--border);}
+.app-card .screenshot-link{display:block;cursor:zoom-in;position:relative;overflow:hidden;}
+.app-card .screenshot-link::after{
+  content:'🔍';position:absolute;top:8px;right:8px;
+  background:rgba(0,0,0,0.5);color:#fff;width:32px;height:32px;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:14px;opacity:0;transition:opacity 0.2s;
+}
+.app-card .screenshot-link:hover::after{opacity:1;}
+.app-card img{width:100%;height:200px;object-fit:cover;border-bottom:1px solid var(--border);display:block;}
 .app-info{padding:20px;}
 .app-name{font-size:1.2rem;font-weight:700;margin-bottom:4px;}
 .app-desc{color:var(--muted);font-size:0.9rem;margin-bottom:12px;}
@@ -73,6 +123,8 @@ a:hover{text-decoration:underline;}
 .tag-pecs{background:#f3e5f5;color:#7b1fa2;}
 .tag-timer{background:#fff3e0;color:#e65100;}
 .tag-phonics{background:#fce4ec;color:#c62828;}
+.tag-adhd{background:#fff8e1;color:#f57f17;}
+.tag-sensory{background:#e0f7fa;color:#00695c;}
 .app-links{display:flex;gap:8px;}
 .app-links a{
   font-size:13px;font-weight:600;padding:6px 14px;border-radius:8px;
@@ -82,6 +134,15 @@ a:hover{text-decoration:underline;}
 .app-links a.gh{background:#333;}
 .app-links a.gh:hover{background:#555;}
 
+/* Intro section */
+.intro{
+  background:#fff;border-radius:20px;padding:40px;margin-bottom:40px;
+  border:1px solid var(--border);
+}
+.intro h2{font-size:1.5rem;font-weight:700;margin-bottom:16px;}
+.intro p{color:var(--muted);margin-bottom:12px;font-size:0.95rem;line-height:1.7;}
+.intro ul{color:var(--muted);font-size:0.95rem;margin:12px 0 12px 24px;line-height:1.8;}
+
 /* Audience */
 .audience{background:#f0f4ff;border-radius:20px;padding:40px;margin-top:20px;}
 .audience-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:20px;margin-top:20px;}
@@ -89,6 +150,13 @@ a:hover{text-decoration:underline;}
 .audience-item .emoji{font-size:2.5rem;margin-bottom:8px;}
 .audience-item h3{font-size:1rem;font-weight:600;margin-bottom:4px;}
 .audience-item p{font-size:0.85rem;color:var(--muted);}
+
+/* Use cases */
+.use-cases{background:#fff;border-radius:20px;padding:40px;margin-top:20px;border:1px solid var(--border);}
+.use-cases-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px;margin-top:20px;}
+.use-case{padding:20px;background:#f8f9fa;border-radius:12px;}
+.use-case h3{font-size:1rem;font-weight:700;margin-bottom:8px;}
+.use-case p{font-size:0.85rem;color:var(--muted);line-height:1.6;}
 
 /* Install */
 .install{background:#f8f8f8;border-radius:16px;padding:32px;margin-top:20px;}
@@ -114,6 +182,30 @@ a:hover{text-decoration:underline;}
 .arasaac-section img{height:60px;margin-bottom:16px;}
 .arasaac-section p{max-width:600px;margin:0 auto;color:var(--muted);}
 
+/* Lightbox */
+.lightbox{
+  display:none;position:fixed;top:0;left:0;width:100%;height:100%;
+  background:rgba(0,0,0,0.85);z-index:1000;cursor:zoom-out;
+  justify-content:center;align-items:center;padding:24px;
+}
+.lightbox.active{display:flex;}
+.lightbox img{
+  max-width:90vw;max-height:90vh;border-radius:12px;
+  box-shadow:0 8px 32px rgba(0,0,0,0.5);object-fit:contain;
+}
+.lightbox .close-btn{
+  position:absolute;top:20px;right:24px;color:#fff;font-size:2rem;
+  cursor:pointer;background:rgba(0,0,0,0.4);width:44px;height:44px;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  border:none;transition:background 0.2s;
+}
+.lightbox .close-btn:hover{background:rgba(255,255,255,0.2);}
+.lightbox .app-label{
+  position:absolute;bottom:24px;left:50%;transform:translateX(-50%);
+  color:#fff;font-size:1.1rem;font-weight:600;background:rgba(0,0,0,0.5);
+  padding:8px 20px;border-radius:8px;
+}
+
 /* Footer */
 .footer{
   text-align:center;padding:40px 24px;color:var(--muted);font-size:0.85rem;
@@ -126,6 +218,7 @@ a:hover{text-decoration:underline;}
   .section{padding:40px 16px;}
   .apps{grid-template-columns:1fr;}
   .audience-grid{grid-template-columns:1fr 1fr;}
+  .use-cases-grid{grid-template-columns:1fr;}
 }
 </style>
 </head>
@@ -137,71 +230,103 @@ a:hover{text-decoration:underline;}
   <button onclick="setLang('en')" id="btn-en">🇬🇧 English</button>
 </div>
 
-<div class="hero">
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="close-btn" aria-label="Stäng">✕</button>
+  <img id="lightbox-img" src="" alt="">
+  <div class="app-label" id="lightbox-label"></div>
+</div>
+
+<header class="hero">
   <h1>🧩 Autismappar</h1>
   <p class="subtitle" data-sv="Fria appar med bildstöd för barn och vuxna med autism, språkstörning och ADHD" data-en="Free apps with visual support for children and adults with autism, language disorders and ADHD"></p>
+  <p class="org-name" data-sv="Ett projekt från Föreningen för språkutveckling med NPF" data-en="A project by the Association for Language Development with NDDs"></p>
   <div class="badges">
     <span class="badge" data-sv="🆓 Helt gratis" data-en="🆓 Completely free"></span>
     <span class="badge" data-sv="🔓 Öppen källkod" data-en="🔓 Open source"></span>
     <span class="badge" data-sv="🐧 Linux / Ubuntu / Fedora" data-en="🐧 Linux / Ubuntu / Fedora"></span>
     <span class="badge" data-sv="🌍 18 språk" data-en="🌍 18 languages"></span>
   </div>
-</div>
+</header>
 
-<div class="section">
+<main class="section">
+
+  <!-- Intro / About -->
+  <article class="intro">
+    <h2 data-sv="Appar för språkutveckling och vardagsstöd" data-en="Apps for language development and everyday support"></h2>
+    <p data-sv="Autismappar är en samling fria, öppna appar skapade för barn och vuxna med neuropsykiatriska funktionsnedsättningar (NPF). Apparna ger konkret stöd i vardagen — hemma, i skolan, på habiliteringen och hos logopeden." data-en="Autismappar is a collection of free, open-source apps created for children and adults with neurodevelopmental disorders (NDDs). The apps provide concrete everyday support — at home, in school, at habilitation centres and with speech therapists."></p>
+    <p data-sv="Projektet drivs av <strong>Föreningen för språkutveckling med NPF</strong> och riktar sig till:" data-en="The project is run by <strong>the Association for Language Development with NDDs</strong> and targets:"></p>
+    <ul>
+      <li data-sv="🧩 <strong>Barn och vuxna med autism</strong> — visuellt stöd för kommunikation och struktur" data-en="🧩 <strong>Children and adults with autism</strong> — visual support for communication and structure"></li>
+      <li data-sv="💬 <strong>Barn med språkstörning (DLD)</strong> — bildstöd och talsyntes för att stärka språkutvecklingen" data-en="💬 <strong>Children with language disorder (DLD)</strong> — visual aids and TTS to strengthen language development"></li>
+      <li data-sv="🧠 <strong>Barn och vuxna med ADHD</strong> — fokusverktyg, timers och rutinscheman" data-en="🧠 <strong>Children and adults with ADHD</strong> — focus tools, timers and routine schedules"></li>
+      <li data-sv="👨‍👩‍👧 <strong>Föräldrar</strong> — hjälpmedel för att skapa struktur och stödja barnets utveckling hemma" data-en="👨‍👩‍👧 <strong>Parents</strong> — tools to create structure and support the child's development at home"></li>
+      <li data-sv="🏫 <strong>Skola och förskola</strong> — verktyg för pedagoger, speciallärare och resurspersoner" data-en="🏫 <strong>Schools and preschools</strong> — tools for educators, special teachers and support staff"></li>
+      <li data-sv="🏥 <strong>Habilitering och logopedi</strong> — komplement till professionell behandling" data-en="🏥 <strong>Habilitation and speech therapy</strong> — complement to professional treatment"></li>
+    </ul>
+  </article>
+
   <h2 class="section-title" data-sv="Apparna" data-en="The Apps"></h2>
   <p class="section-sub" data-sv="Moderna GTK4/Adwaita-appar designade för tillgänglighet och enkelhet" data-en="Modern GTK4/Adwaita apps designed for accessibility and simplicity"></p>
 
   <div class="apps">
 
-    <div class="app-card">
-      <img src="https://raw.githubusercontent.com/yeager/bildstod/main/screenshot.png" alt="Bildstöd">
+    <article class="app-card">
+      <a class="screenshot-link" href="https://raw.githubusercontent.com/yeager/bildstod/main/screenshot.png" onclick="openLightbox(this);return false;">
+        <img src="https://raw.githubusercontent.com/yeager/bildstod/main/screenshot.png" alt="Bildstöd — visuellt schema med ARASAAC-piktogram för autism och språkstörning" loading="lazy">
+      </a>
       <div class="app-info">
-        <div class="app-name" data-sv="Bildstöd" data-en="Visual Support">Bildstöd</div>
-        <div class="app-desc" data-sv="Visuellt schema och bildkommunikation med ARASAAC-piktogram. Skapa dagliga scheman med bilder och text." data-en="Visual schedule and picture communication with ARASAAC pictograms. Create daily schedules with images and text."></div>
+        <div class="app-name" data-sv="Bildstöd" data-en="Visual Support"></div>
+        <div class="app-desc" data-sv="Visuellt schema och bildkommunikation med ARASAAC-piktogram. Skapa dagliga scheman med bilder och text — perfekt för hemma och i skolan." data-en="Visual schedule and picture communication with ARASAAC pictograms. Create daily schedules with images and text — perfect for home and school."></div>
         <div class="app-tags"><span class="tag tag-arasaac">ARASAAC</span></div>
         <div class="app-links">
           <a href="https://github.com/yeager/bildstod/releases" data-sv="Ladda ner" data-en="Download"></a>
           <a href="https://github.com/yeager/bildstod" class="gh">GitHub</a>
         </div>
       </div>
-    </div>
+    </article>
 
-    <div class="app-card">
-      <img src="https://raw.githubusercontent.com/yeager/bildschema/main/screenshot.png" alt="Bildschema">
+    <article class="app-card">
+      <a class="screenshot-link" href="https://raw.githubusercontent.com/yeager/bildschema/main/screenshot.png" onclick="openLightbox(this);return false;">
+        <img src="https://raw.githubusercontent.com/yeager/bildschema/main/screenshot.png" alt="Bildschema — visuellt dagsschema med drag-and-drop för barn med autism" loading="lazy">
+      </a>
       <div class="app-info">
-        <div class="app-name" data-sv="Bildschema" data-en="Visual Schedule">Bildschema</div>
-        <div class="app-desc" data-sv="Visuellt dagsschema med drag-and-drop. Planera dagen med bilder för morgon, skola, eftermiddag och kväll." data-en="Visual daily schedule with drag-and-drop. Plan the day with images for morning, school, afternoon and evening."></div>
+        <div class="app-name" data-sv="Bildschema" data-en="Visual Schedule"></div>
+        <div class="app-desc" data-sv="Visuellt dagsschema med drag-and-drop. Planera dagen med bilder för morgon, skola, eftermiddag och kväll. Skapar förutsägbarhet och trygghet." data-en="Visual daily schedule with drag-and-drop. Plan the day with images for morning, school, afternoon and evening. Creates predictability and safety."></div>
         <div class="app-tags"><span class="tag tag-arasaac">ARASAAC</span></div>
         <div class="app-links">
           <a href="https://github.com/yeager/bildschema/releases" data-sv="Ladda ner" data-en="Download"></a>
           <a href="https://github.com/yeager/bildschema" class="gh">GitHub</a>
         </div>
       </div>
-    </div>
+    </article>
 
-    <div class="app-card">
-      <img src="https://raw.githubusercontent.com/yeager/pecsbrada/main/screenshots/main.png" alt="PECS Board">
+    <article class="app-card">
+      <a class="screenshot-link" href="https://raw.githubusercontent.com/yeager/pecsbrada/main/screenshots/main.png" onclick="openLightbox(this);return false;">
+        <img src="https://raw.githubusercontent.com/yeager/pecsbrada/main/screenshots/main.png" alt="PECS-bräda — digital kommunikationstavla med talsyntes för alternativ kommunikation" loading="lazy">
+      </a>
       <div class="app-info">
         <div class="app-name" data-sv="PECS-bräda" data-en="PECS Board"></div>
-        <div class="app-desc" data-sv="Digital PECS-kommunikationstavla med talsyntes. Tryck på bildkort för att höra ordet uppläst." data-en="Digital PECS communication board with text-to-speech. Tap picture cards to hear the word spoken aloud."></div>
+        <div class="app-desc" data-sv="Digital PECS-kommunikationstavla med talsyntes. Tryck på bildkort för att höra ordet — ett viktigt redskap för alternativ och kompletterande kommunikation (AKK)." data-en="Digital PECS communication board with text-to-speech. Tap picture cards to hear the word — an important tool for augmentative and alternative communication (AAC)."></div>
         <div class="app-tags">
           <span class="tag tag-arasaac">ARASAAC</span>
           <span class="tag tag-tts" data-sv="Talsyntes" data-en="TTS"></span>
-          <span class="tag tag-pecs">PECS</span>
+          <span class="tag tag-pecs">PECS / AKK</span>
         </div>
         <div class="app-links">
           <a href="https://github.com/yeager/pecsbrada/releases" data-sv="Ladda ner" data-en="Download"></a>
           <a href="https://github.com/yeager/pecsbrada" class="gh">GitHub</a>
         </div>
       </div>
-    </div>
+    </article>
 
-    <div class="app-card">
-      <img src="https://raw.githubusercontent.com/yeager/bildordbok/main/screenshots/main.png" alt="Picture Dictionary">
+    <article class="app-card">
+      <a class="screenshot-link" href="https://raw.githubusercontent.com/yeager/bildordbok/main/screenshots/main.png" onclick="openLightbox(this);return false;">
+        <img src="https://raw.githubusercontent.com/yeager/bildordbok/main/screenshots/main.png" alt="Bildordbok — tvåspråkig ordbok med piktogram och uppläsning för språkutveckling" loading="lazy">
+      </a>
       <div class="app-info">
         <div class="app-name" data-sv="Bildordbok" data-en="Picture Dictionary"></div>
-        <div class="app-desc" data-sv="Tvåspråkig bildordbok med uppläsning. 80+ ord i 6 kategorier med ARASAAC-piktogram och spaced repetition." data-en="Bilingual picture dictionary with audio. 80+ words in 6 categories with ARASAAC pictograms and spaced repetition."></div>
+        <div class="app-desc" data-sv="Tvåspråkig bildordbok med uppläsning. 80+ ord i 6 kategorier med ARASAAC-piktogram och spaced repetition — tränar ordförråd och språkförståelse." data-en="Bilingual picture dictionary with audio. 80+ words in 6 categories with ARASAAC pictograms and spaced repetition — trains vocabulary and language comprehension."></div>
         <div class="app-tags">
           <span class="tag tag-arasaac">ARASAAC</span>
           <span class="tag tag-tts" data-sv="Talsyntes" data-en="TTS"></span>
@@ -211,107 +336,145 @@ a:hover{text-decoration:underline;}
           <a href="https://github.com/yeager/bildordbok" class="gh">GitHub</a>
         </div>
       </div>
-    </div>
+    </article>
 
-    <div class="app-card">
-      <img src="https://raw.githubusercontent.com/yeager/rutinkompis/main/screenshots/main.png" alt="Routine Buddy">
+    <article class="app-card">
+      <a class="screenshot-link" href="https://raw.githubusercontent.com/yeager/rutinkompis/main/screenshots/main.png" onclick="openLightbox(this);return false;">
+        <img src="https://raw.githubusercontent.com/yeager/rutinkompis/main/screenshots/main.png" alt="Rutinkompis — steg-för-steg-rutiner med bilder för barn med autism och ADHD" loading="lazy">
+      </a>
       <div class="app-info">
         <div class="app-name" data-sv="Rutinkompis" data-en="Routine Buddy"></div>
-        <div class="app-desc" data-sv="Visuella steg-för-steg-rutiner. Skapa checklistor med bilder och piktogram för vardagliga aktiviteter." data-en="Visual step-by-step routines. Create checklists with images and pictograms for everyday activities."></div>
+        <div class="app-desc" data-sv="Visuella steg-för-steg-rutiner med checklistor och piktogram. Hjälper barn att klara morgonrutin, läxor och kvällsrutin — självständigt." data-en="Visual step-by-step routines with checklists and pictograms. Helps children manage morning routine, homework and evening routine — independently."></div>
         <div class="app-tags"><span class="tag tag-arasaac">ARASAAC</span></div>
         <div class="app-links">
           <a href="https://github.com/yeager/rutinkompis/releases" data-sv="Ladda ner" data-en="Download"></a>
           <a href="https://github.com/yeager/rutinkompis" class="gh">GitHub</a>
         </div>
       </div>
-    </div>
+    </article>
 
-    <div class="app-card">
-      <img src="https://raw.githubusercontent.com/yeager/tidskollen/main/screenshots/main.png" alt="Time Check">
+    <article class="app-card">
+      <a class="screenshot-link" href="https://raw.githubusercontent.com/yeager/tidskollen/main/screenshots/main.png" onclick="openLightbox(this);return false;">
+        <img src="https://raw.githubusercontent.com/yeager/tidskollen/main/screenshots/main.png" alt="Tidskollen — visuell tidtimer med färgkodade zoner för klassrum och hemma" loading="lazy">
+      </a>
       <div class="app-info">
         <div class="app-name" data-sv="Tidskollen" data-en="Time Check"></div>
-        <div class="app-desc" data-sv="Visuell tidtimer med färgkodade zoner. Perfekt för klassrum, terapi och hemma. Förinställda intervaller." data-en="Visual time timer with color-coded zones. Perfect for classrooms, therapy and home. Preset intervals."></div>
+        <div class="app-desc" data-sv="Visuell tidtimer med färgkodade zoner — gör abstrakt tid konkret. Perfekt för klassrum, terapisessioner, hemma och vid övergångar mellan aktiviteter." data-en="Visual time timer with color-coded zones — makes abstract time concrete. Perfect for classrooms, therapy sessions, home and activity transitions."></div>
         <div class="app-tags"><span class="tag tag-timer">Timer</span></div>
         <div class="app-links">
           <a href="https://github.com/yeager/tidskollen/releases" data-sv="Ladda ner" data-en="Download"></a>
           <a href="https://github.com/yeager/tidskollen" class="gh">GitHub</a>
         </div>
       </div>
-    </div>
+    </article>
 
-    <div class="app-card">
-      <img src="https://raw.githubusercontent.com/yeager/ordbyggaren/main/screenshots/main.png" alt="Word Builder">
+    <article class="app-card">
+      <a class="screenshot-link" href="https://raw.githubusercontent.com/yeager/ordbyggaren/main/screenshots/main.png" onclick="openLightbox(this);return false;">
+        <img src="https://raw.githubusercontent.com/yeager/ordbyggaren/main/screenshots/main.png" alt="Ordbyggaren — fonologisk träning med ljud och bokstäver för barn med språkstörning" loading="lazy">
+      </a>
       <div class="app-info">
         <div class="app-name" data-sv="Ordbyggaren" data-en="Word Builder"></div>
-        <div class="app-desc" data-sv="Fonologisk träning — bygg ord av ljud och bokstäver. Progressiv svårighetsgrad med visuell feedback." data-en="Phonological training — build words from sounds and letters. Progressive difficulty with visual feedback."></div>
+        <div class="app-desc" data-sv="Fonologisk träning — bygg ord av ljud och bokstäver. Progressiv svårighetsgrad med visuell feedback. Utvecklad för barn med språkstörning och läs- och skrivsvårigheter." data-en="Phonological training — build words from sounds and letters. Progressive difficulty with visual feedback. Designed for children with language disorder and reading difficulties."></div>
         <div class="app-tags"><span class="tag tag-phonics" data-sv="Fonologi" data-en="Phonics"></span></div>
         <div class="app-links">
           <a href="https://github.com/yeager/ordbyggaren/releases" data-sv="Ladda ner" data-en="Download"></a>
           <a href="https://github.com/yeager/ordbyggaren" class="gh">GitHub</a>
         </div>
       </div>
-    </div>
+    </article>
 
-    <div class="app-card">
-      <img src="https://raw.githubusercontent.com/yeager/fokuskompis/main/screenshots/main.png" alt="Focus Companion">
+    <article class="app-card">
+      <a class="screenshot-link" href="https://raw.githubusercontent.com/yeager/fokuskompis/main/screenshots/main.png" onclick="openLightbox(this);return false;">
+        <img src="https://raw.githubusercontent.com/yeager/fokuskompis/main/screenshots/main.png" alt="Fokuskompis — fokusverktyg med Pomodoro-timer för ADHD" loading="lazy">
+      </a>
       <div class="app-info">
         <div class="app-name" data-sv="Fokuskompis" data-en="Focus Companion"></div>
-        <div class="app-desc" data-sv="Fokus- och uppgiftshanterare med Pomodoro-timer. En uppgift i taget, steg-nedbrytning och tanke-parkering." data-en="Focus and task manager with Pomodoro timer. One task at a time, step breakdown and thought parking."></div>
+        <div class="app-desc" data-sv="Fokus- och uppgiftshanterare med Pomodoro-timer. Visar en uppgift i taget, bryter ner i steg och har tanke-parkering — designad för ADHD-hjärnan." data-en="Focus and task manager with Pomodoro timer. Shows one task at a time, breaks it into steps and has thought parking — designed for the ADHD brain."></div>
         <div class="app-tags"><span class="tag tag-adhd">ADHD</span></div>
         <div class="app-links">
           <a href="https://github.com/yeager/fokuskompis/releases" data-sv="Ladda ner" data-en="Download"></a>
           <a href="https://github.com/yeager/fokuskompis" class="gh">GitHub</a>
         </div>
       </div>
-    </div>
+    </article>
 
-
-    <div class="app-card">
-      <img src="https://raw.githubusercontent.com/yeager/lugnarummet/main/screenshots/main.png" alt="Calming Room">
+    <article class="app-card">
+      <a class="screenshot-link" href="https://raw.githubusercontent.com/yeager/lugnarummet/main/screenshots/main.png" onclick="openLightbox(this);return false;">
+        <img src="https://raw.githubusercontent.com/yeager/lugnarummet/main/screenshots/main.png" alt="Lugna Rummet — andningsövningar och lugnande strategier vid sensorisk överbelastning" loading="lazy">
+      </a>
       <div class="app-info">
         <div class="app-name" data-sv="Lugna Rummet" data-en="Calming Room"></div>
-        <div class="app-desc" data-sv="Andningsövningar, lugnande strategier och stressmätare. Nödknapp för snabb hjälp vid sensorisk överbelastning." data-en="Breathing exercises, calming strategies and stress meter. Emergency button for quick help during sensory overload."></div>
+        <div class="app-desc" data-sv="Andningsövningar, lugnande strategier och stressmätare. Nödknapp för snabb hjälp vid sensorisk överbelastning — ett digitalt lugnt rum." data-en="Breathing exercises, calming strategies and stress meter. Emergency button for quick help during sensory overload — a digital calming room."></div>
         <div class="app-tags"><span class="tag tag-sensory" data-sv="Sensorisk" data-en="Sensory"></span></div>
         <div class="app-links">
           <a href="https://github.com/yeager/lugnarummet/releases" data-sv="Ladda ner" data-en="Download"></a>
           <a href="https://github.com/yeager/lugnarummet" class="gh">GitHub</a>
         </div>
       </div>
-    </div>
+    </article>
 
-    </div>
+  </div>
 
   <!-- Target audience -->
-  <div class="audience">
+  <section class="audience">
     <h2 class="section-title" data-sv="Vem är apparna för?" data-en="Who are the apps for?"></h2>
     <div class="audience-grid">
       <div class="audience-item">
         <div class="emoji">🧩</div>
-        <h3>Autism (ASD)</h3>
-        <p data-sv="Visuellt stöd för kommunikation, schemaläggning och vardagsrutiner" data-en="Visual support for communication, scheduling and daily routines"></p>
+        <h3 data-sv="Autism (ASD)" data-en="Autism (ASD)"></h3>
+        <p data-sv="Visuellt stöd för kommunikation, schemaläggning och vardagsrutiner. Bildstöd skapar förutsägbarhet och minskar ångest." data-en="Visual support for communication, scheduling and daily routines. Visual aids create predictability and reduce anxiety."></p>
       </div>
       <div class="audience-item">
         <div class="emoji">💬</div>
         <h3 data-sv="Språkstörning (DLD)" data-en="Language Disorder (DLD)"></h3>
-        <p data-sv="Bildstöd och talsyntes för att stärka ordförråd och kommunikation" data-en="Visual support and text-to-speech to strengthen vocabulary and communication"></p>
+        <p data-sv="Bildstöd, talsyntes och ordträning för att stärka ordförråd, språkförståelse och kommunikationsförmåga." data-en="Visual support, text-to-speech and word training to strengthen vocabulary, language comprehension and communication skills."></p>
       </div>
       <div class="audience-item">
         <div class="emoji">🧠</div>
         <h3>ADHD</h3>
-        <p data-sv="Visuella timers och rutinscheman för struktur i vardagen" data-en="Visual timers and routine schedules for everyday structure"></p>
+        <p data-sv="Fokusverktyg, visuella timers och rutinscheman. Struktur och tydlighet hjälper vid nedsatt exekutiv förmåga." data-en="Focus tools, visual timers and routine schedules. Structure and clarity help with reduced executive function."></p>
       </div>
       <div class="audience-item">
-        <div class="emoji">🌍</div>
-        <h3 data-sv="Nyanlända" data-en="Newcomers"></h3>
-        <p data-sv="Tvåspråkig bildordbok med uppläsning för att lära sig svenska" data-en="Bilingual picture dictionary with audio for language learning"></p>
+        <div class="emoji">👨‍👩‍👧</div>
+        <h3 data-sv="Föräldrar" data-en="Parents"></h3>
+        <p data-sv="Verktyg som hjälper hela familjen — skapa scheman, öva ord, hantera rutiner och ge barnet ökad självständighet." data-en="Tools that help the whole family — create schedules, practice words, manage routines and give the child increased independence."></p>
+      </div>
+      <div class="audience-item">
+        <div class="emoji">🏫</div>
+        <h3 data-sv="Skola och förskola" data-en="Schools"></h3>
+        <p data-sv="Pedagogiska verktyg för speciallärare, resurspersoner och fritidspedagoger. Fungerar på skolans Linuxdatorer." data-en="Educational tools for special teachers, support staff and after-school educators. Works on school Linux computers."></p>
+      </div>
+      <div class="audience-item">
+        <div class="emoji">🏥</div>
+        <h3 data-sv="Habilitering och logopedi" data-en="Habilitation & Speech Therapy"></h3>
+        <p data-sv="Komplement till professionell behandling. PECS-bräda, bildordbok och ordbyggaren stödjer logopedens arbete." data-en="Complement to professional treatment. PECS Board, Picture Dictionary and Word Builder support speech therapy work."></p>
       </div>
     </div>
-  </div>
+  </section>
+
+  <!-- Use cases -->
+  <section class="use-cases">
+    <h2 class="section-title" data-sv="Så kan apparna användas" data-en="How to use the apps"></h2>
+    <div class="use-cases-grid">
+      <div class="use-case">
+        <h3 data-sv="🏠 Hemma" data-en="🏠 At home"></h3>
+        <p data-sv="Skapa morgon- och kvällsrutiner med Bildschema och Rutinkompis. Använd Tidskollen för att visualisera tid vid läxor eller skärmtid. Öva nya ord med Bildordboken innan sänggåendet." data-en="Create morning and evening routines with Visual Schedule and Routine Buddy. Use Time Check to visualize time for homework or screen time. Practice new words with Picture Dictionary before bedtime."></p>
+      </div>
+      <div class="use-case">
+        <h3 data-sv="🏫 I skolan" data-en="🏫 At school"></h3>
+        <p data-sv="Använd Bildstöd för dagens schema på klassrummets dator. PECS-bräda som kommunikationshjälpmedel för elever som inte kan uttrycka sig verbalt. Ordbyggaren som komplement i svenskundervisningen." data-en="Use Visual Support for the daily schedule on the classroom computer. PECS Board as a communication aid for students who cannot express themselves verbally. Word Builder as a complement in language classes."></p>
+      </div>
+      <div class="use-case">
+        <h3 data-sv="🏥 Hos logopeden" data-en="🏥 At the speech therapist"></h3>
+        <p data-sv="Bildordbok och Ordbyggaren som komplement vid språkträning. PECS-bräda för att introducera bildkommunikation. Alla appar är gratis — familjen kan fortsätta träna hemma." data-en="Picture Dictionary and Word Builder as supplements during language training. PECS Board to introduce picture communication. All apps are free — the family can continue practicing at home."></p>
+      </div>
+    </div>
+  </section>
 
   <!-- Install -->
-  <div class="install" id="install">
+  <section class="install" id="install">
     <h2 class="section-title" style="text-align:left;" data-sv="Installation" data-en="Installation"></h2>
-    <p style="color:var(--muted);margin-bottom:20px;" data-sv="Alla appar finns som .deb (Ubuntu/Debian) och .rpm (Fedora) paket." data-en="All apps are available as .deb (Ubuntu/Debian) and .rpm (Fedora) packages."></p>
+    <p style="color:var(--muted);margin-bottom:20px;" data-sv="Alla appar finns som .deb (Ubuntu/Debian) och .rpm (Fedora) paket. Fungerar på datorer, Chromebooks med Linux och Raspberry Pi." data-en="All apps are available as .deb (Ubuntu/Debian) and .rpm (Fedora) packages. Works on computers, Chromebooks with Linux and Raspberry Pi."></p>
 
     <h3>Ubuntu / Debian</h3>
     <pre><code>echo "deb [signed-by=/usr/share/keyrings/yeager-keyring.gpg] https://yeager.github.io/debian-repo stable main" \
@@ -324,34 +487,37 @@ sudo apt install bildstod bildschema pecsbrada bildordbok rutinkompis tidskollen
     <h3>Fedora / openSUSE</h3>
     <pre><code>sudo dnf config-manager --add-repo https://yeager.github.io/rpm-repo/yeager.repo
 sudo dnf install bildstod bildschema pecsbrada bildordbok rutinkompis tidskollen ordbyggaren</code></pre>
-  </div>
+  </section>
 
   <!-- Translate -->
-  <div class="translate-section">
+  <section class="translate-section">
     <h2 class="section-title" data-sv="Hjälp oss översätta!" data-en="Help us translate!"></h2>
     <div class="flags">🇸🇪 🇬🇧 🇩🇪 🇫🇷 🇪🇸 🇮🇹 🇧🇷 🇵🇱 🇳🇱 🇯🇵 🇰🇷 🇨🇳 🇷🇺 🇹🇷 🇸🇦 🇮🇳 🇹🇭 🇻🇳</div>
     <p style="max-width:600px;margin:0 auto;color:var(--muted);" data-sv="Apparna finns på 18 språk tack vare volontäröversättare världen över. Alla översättningar görs via Transifex — registrera dig och börja bidra!" data-en="The apps are available in 18 languages thanks to volunteer translators worldwide. All translations are managed on Transifex — sign up and start contributing!"></p>
     <p style="margin-top:16px;">
       <a href="https://www.transifex.com/danielnylander/" style="display:inline-block;padding:10px 24px;background:var(--blue);color:#fff;border-radius:8px;font-weight:600;font-size:14px;" data-sv="Översätt på Transifex →" data-en="Translate on Transifex →"></a>
     </p>
-  </div>
+  </section>
 
   <!-- ARASAAC -->
-  <div class="arasaac-section">
-    <img src="https://static.arasaac.org/images/arasaac-logo.png" alt="ARASAAC" onerror="this.style.display='none'">
+  <section class="arasaac-section">
+    <img src="https://static.arasaac.org/images/arasaac-logo.png" alt="ARASAAC — fria piktogram för alternativ kommunikation" loading="lazy" onerror="this.style.display='none'">
     <h2 class="section-title" data-sv="ARASAAC-piktogram" data-en="ARASAAC Pictograms"></h2>
-    <p style="margin-top:12px;" data-sv="Fem av apparna använder ARASAAC — ett fritt bibliotek med över 13 000 piktogram som används världen över inom specialpedagogik och habilitering." data-en="Five of the apps use ARASAAC — a free library of over 13,000 pictograms used worldwide in special education and rehabilitation."></p>
+    <p style="margin-top:12px;" data-sv="Fem av apparna använder ARASAAC — ett fritt bibliotek med över 13 000 piktogram som används världen över inom specialpedagogik, habilitering och logopedi. Vi har bidragit med 15 607 svenska nyckelord till ARASAAC-projektet." data-en="Five of the apps use ARASAAC — a free library of over 13,000 pictograms used worldwide in special education, habilitation and speech therapy. We have contributed 15,607 Swedish keywords to the ARASAAC project."></p>
     <p style="margin-top:12px;font-size:0.8rem;color:#888;">
       Pictographic symbols © Gobierno de Aragón, created by Sergio Palao for
       <a href="https://arasaac.org">ARASAAC</a>,
       <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>.
     </p>
-  </div>
-</div>
+  </section>
+</main>
 
-<div class="footer">
+<footer class="footer">
   <p>
-    <span data-sv="Skapat av" data-en="Created by"></span> <a href="https://danielnylander.se">Daniel Nylander</a> ·
+    <strong data-sv="Föreningen för språkutveckling med NPF" data-en="Association for Language Development with NDDs"></strong>
+  </p>
+  <p style="margin-top:8px;">
+    <span data-sv="Utvecklat av" data-en="Developed by"></span> <a href="https://danielnylander.se">Daniel Nylander</a> ·
     <a href="https://github.com/yeager">GitHub</a> ·
     <span data-sv="Alla appar är" data-en="All apps are"></span> <a href="https://www.gnu.org/licenses/gpl-3.0.html">GPL-3.0</a> <span data-sv="öppen källkod" data-en="open source"></span>
   </p>
@@ -359,21 +525,42 @@ sudo dnf install bildstod bildschema pecsbrada bildordbok rutinkompis tidskollen
   <p style="margin-top:12px;">
     <span data-sv="Se även:" data-en="See also:"></span> <a href="https://aliceappar.se">Aliceappar.se</a> · <a href="https://axelsappar.se">Axelsappar.se</a>
   </p>
-</div>
+</footer>
 
 <script>
-// i18n: data-sv / data-en attributes
+// i18n
 function setLang(lang) {
   document.documentElement.lang = lang;
   document.querySelectorAll('[data-sv]').forEach(el => {
-    el.textContent = el.getAttribute('data-' + lang);
+    el.innerHTML = el.getAttribute('data-' + lang);
   });
   document.getElementById('btn-sv').classList.toggle('active', lang === 'sv');
   document.getElementById('btn-en').classList.toggle('active', lang === 'en');
   localStorage.setItem('lang', lang);
 }
 
-// Auto-detect: browser language or saved preference
+// Lightbox
+function openLightbox(link) {
+  const img = document.getElementById('lightbox-img');
+  const label = document.getElementById('lightbox-label');
+  img.src = link.href;
+  img.alt = link.querySelector('img').alt;
+  // Get app name from sibling .app-info
+  const card = link.closest('.app-card');
+  const name = card ? card.querySelector('.app-name').textContent : '';
+  label.textContent = name;
+  document.getElementById('lightbox').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeLightbox();
+});
+
+// Auto-detect language
 (function() {
   const saved = localStorage.getItem('lang');
   const browser = navigator.language.startsWith('sv') ? 'sv' : 'en';
