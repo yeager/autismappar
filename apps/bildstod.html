@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bildstöd — Visuellt schema och bildkommunikation med ARASAAC-piktogram | Autismappar</title>
+<meta name="description" content="Visuellt schema och bildkommunikation med ARASAAC-piktogram. Fri GTK4-app för barn och vuxna med autism, språkstörning och ADHD. Från Föreningen för språkutveckling med NPF.">
+<meta name="keywords" content="Bildstöd, Visual Support, autism, språkstörning, ADHD, NPF, bildstöd, skola, hemma, föräldrar, habilitering, logopedi, Linux, Ubuntu, öppen källkod">
+<link rel="canonical" href="https://autismappar.se/apps/bildstod.html">
+<meta property="og:title" content="Bildstöd — Visuellt schema och bildkommunikation med ARASAAC-piktogram">
+<meta property="og:description" content="Visuellt schema och bildkommunikation med ARASAAC-piktogram. Fri app för autism, språkstörning och ADHD.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://autismappar.se/apps/bildstod.html">
+<meta property="og:image" content="https://raw.githubusercontent.com/yeager/bildstod/main/screenshot.png">
+<meta property="og:locale" content="sv_SE">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Bildstöd",
+  "alternateName": "Visual Support",
+  "applicationCategory": "EducationalApplication",
+  "operatingSystem": "Linux",
+  "softwareVersion": "0.4.0",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "SEK" },
+  "description": "Visuellt schema och bildkommunikation med ARASAAC-piktogram",
+  "author": { "@type": "Organization", "name": "Föreningen för språkutveckling med NPF" },
+  "url": "https://autismappar.se/apps/bildstod.html",
+  "downloadUrl": "https://github.com/yeager/bildstod/releases"
+}
+</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --blue:#3584e4;--green:#2ec27e;--purple:#9141ac;--orange:#e66100;
+  --dark:#1e1e1e;--light:#fafafa;--card:#fff;
+  --text:#333;--muted:#666;--border:#e0e0e0;
+}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--text);background:var(--light);line-height:1.6;}
+a{color:var(--blue);text-decoration:none;}
+a:hover{text-decoration:underline;}
+
+.lang-switch{
+  position:fixed;top:16px;right:16px;z-index:100;display:flex;gap:4px;
+  background:rgba(255,255,255,0.95);border-radius:8px;padding:4px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.15);backdrop-filter:blur(8px);
+}
+.lang-switch button{
+  border:none;background:none;padding:6px 12px;border-radius:6px;
+  cursor:pointer;font-size:14px;font-weight:600;color:var(--muted);transition:all 0.2s;
+}
+.lang-switch button.active{background:var(--blue);color:#fff;}
+.lang-switch button:hover:not(.active){background:#f0f0f0;}
+
+.back-link{display:inline-block;padding:16px 24px;font-size:14px;font-weight:600;}
+
+.app-hero{
+  background:linear-gradient(135deg,#1a5fb4 0%,#3584e4 40%,#62a0ea 100%);
+  color:#fff;padding:60px 24px 50px;text-align:center;
+}
+.app-hero .emoji-large{font-size:4rem;margin-bottom:12px;}
+.app-hero h1{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;margin-bottom:8px;}
+.app-hero .tagline{font-size:clamp(0.95rem,2vw,1.2rem);opacity:0.9;max-width:600px;margin:0 auto 20px;}
+.app-hero .meta{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;font-size:14px;opacity:0.8;}
+.app-hero .tags{margin-top:16px;display:flex;gap:8px;justify-content:center;}
+.tag{font-size:12px;font-weight:600;padding:4px 12px;border-radius:12px;text-transform:uppercase;letter-spacing:0.5px;}
+.tag-arasaac{background:rgba(255,255,255,0.2);color:#fff;}
+.tag-tts{background:rgba(255,255,255,0.2);color:#fff;}
+.tag-pecs{background:rgba(255,255,255,0.2);color:#fff;}
+.tag-timer{background:rgba(255,255,255,0.2);color:#fff;}
+.tag-phonics{background:rgba(255,255,255,0.2);color:#fff;}
+.tag-adhd{background:rgba(255,255,255,0.2);color:#fff;}
+.tag-sensory{background:rgba(255,255,255,0.2);color:#fff;}
+
+.content{max-width:900px;margin:0 auto;padding:40px 24px;}
+
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin:32px 0;}
+.gallery-item{display:block;cursor:zoom-in;border-radius:12px;overflow:hidden;border:1px solid var(--border);transition:transform 0.2s,box-shadow 0.2s;}
+.gallery-item:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,0.1);}
+.gallery-item img{width:100%;height:200px;object-fit:cover;display:block;}
+
+.description{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px;margin:32px 0;}
+.description p{color:var(--muted);margin-bottom:12px;line-height:1.7;}
+
+.features{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin:32px 0;}
+.feat{display:flex;gap:12px;padding:16px;background:var(--card);border:1px solid var(--border);border-radius:12px;}
+.feat-icon{font-size:1.5rem;flex-shrink:0;}
+.feat-desc{color:var(--muted);font-size:0.85rem;}
+
+.install-box{background:#f8f8f8;border-radius:16px;padding:32px;margin:32px 0;}
+.install-box h2{font-size:1.4rem;font-weight:700;margin-bottom:16px;}
+.install-box h3{font-size:1rem;font-weight:700;margin:16px 0 8px;}
+.install-box pre{
+  background:#1e1e1e;color:#e0e0e0;padding:16px;border-radius:10px;
+  overflow-x:auto;font-size:13px;line-height:1.5;margin-bottom:12px;
+}
+.install-box code{font-family:'SF Mono','Fira Code',monospace;}
+
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin:32px 0;}
+.cta a{
+  display:inline-block;padding:12px 28px;border-radius:10px;font-weight:700;
+  font-size:15px;transition:background 0.2s;color:#fff;
+}
+.cta .btn-dl{background:var(--blue);}
+.cta .btn-dl:hover{background:#1a5fb4;text-decoration:none;}
+.cta .btn-gh{background:#333;}
+.cta .btn-gh:hover{background:#555;text-decoration:none;}
+.cta .btn-tx{background:var(--green);}
+.cta .btn-tx:hover{background:#1a9960;text-decoration:none;}
+
+.lightbox{
+  display:none;position:fixed;top:0;left:0;width:100%;height:100%;
+  background:rgba(0,0,0,0.85);z-index:1000;cursor:zoom-out;
+  justify-content:center;align-items:center;padding:24px;
+}
+.lightbox.active{display:flex;}
+.lightbox img{max-width:90vw;max-height:90vh;border-radius:12px;box-shadow:0 8px 32px rgba(0,0,0,0.5);object-fit:contain;}
+.lightbox .close-btn{
+  position:absolute;top:20px;right:24px;color:#fff;font-size:2rem;
+  cursor:pointer;background:rgba(0,0,0,0.4);width:44px;height:44px;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  border:none;transition:background 0.2s;
+}
+.lightbox .close-btn:hover{background:rgba(255,255,255,0.2);}
+
+.footer{text-align:center;padding:40px 24px;color:var(--muted);font-size:0.85rem;border-top:1px solid var(--border);margin-top:40px;}
+
+@media(max-width:600px){
+  .app-hero{padding:40px 16px 30px;}
+  .content{padding:24px 16px;}
+  .gallery{grid-template-columns:1fr;}
+  .features{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<div class="lang-switch">
+  <button onclick="setLang('sv')" id="btn-sv" class="active">🇸🇪 Svenska</button>
+  <button onclick="setLang('en')" id="btn-en">🇬🇧 English</button>
+</div>
+
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="close-btn" aria-label="Stäng">✕</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<nav class="back-link">
+  <a href="/" data-sv="← Tillbaka till alla appar" data-en="← Back to all apps"></a>
+</nav>
+
+<header class="app-hero">
+  <div class="emoji-large">🖼️</div>
+  <h1><span data-sv="Bildstöd" data-en="Visual Support"></span></h1>
+  <p class="tagline" data-sv="Visuellt schema och bildkommunikation med ARASAAC-piktogram" data-en="Visual schedule and picture communication with ARASAAC pictograms"></p>
+  <div class="meta">
+    <span>v0.4.0</span>
+    <span>GTK4 / Adwaita</span>
+    <span>GPL-3.0</span>
+    <span>🌍 18 <span data-sv="språk" data-en="languages"></span></span>
+  </div>
+  <div class="tags"><span class="tag tag-arasaac">ARASAAC</span> </div>
+</header>
+
+<main class="content">
+
+  <div class="cta">
+    <a href="https://github.com/yeager/bildstod/releases" class="btn-dl" data-sv="⬇️ Ladda ner" data-en="⬇️ Download"></a>
+    <a href="https://github.com/yeager/bildstod" class="btn-gh">GitHub</a>
+    <a href="https://www.transifex.com/danielnylander/bildstod/" class="btn-tx" data-sv="🌍 Översätt" data-en="🌍 Translate"></a>
+  </div>
+
+  <h2 data-sv="Skärmbilder" data-en="Screenshots"></h2>
+  <div class="gallery">
+    <a class="gallery-item" href="https://raw.githubusercontent.com/yeager/bildstod/main/screenshot.png" onclick="openLightbox(this);return false;">
+      <img src="https://raw.githubusercontent.com/yeager/bildstod/main/screenshot.png" alt="Bildstöd" loading="lazy">
+    </a>
+    <a class="gallery-item" href="https://raw.githubusercontent.com/yeager/bildstod/main/screenshots/main.png" onclick="openLightbox(this);return false;">
+      <img src="https://raw.githubusercontent.com/yeager/bildstod/main/screenshots/main.png" alt="Bildstöd" loading="lazy">
+    </a>
+  </div>
+
+  <div class="description">
+    <div data-sv="Bildstöd är en app för att skapa visuella scheman och bildkommunikation med hjälp av ARASAAC-piktogram. Appen är designad för barn och vuxna med <strong>autism</strong>, <strong>språkstörning</strong> och andra kommunikationssvårigheter.
+
+Med Bildstöd kan du bygga dagliga scheman med bilder och text, söka bland över 13 000 ARASAAC-piktogram på svenska, och exportera scheman som PDF, CSV eller JSON. Perfekt som hjälpmedel hemma, i skolan och på habiliteringen." data-en="Visual Support is an app for creating visual schedules and picture communication using ARASAAC pictograms. The app is designed for children and adults with <strong>autism</strong>, <strong>language disorders</strong> and other communication difficulties.
+
+With Visual Support you can build daily schedules with images and text, search over 13,000 ARASAAC pictograms in Swedish, and export schedules as PDF, CSV or JSON. Perfect as an aid at home, in school and at habilitation centres."></div>
+  </div>
+
+  <h2 data-sv="Funktioner" data-en="Features"></h2>
+  <div class="features" id="features-sv"><div class="feat"><span class="feat-icon">🖼️</span><div><strong>ARASAAC-piktogram</strong><br><span class="feat-desc">Sök bland 13 000+ piktogram på svenska — fungerar helt offline</span></div></div>
+<div class="feat"><span class="feat-icon">📅</span><div><strong>Visuella scheman</strong><br><span class="feat-desc">Skapa dagliga scheman med bilder och text för förutsägbarhet</span></div></div>
+<div class="feat"><span class="feat-icon">📤</span><div><strong>Export</strong><br><span class="feat-desc">Exportera som PDF, CSV eller JSON (Ctrl+E)</span></div></div>
+<div class="feat"><span class="feat-icon">⚙️</span><div><strong>Inställningar</strong><br><span class="feat-desc">Tema (ljust/mörkt/system), ikonstorlek, cachehantering</span></div></div>
+<div class="feat"><span class="feat-icon">🌍</span><div><strong>18 språk</strong><br><span class="feat-desc">Full svensk översättning via Transifex</span></div></div>
+<div class="feat"><span class="feat-icon">⌨️</span><div><strong>Tangentbordsgenvägar</strong><br><span class="feat-desc">Ctrl+E, Ctrl+,, F1, Ctrl+/</span></div></div>
+</div>
+  <div class="features" id="features-en" style="display:none;"><div class="feat"><span class="feat-icon">🖼️</span><div><strong>ARASAAC pictograms</strong><br><span class="feat-desc">Search 13,000+ pictograms in Swedish — works completely offline</span></div></div>
+<div class="feat"><span class="feat-icon">📅</span><div><strong>Visual schedules</strong><br><span class="feat-desc">Create daily schedules with images and text for predictability</span></div></div>
+<div class="feat"><span class="feat-icon">📤</span><div><strong>Export</strong><br><span class="feat-desc">Export as PDF, CSV or JSON (Ctrl+E)</span></div></div>
+<div class="feat"><span class="feat-icon">⚙️</span><div><strong>Preferences</strong><br><span class="feat-desc">Theme (light/dark/system), icon size, cache management</span></div></div>
+<div class="feat"><span class="feat-icon">🌍</span><div><strong>18 languages</strong><br><span class="feat-desc">Full Swedish translation via Transifex</span></div></div>
+<div class="feat"><span class="feat-icon">⌨️</span><div><strong>Keyboard shortcuts</strong><br><span class="feat-desc">Ctrl+E, Ctrl+,, F1, Ctrl+/</span></div></div>
+</div>
+
+  <section class="install-box">
+    <h2 data-sv="Installation" data-en="Installation"></h2>
+    <h3>Ubuntu / Debian</h3>
+    <pre><code>echo "deb [signed-by=/usr/share/keyrings/yeager-keyring.gpg] https://yeager.github.io/debian-repo stable main" \
+  | sudo tee /etc/apt/sources.list.d/yeager.list
+curl -fsSL https://yeager.github.io/debian-repo/yeager-keyring.gpg \
+  | sudo tee /usr/share/keyrings/yeager-keyring.gpg > /dev/null
+sudo apt update
+sudo apt install bildstod</code></pre>
+    <h3>Fedora / openSUSE</h3>
+    <pre><code>sudo dnf config-manager --add-repo https://yeager.github.io/rpm-repo/yeager.repo
+sudo dnf install bildstod</code></pre>
+    <h3 data-sv="Från källkod" data-en="From source"></h3>
+    <pre><code>git clone https://github.com/yeager/bildstod.git
+cd bildstod
+pip install .</code></pre>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <p><strong data-sv="Föreningen för språkutveckling med NPF" data-en="Association for Language Development with NDDs"></strong></p>
+  <p style="margin-top:8px;">
+    <a href="/">Autismappar.se</a> ·
+    <a href="https://danielnylander.se">Daniel Nylander</a> ·
+    <a href="https://github.com/yeager">GitHub</a>
+  </p>
+</footer>
+
+<script>
+function setLang(lang) {
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-sv]').forEach(el => {
+    el.innerHTML = el.getAttribute('data-' + lang);
+  });
+  document.getElementById('btn-sv').classList.toggle('active', lang === 'sv');
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  // Toggle feature blocks
+  document.getElementById('features-sv').style.display = lang === 'sv' ? '' : 'none';
+  document.getElementById('features-en').style.display = lang === 'en' ? '' : 'none';
+  localStorage.setItem('lang', lang);
+}
+function openLightbox(link) {
+  document.getElementById('lightbox-img').src = link.href;
+  document.getElementById('lightbox').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+(function() {
+  const saved = localStorage.getItem('lang');
+  const browser = navigator.language.startsWith('sv') ? 'sv' : 'en';
+  setLang(saved || browser);
+})();
+</script>
+
+</body>
+</html>
