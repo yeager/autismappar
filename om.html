@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Om oss — Autismappar</title>
+<meta name="description" content="Om Autismappar — fria appar för barn med autism och språkstörning, skapade av en pappa som vet hur vardagen ser ut.">
+<link rel="canonical" href="https://autismappar.se/om.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--blue:#3584e4;--dark:#1e1e1e;--light:#fafafa;--text:#333;--muted:#666;--border:#e0e0e0;}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--text);background:var(--light);line-height:1.7;}
+a{color:var(--blue);text-decoration:none;}
+a:hover{text-decoration:underline;}
+
+.lang-switch{
+  position:fixed;top:16px;right:16px;z-index:100;display:flex;gap:4px;
+  background:rgba(255,255,255,0.95);border-radius:8px;padding:4px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.15);backdrop-filter:blur(8px);
+}
+.lang-switch button{
+  border:none;background:none;padding:6px 12px;border-radius:6px;
+  cursor:pointer;font-size:14px;font-weight:600;color:var(--muted);transition:all 0.2s;
+}
+.lang-switch button.active{background:var(--blue);color:#fff;}
+
+.hero{
+  background:linear-gradient(135deg,#1a5fb4 0%,#3584e4 40%,#62a0ea 100%);
+  color:#fff;padding:60px 24px 40px;text-align:center;
+}
+.hero h1{font-size:2rem;font-weight:800;margin-bottom:8px;}
+.hero .subtitle{font-size:1.1rem;opacity:0.9;}
+.hero .back{display:inline-block;margin-top:16px;color:rgba(255,255,255,0.8);font-size:14px;}
+
+.content{max-width:720px;margin:0 auto;padding:40px 24px 60px;}
+.content h2{font-size:1.5rem;font-weight:700;margin:32px 0 12px;color:var(--dark);}
+.content p{margin-bottom:16px;font-size:0.95rem;color:var(--text);}
+.content ul{margin:0 0 16px 24px;font-size:0.95rem;color:var(--text);}
+.content li{margin-bottom:8px;}
+
+.quote{
+  background:#f0f4ff;border-left:4px solid var(--blue);
+  padding:20px 24px;border-radius:0 12px 12px 0;margin:24px 0;
+  font-style:italic;color:var(--muted);
+}
+
+.stats{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));
+  gap:16px;margin:24px 0;
+}
+.stat{background:#fff;border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center;}
+.stat .number{font-size:1.8rem;font-weight:800;color:var(--blue);}
+.stat .label{font-size:0.8rem;color:var(--muted);margin-top:4px;}
+
+.contact{
+  background:#fff;border:1px solid var(--border);border-radius:16px;
+  padding:32px;margin-top:32px;
+}
+
+.footer{text-align:center;padding:32px 24px;color:var(--muted);font-size:0.85rem;border-top:1px solid var(--border);margin-top:40px;}
+</style>
+</head>
+<body>
+
+<div class="lang-switch">
+  <button onclick="setLang('sv')" id="btn-sv" class="active">🇸🇪 Svenska</button>
+  <button onclick="setLang('en')" id="btn-en">🇬🇧 English</button>
+</div>
+
+<header class="hero">
+  <h1 data-sv="Om Autismappar" data-en="About Autismappar">Om Autismappar</h1>
+  <p class="subtitle" data-sv="Skapade av en pappa som vet hur vardagen ser ut" data-en="Created by a dad who knows what everyday life looks like"></p>
+  <a class="back" href="index.html" data-sv="← Tillbaka till apparna" data-en="← Back to the apps">← Tillbaka till apparna</a>
+</header>
+
+<div class="content">
+
+  <h2 data-sv="Varför jag bygger de här apparna" data-en="Why I build these apps"></h2>
+
+  <p data-sv="Jag heter Daniel Nylander och jag har två barn med autism och språkstörning. Det är därifrån allt det här kommer." data-en="My name is Daniel Nylander and I have two children with autism and language disorder. That's where all of this comes from."></p>
+
+  <p data-sv="När barnen var små upptäckte vi att de verktyg som fanns antingen var dyra, låsta bakom licenser, bara fungerade på iPad, eller helt enkelt inte passade våra barn. Skolorna hade inte resurser att köpa in särskilda program. Habiliteringen rekommenderade appar som kostade pengar vi inte hade." data-en="When the kids were small, we discovered that the available tools were either expensive, locked behind licenses, only worked on iPad, or simply didn't fit our children. Schools didn't have resources to buy special software. Habilitation centres recommended apps that cost money we didn't have."></p>
+
+  <p data-sv="Så jag började bygga egna." data-en="So I started building my own."></p>
+
+  <h2 data-sv="Vardagen" data-en="Everyday life"></h2>
+
+  <p data-sv="Att ha barn med autism och språkstörning innebär att vardagen ser annorlunda ut. Morgonrutinen tar dubbelt så lång tid. Skolan ringer. Övergångar mellan aktiviteter utlöser meltdowns. Orden som andra barn bara plockar upp — de behöver tränas, en och en, om och om igen." data-en="Having children with autism and language disorder means everyday life looks different. The morning routine takes twice as long. School calls. Transitions between activities trigger meltdowns. Words that other children just pick up — they need to be practised, one by one, over and over again."></p>
+
+  <p data-sv="Bildstöd fungerar. Visuella scheman fungerar. Men de behöver finnas tillgängliga, vara enkla att använda och inte kosta en förmögenhet." data-en="Visual support works. Visual schedules work. But they need to be available, easy to use, and not cost a fortune."></p>
+
+  <div class="quote" data-sv="&ldquo;Det ska inte kosta pengar att ge sitt barn ett hjälpmedel som fungerar.&rdquo;" data-en="&ldquo;It shouldn't cost money to give your child a tool that works.&rdquo;"></div>
+
+  <h2 data-sv="Utmaningar i skolan" data-en="Challenges at school"></h2>
+
+  <p data-sv="En av de största utmaningarna är skolan. Många skolor saknar kunskap om vad barn med autism och språkstörning behöver. Personalen vill ofta hjälpa men har varken verktygen eller utbildningen. Barnens behov faller mellan stolarna — för &ldquo;högt fungerande&rdquo; för särskola, men utan det stöd som behövs i vanlig klass." data-en="One of the biggest challenges is school. Many schools lack knowledge about what children with autism and language disorder need. Staff often want to help but have neither the tools nor the training. The children's needs fall through the cracks — too 'high-functioning' for special school, but without the support needed in regular class."></p>
+
+  <p data-sv="Apparna löser inte allt. Men de ger pedagoger konkreta verktyg som fungerar direkt — på skolans befintliga Linuxdatorer, utan licenskostnad, utan IT-avdelning som behöver godkänna." data-en="The apps don't solve everything. But they give educators concrete tools that work immediately — on the school's existing Linux computers, without license costs, without IT departments that need to approve."></p>
+
+  <h2 data-sv="Varför öppen källkod?" data-en="Why open source?"></h2>
+
+  <p data-sv="För att alla ska kunna använda dem. Punkt. Familjer med knappa resurser, skolor med stram budget, habiliteringar som inte kan köpa in program. Om verktygen finns fritt tillgängliga kan fler barn få hjälp." data-en="So that everyone can use them. Period. Families with tight budgets, schools with limited resources, habilitation centres that can't buy software. If the tools are freely available, more children can get help."></p>
+
+  <p data-sv="Dessutom — jag har jobbat med öppen källkod i över 25 år. Linux sedan 1994. Jag har översatt mer än 22 program till svenska. Det här är vad jag kan, och nu använder jag det för mina barn och alla andras." data-en="Besides — I've worked with open source for over 25 years. Linux since 1994. I've translated more than 22 applications to Swedish. This is what I know, and now I'm using it for my children and everyone else's."></p>
+
+  <h2 data-sv="Apparna i siffror" data-en="The apps in numbers"></h2>
+
+  <div class="stats">
+    <div class="stat"><div class="number">15</div><div class="label" data-sv="appar" data-en="apps"></div></div>
+    <div class="stat"><div class="number">18</div><div class="label" data-sv="språk" data-en="languages"></div></div>
+    <div class="stat"><div class="number">5</div><div class="label" data-sv="med ARASAAC" data-en="with ARASAAC"></div></div>
+    <div class="stat"><div class="number">100%</div><div class="label" data-sv="gratis" data-en="free"></div></div>
+  </div>
+
+  <h2 data-sv="Kontakt" data-en="Contact"></h2>
+
+  <div class="contact">
+    <p data-sv="Har du frågor, förslag eller vill bidra? Hör av dig." data-en="Questions, suggestions or want to contribute? Get in touch."></p>
+    <p><strong>Daniel Nylander</strong></p>
+    <p>✉️ <a href="mailto:daniel@danielnylander.se">daniel@danielnylander.se</a></p>
+    <p>🐙 <a href="https://github.com/yeager">github.com/yeager</a></p>
+    <p>🌐 <a href="https://danielnylander.se">danielnylander.se</a></p>
+  </div>
+
+</div>
+
+<footer class="footer">
+  <p><a href="index.html" data-sv="← Tillbaka till apparna" data-en="← Back to the apps">← Tillbaka till apparna</a></p>
+  <p style="margin-top:8px;">© 2026 Daniel Nylander · <a href="https://github.com/yeager">GitHub</a></p>
+</footer>
+
+<script>
+function setLang(lang) {
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-sv]').forEach(el => {
+    el.innerHTML = el.getAttribute('data-' + lang);
+  });
+  document.getElementById('btn-sv').classList.toggle('active', lang === 'sv');
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  localStorage.setItem('lang', lang);
+}
+(function() {
+  const saved = localStorage.getItem('lang');
+  const browser = navigator.language.startsWith('sv') ? 'sv' : 'en';
+  setLang(saved || browser);
+})();
+</script>
+
+</body>
+</html>
