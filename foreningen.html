@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Föreningen — Autismappar</title>
+<meta name="description" content="Föreningen Autismappar — ideell förening för fria digitala hjälpmedel till barn med autism och språkstörning.">
+<link rel="canonical" href="https://autismappar.se/foreningen.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--blue:#3584e4;--dark:#1e1e1e;--light:#fafafa;--text:#333;--muted:#666;--border:#e0e0e0;--green:#2ec27e;--purple:#9141ac;--orange:#ff7800;}
+body{font-family:'Inter',system-ui,sans-serif;color:var(--text);background:var(--light);line-height:1.7;}
+a{color:var(--blue);text-decoration:none;}
+a:hover{text-decoration:underline;}
+
+.lang-switch{
+  position:fixed;top:16px;right:16px;z-index:100;display:flex;gap:4px;
+  background:rgba(255,255,255,0.95);border-radius:8px;padding:4px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.15);backdrop-filter:blur(8px);
+}
+.lang-switch button{
+  border:none;background:none;padding:6px 12px;border-radius:6px;
+  cursor:pointer;font-size:14px;font-weight:600;color:var(--muted);transition:all 0.2s;
+}
+.lang-switch button.active{background:var(--blue);color:#fff;}
+
+.hero{
+  background:linear-gradient(135deg,#613583 0%,#9141ac 40%,#c061cb 100%);
+  color:#fff;padding:60px 24px 40px;text-align:center;position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;
+  background:radial-gradient(circle at 30% 50%,rgba(255,255,255,0.08) 0%,transparent 50%);
+  animation:float 20s ease-in-out infinite;
+}
+@keyframes float{0%,100%{transform:translate(0,0)}50%{transform:translate(30px,-20px)}}
+.hero h1{font-size:2.2rem;font-weight:800;margin-bottom:8px;position:relative;}
+.hero .subtitle{font-size:1.1rem;opacity:0.9;position:relative;}
+.hero .back{display:inline-block;margin-top:16px;color:rgba(255,255,255,0.8);font-size:14px;position:relative;}
+
+.content{max-width:760px;margin:0 auto;padding:40px 24px 60px;}
+.content h2{font-size:1.5rem;font-weight:700;margin:36px 0 14px;color:var(--dark);display:flex;align-items:center;gap:10px;}
+.content h2 .emoji{font-size:1.3rem;}
+.content h3{font-size:1.15rem;font-weight:600;margin:24px 0 8px;color:var(--dark);}
+.content p{margin-bottom:16px;font-size:0.95rem;color:var(--text);}
+.content ul{margin:0 0 16px 24px;font-size:0.95rem;color:var(--text);}
+.content li{margin-bottom:8px;}
+
+.mission-box{
+  background:linear-gradient(135deg,#f0f4ff 0%,#e8f0fe 100%);
+  border-radius:16px;padding:28px 32px;margin:24px 0;
+  border:1px solid rgba(53,132,228,0.2);
+}
+.mission-box h3{color:var(--blue);margin-top:0;}
+.mission-box p{margin-bottom:8px;}
+.mission-box p:last-child{margin-bottom:0;}
+
+.values{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:16px;margin:20px 0;
+}
+.value-card{
+  background:#fff;border:1px solid var(--border);border-radius:14px;
+  padding:24px;text-align:center;transition:transform 0.2s,box-shadow 0.2s;
+}
+.value-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,0.08);}
+.value-card .icon{font-size:2rem;margin-bottom:8px;}
+.value-card h4{font-size:0.95rem;font-weight:700;margin-bottom:4px;}
+.value-card p{font-size:0.82rem;color:var(--muted);margin:0;}
+
+.timeline{margin:20px 0;padding-left:24px;border-left:3px solid var(--blue);}
+.timeline-item{position:relative;padding:0 0 24px 20px;}
+.timeline-item::before{
+  content:'';position:absolute;left:-28px;top:6px;
+  width:12px;height:12px;border-radius:50%;background:var(--blue);
+  border:3px solid var(--light);
+}
+.timeline-item:last-child{padding-bottom:0;}
+.timeline-item .year{font-weight:700;color:var(--blue);font-size:0.9rem;}
+.timeline-item p{margin:4px 0 0;font-size:0.9rem;}
+
+.board{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+  gap:16px;margin:20px 0;
+}
+.board-card{
+  background:#fff;border:1px solid var(--border);border-radius:14px;
+  padding:24px;text-align:center;
+}
+.board-card .role{font-size:0.8rem;color:var(--blue);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;}
+.board-card .name{font-size:1rem;font-weight:700;margin:4px 0;}
+.board-card .desc{font-size:0.82rem;color:var(--muted);}
+
+.cta{
+  background:linear-gradient(135deg,#613583,#9141ac);
+  color:#fff;border-radius:16px;padding:32px;margin:32px 0;text-align:center;
+}
+.cta h3{font-size:1.3rem;margin-bottom:8px;}
+.cta p{opacity:0.9;margin-bottom:16px;}
+.cta a.btn{
+  display:inline-block;background:#fff;color:#9141ac;font-weight:700;
+  padding:12px 28px;border-radius:10px;font-size:0.95rem;
+  transition:transform 0.2s;
+}
+.cta a.btn:hover{transform:scale(1.05);text-decoration:none;}
+
+.contact-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+  gap:16px;margin:20px 0;
+}
+.contact-card{
+  background:#fff;border:1px solid var(--border);border-radius:14px;
+  padding:20px;display:flex;align-items:center;gap:12px;
+}
+.contact-card .icon{font-size:1.5rem;}
+.contact-card .info{font-size:0.9rem;}
+.contact-card .info strong{display:block;}
+
+.footer{text-align:center;padding:32px 24px;color:var(--muted);font-size:0.85rem;border-top:1px solid var(--border);margin-top:40px;}
+
+@media(max-width:600px){
+  .hero h1{font-size:1.6rem;}
+  .values,.board,.contact-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<div class="lang-switch">
+  <button onclick="setLang('sv')" id="btn-sv" class="active">🇸🇪 Svenska</button>
+  <button onclick="setLang('en')" id="btn-en">🇬🇧 English</button>
+</div>
+
+<header class="hero">
+  <h1 data-sv="Föreningen Autismappar" data-en="The Autismappar Association">Föreningen Autismappar</h1>
+  <p class="subtitle" data-sv="Ideell förening för fria digitala hjälpmedel" data-en="Non-profit association for free digital accessibility tools"></p>
+  <a class="back" href="index.html" data-sv="← Tillbaka till apparna" data-en="← Back to the apps">← Tillbaka till apparna</a>
+</header>
+
+<div class="content">
+
+  <!-- Mission -->
+  <h2><span class="emoji">🎯</span> <span data-sv="Ändamål" data-en="Mission">Ändamål</span></h2>
+
+  <div class="mission-box">
+    <p data-sv="Föreningen Autismappar är en ideell förening som utvecklar och tillhandahåller <strong>fria, öppen källkod-baserade digitala hjälpmedel</strong> för barn och unga med autism, språkstörning och andra neuropsykiatriska funktionsnedsättningar." data-en="The Autismappar Association is a non-profit organisation that develops and provides <strong>free, open source digital tools</strong> for children and young people with autism, language disorders, and other neurodevelopmental conditions."></p>
+    <p data-sv="Alla appar är helt gratis, utan annonser, utan prenumerationer och utan insamling av persondata. Källkoden är öppen och licensierad under GPL-3.0." data-en="All apps are completely free, without ads, without subscriptions, and without personal data collection. The source code is open and licensed under GPL-3.0."></p>
+  </div>
+
+  <!-- Values -->
+  <h2><span class="emoji">💜</span> <span data-sv="Våra värderingar" data-en="Our values">Våra värderingar</span></h2>
+
+  <div class="values">
+    <div class="value-card">
+      <div class="icon">🆓</div>
+      <h4 data-sv="Alltid gratis" data-en="Always free">Alltid gratis</h4>
+      <p data-sv="Inga licenskostnader, inga dolda avgifter. Hjälpmedel ska inte vara en klassfråga." data-en="No license fees, no hidden costs. Assistive tools shouldn't be a class issue."></p>
+    </div>
+    <div class="value-card">
+      <div class="icon">🔓</div>
+      <h4 data-sv="Öppen källkod" data-en="Open source">Öppen källkod</h4>
+      <p data-sv="All kod på GitHub. Vem som helst kan granska, förbättra och anpassa." data-en="All code on GitHub. Anyone can review, improve, and adapt."></p>
+    </div>
+    <div class="value-card">
+      <div class="icon">🔒</div>
+      <h4 data-sv="Integritet" data-en="Privacy">Integritet</h4>
+      <p data-sv="Ingen datainsamling, inga analyser, inget moln. Allt körs lokalt på datorn." data-en="No data collection, no analytics, no cloud. Everything runs locally on the computer."></p>
+    </div>
+    <div class="value-card">
+      <div class="icon">🌍</div>
+      <h4 data-sv="Flerspråkigt" data-en="Multilingual">Flerspråkigt</h4>
+      <p data-sv="18 språk via Transifex. Alla barn förtjänar verktyg på sitt eget språk." data-en="18 languages via Transifex. All children deserve tools in their own language."></p>
+    </div>
+  </div>
+
+  <!-- What we do -->
+  <h2><span class="emoji">🛠️</span> <span data-sv="Vad vi gör" data-en="What we do">Vad vi gör</span></h2>
+
+  <p data-sv="Föreningen utvecklar och underhåller 15 appar inom fyra områden:" data-en="The association develops and maintains 15 apps across four areas:"></p>
+
+  <h3 data-sv="💬 Kommunikation" data-en="💬 Communication">💬 Kommunikation</h3>
+  <p data-sv="Bildstöd, PECS-bräda, Bildordbok, Ordbyggaren och Sociala berättelser hjälper barn att kommunicera med bilder, ord och berättelser. Fem av apparna har inbyggd sökning mot ARASAAC:s databas med 15 600+ svenska piktogram." data-en="Bildstöd, PECS Board, Picture Dictionary, Word Builder, and Social Stories help children communicate with images, words, and stories. Five apps have built-in search of ARASAAC's database of 15,600+ Swedish pictograms."></p>
+
+  <h3 data-sv="📅 Struktur och rutin" data-en="📅 Structure and routine">📅 Struktur och rutin</h3>
+  <p data-sv="Bildschema, Mitt schema, Tidskollen och Rutinkompis ger visuellt stöd för vardagsrutiner, övergångar och tidsuppfattning — det som ofta är svårast i vardagen." data-en="Visual Schedule, My Schedule, Time Check, and Routine Buddy provide visual support for daily routines, transitions, and time perception — often the hardest parts of everyday life."></p>
+
+  <h3 data-sv="⭐ Lärande och motivation" data-en="⭐ Learning and motivation">⭐ Lärande och motivation</h3>
+  <p data-sv="Belöningskartan, Känslokartan och Minnet stödjer motivation, känsloreglering och minnesträning genom visuella och interaktiva verktyg." data-en="Reward Chart, Emotion Map, and Memory support motivation, emotional regulation, and memory training through visual and interactive tools."></p>
+
+  <h3 data-sv="🧘 Lugn och sinne" data-en="🧘 Calm and wellbeing">🧘 Lugn och sinne</h3>
+  <p data-sv="Ljudlådan, Fokuskompis och Lugna rummet erbjuder lugnande ljud, andningsövningar och visuella avslappningsverktyg för stunder av stress och överbelastning." data-en="Sound Box, Focus Buddy, and Calm Room offer soothing sounds, breathing exercises, and visual relaxation tools for moments of stress and sensory overload."></p>
+
+  <!-- Technology -->
+  <h2><span class="emoji">⚙️</span> <span data-sv="Teknik" data-en="Technology">Teknik</span></h2>
+
+  <ul>
+    <li data-sv="Byggda med <strong>GTK4/Adwaita</strong> — moderna, tillgängliga Linux-appar" data-en="Built with <strong>GTK4/Adwaita</strong> — modern, accessible Linux apps"></li>
+    <li data-sv="<strong>ARASAAC-piktogram</strong> — 15 607 svenska nyckelord, CC BY-NC-SA 3.0" data-en="<strong>ARASAAC pictograms</strong> — 15,607 Swedish keywords, CC BY-NC-SA 3.0"></li>
+    <li data-sv="<strong>Piper talsyntes</strong> — offline, naturliga röster, med espeak-ng som reserv" data-en="<strong>Piper text-to-speech</strong> — offline, natural voices, with espeak-ng as fallback"></li>
+    <li data-sv="<strong>.deb- och .rpm-paket</strong> — enkelt att installera på Ubuntu, Debian och Fedora" data-en="<strong>.deb and .rpm packages</strong> — easy to install on Ubuntu, Debian, and Fedora"></li>
+    <li data-sv="<strong>Översättning via Transifex</strong> — 18 målspråk, koordinerat av föreningen" data-en="<strong>Translation via Transifex</strong> — 18 target languages, coordinated by the association"></li>
+    <li data-sv="<strong>Windows och macOS stöd planeras</strong> — för att nå fler familjer" data-en="<strong>Windows and macOS support planned</strong> — to reach more families"></li>
+  </ul>
+
+  <!-- Timeline -->
+  <h2><span class="emoji">📜</span> <span data-sv="Historik" data-en="History">Historik</span></h2>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="year">1994</div>
+      <p data-sv="Daniel Nylander börjar med Linux (kernel 0.99pl15) och öppen källkod-översättning." data-en="Daniel Nylander starts with Linux (kernel 0.99pl15) and open source translation."></p>
+    </div>
+    <div class="timeline-item">
+      <div class="year">2000–2025</div>
+      <p data-sv="Över 22 öppen källkod-program översatta till svenska. Ubuntu, GNOME, Debian, GNU-verktyg." data-en="Over 22 open source applications translated to Swedish. Ubuntu, GNOME, Debian, GNU tools."></p>
+    </div>
+    <div class="timeline-item">
+      <div class="year" data-sv="Februari 2026" data-en="February 2026">Februari 2026</div>
+      <p data-sv="Autismappar lanseras med 15 appar, .deb- och .rpm-paket, autismappar.se och ARASAAC-integration." data-en="Autismappar launches with 15 apps, .deb and .rpm packages, autismappar.se, and ARASAAC integration."></p>
+    </div>
+    <div class="timeline-item">
+      <div class="year" data-sv="Framtid" data-en="Future">Framtid</div>
+      <p data-sv="Plattformsstöd för Windows, macOS, iOS, Android och Chrome OS. Fler appar baserade på behov från familjer och skolor." data-en="Platform support for Windows, macOS, iOS, Android, and Chrome OS. More apps based on needs from families and schools."></p>
+    </div>
+  </div>
+
+  <!-- Board -->
+  <h2><span class="emoji">👥</span> <span data-sv="Styrelse" data-en="Board">Styrelse</span></h2>
+
+  <div class="board">
+    <div class="board-card">
+      <div class="role" data-sv="Ordförande" data-en="Chairman">Ordförande</div>
+      <div class="name">Daniel Nylander</div>
+      <div class="desc" data-sv="Grundare, utvecklare, översättare. Linux sedan 1994." data-en="Founder, developer, translator. Linux since 1994."></div>
+    </div>
+    <div class="board-card">
+      <div class="role" data-sv="Ledamot" data-en="Board member">Ledamot</div>
+      <div class="name" data-sv="Vakant" data-en="Vacant">Vakant</div>
+      <div class="desc" data-sv="Vi söker engagerade ledamöter — hör av dig!" data-en="We're looking for engaged board members — get in touch!"></div>
+    </div>
+    <div class="board-card">
+      <div class="role" data-sv="Ledamot" data-en="Board member">Ledamot</div>
+      <div class="name" data-sv="Vakant" data-en="Vacant">Vakant</div>
+      <div class="desc" data-sv="Särskilt specialpedagoger, logopeder och föräldrar." data-en="Especially special educators, speech therapists, and parents."></div>
+    </div>
+  </div>
+
+  <!-- Get involved -->
+  <h2><span class="emoji">🤝</span> <span data-sv="Engagera dig" data-en="Get involved">Engagera dig</span></h2>
+
+  <p data-sv="Föreningen drivs ideellt och vi behöver hjälp:" data-en="The association is run on a voluntary basis and we need help:"></p>
+
+  <ul>
+    <li data-sv="<strong>Översätt</strong> — Hjälp oss nå fler språk via <a href='https://www.transifex.com/danielnylander/'>Transifex</a>" data-en="<strong>Translate</strong> — Help us reach more languages via <a href='https://www.transifex.com/danielnylander/'>Transifex</a>"></li>
+    <li data-sv="<strong>Testa</strong> — Installera apparna och rapportera buggar på <a href='https://github.com/yeager'>GitHub</a>" data-en="<strong>Test</strong> — Install the apps and report bugs on <a href='https://github.com/yeager'>GitHub</a>"></li>
+    <li data-sv="<strong>Sprid ordet</strong> — Berätta för skolor, habiliteringar och andra föräldrar" data-en="<strong>Spread the word</strong> — Tell schools, habilitation centres, and other parents"></li>
+    <li data-sv="<strong>Gå med i styrelsen</strong> — Vi söker ledamöter med kunskap inom specialpedagogik, logopedi, tillgänglighet eller teknik" data-en="<strong>Join the board</strong> — We're looking for members with expertise in special education, speech therapy, accessibility, or technology"></li>
+    <li data-sv="<strong>Bidra med kod</strong> — GTK4/Python, pakethantering, CI/CD — allt finns på GitHub" data-en="<strong>Contribute code</strong> — GTK4/Python, packaging, CI/CD — everything is on GitHub"></li>
+  </ul>
+
+  <div class="cta">
+    <h3 data-sv="Vill du vara med?" data-en="Want to join?">Vill du vara med?</h3>
+    <p data-sv="Skicka ett mail så hör vi av oss." data-en="Send an email and we'll get back to you."></p>
+    <a class="btn" href="mailto:daniel@danielnylander.se" data-sv="✉️ Kontakta oss" data-en="✉️ Contact us">✉️ Kontakta oss</a>
+  </div>
+
+  <!-- Contact -->
+  <h2><span class="emoji">📬</span> <span data-sv="Kontakt" data-en="Contact">Kontakt</span></h2>
+
+  <div class="contact-grid">
+    <div class="contact-card">
+      <div class="icon">✉️</div>
+      <div class="info">
+        <strong data-sv="E-post" data-en="Email">E-post</strong>
+        <a href="mailto:daniel@danielnylander.se">daniel@danielnylander.se</a>
+      </div>
+    </div>
+    <div class="contact-card">
+      <div class="icon">🐙</div>
+      <div class="info">
+        <strong>GitHub</strong>
+        <a href="https://github.com/yeager">github.com/yeager</a>
+      </div>
+    </div>
+    <div class="contact-card">
+      <div class="icon">🌐</div>
+      <div class="info">
+        <strong data-sv="Blogg" data-en="Blog">Blogg</strong>
+        <a href="https://danielnylander.se">danielnylander.se</a>
+      </div>
+    </div>
+    <div class="contact-card">
+      <div class="icon">🌍</div>
+      <div class="info">
+        <strong data-sv="Översättningar" data-en="Translations">Översättningar</strong>
+        <a href="https://www.transifex.com/danielnylander/">Transifex</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Legal -->
+  <h2><span class="emoji">📋</span> <span data-sv="Organisationsinformation" data-en="Organisation details">Organisationsinformation</span></h2>
+
+  <ul>
+    <li data-sv="<strong>Namn:</strong> Föreningen Autismappar" data-en="<strong>Name:</strong> Föreningen Autismappar (The Autismappar Association)"></li>
+    <li data-sv="<strong>Organisationsform:</strong> Ideell förening" data-en="<strong>Type:</strong> Non-profit association (Swedish ideell förening)"></li>
+    <li data-sv="<strong>Säte:</strong> Sverige" data-en="<strong>Registered in:</strong> Sweden"></li>
+    <li data-sv="<strong>Licens:</strong> GPL-3.0 (all programkod)" data-en="<strong>License:</strong> GPL-3.0 (all application code)"></li>
+    <li data-sv="<strong>Piktogram:</strong> ARASAAC, CC BY-NC-SA 3.0, Gobierno de Aragón" data-en="<strong>Pictograms:</strong> ARASAAC, CC BY-NC-SA 3.0, Government of Aragon"></li>
+  </ul>
+
+</div>
+
+<footer class="footer">
+  <p>
+    <a href="index.html" data-sv="Appar" data-en="Apps">Appar</a> ·
+    <a href="om.html" data-sv="Om oss" data-en="About us">Om oss</a> ·
+    <a href="foreningen.html" data-sv="Föreningen" data-en="The Association">Föreningen</a>
+  </p>
+  <p style="margin-top:8px;">© 2026 Föreningen Autismappar · <a href="https://github.com/yeager">GitHub</a></p>
+</footer>
+
+<script>
+function setLang(lang) {
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-sv]').forEach(el => {
+    el.innerHTML = el.getAttribute('data-' + lang);
+  });
+  document.getElementById('btn-sv').classList.toggle('active', lang === 'sv');
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  localStorage.setItem('lang', lang);
+}
+(function() {
+  const saved = localStorage.getItem('lang');
+  const browser = navigator.language.startsWith('sv') ? 'sv' : 'en';
+  setLang(saved || browser);
+})();
+</script>
+
+</body>
+</html>
