@@ -1,0 +1,16 @@
+{
+  "lastUpdated": "2024-02-23T08:48:00Z",
+  "languages": {
+    "sv": {"total": 5420, "translated": 5420, "percentage": 100},
+    "da": {"total": 5420, "translated": 4215, "percentage": 78},
+    "de": {"total": 5420, "translated": 3890, "percentage": 72},
+    "es": {"total": 5420, "translated": 2710, "percentage": 50},
+    "fi": {"total": 5420, "translated": 4068, "percentage": 75},
+    "fr": {"total": 5420, "translated": 3253, "percentage": 60},
+    "it": {"total": 5420, "translated": 2168, "percentage": 40},
+    "nb_NO": {"total": 5420, "translated": 5420, "percentage": 100},
+    "nl": {"total": 5420, "translated": 1626, "percentage": 30},
+    "pl": {"total": 5420, "translated": 1084, "percentage": 20},
+    "pt_BR": {"total": 5420, "translated": 542, "percentage": 10}
+  }
+}

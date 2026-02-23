@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Translation Hall of Fame - Autismappar</title>
+    <meta name="description" content="Live translation progress for Autismappar's multilingual accessibility apps">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="../images/favicon.png">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="../index.html" class="logo">
+                    <img src="../images/logo.png" alt="Autismappar" height="40">
+                </a>
+                <ul class="nav-links">
+                    <li><a href="../index.html">Hem</a></li>
+                    <li><a href="../om.html">Om oss</a></li>
+                    <li><a href="../foreningen.html">Föreningen</a></li>
+                    <li><a href="index.html" class="active">Översättningar</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="hero">
+            <div class="container">
+                <h1>🌍 Translation Hall of Fame</h1>
+                <p class="subtitle">Autismappar.se går global! Hjälp oss översätta våra appar till fler språk.</p>
+                <div class="stats-overview">
+                    <div class="stat-card">
+                        <div class="stat-number" id="total-languages">11</div>
+                        <div class="stat-label">Målspråk</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="total-projects">89</div>
+                        <div class="stat-label">Projekt</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="total-strings">0</div>
+                        <div class="stat-label">Totalt antal strängar</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="completed-languages">0</div>
+                        <div class="stat-label">Färdiga språk (100%)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="world-map-section">
+            <div class="container">
+                <h2>🗺️ Världskarta - Översättningsstatus</h2>
+                <p>Länder "lyser upp" när språket når 100% översättning!</p>
+                <div class="map-container" id="world-map">
+                    <!-- SVG World Map will be inserted here -->
+                </div>
+                <div class="map-legend">
+                    <div class="legend-item">
+                        <div class="legend-color incomplete"></div>
+                        <span>Pågående översättning</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color complete"></div>
+                        <span>100% färdig!</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="progress-section">
+            <div class="container">
+                <h2>📊 Översättningsstatus per språk</h2>
+                <div class="languages-grid" id="languages-grid">
+                    <!-- Language progress bars will be inserted here -->
+                </div>
+            </div>
+        </section>
+
+        <section class="badges-section">
+            <div class="container">
+                <h2>🏆 Milstolpar & Utmärkelser</h2>
+                <div class="badges-container" id="badges-container">
+                    <!-- Achievement badges will be inserted here -->
+                </div>
+            </div>
+        </section>
+
+        <section class="contribute-section">
+            <div class="container">
+                <h2>🤝 Bidra till översättningarna!</h2>
+                <div class="contribute-grid">
+                    <div class="contribute-card">
+                        <h3>📝 Gå med som översättare</h3>
+                        <p>Hjälp oss översätta Autismappars appar till ditt språk. Varje bidrag gör skillnad!</p>
+                        <a href="https://www.transifex.com/danielnylander/" class="btn-primary" target="_blank" rel="noopener">
+                            Översätt på Transifex
+                        </a>
+                    </div>
+                    <div class="contribute-card">
+                        <h3>🐛 Rapportera fel</h3>
+                        <p>Hittat ett översättningsfel eller förbättringsförslag? Vi uppskattar din feedback!</p>
+                        <a href="mailto:daniel@autismappar.se" class="btn-secondary">
+                            Kontakta oss
+                        </a>
+                    </div>
+                    <div class="contribute-card">
+                        <h3>💜 Stöd projektet</h3>
+                        <p>Hjälp oss utveckla och underhålla våra kostnadsfria appar för autismspektrumet.</p>
+                        <a href="../foreningen.html" class="btn-secondary">
+                            Bli medlem
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Autismappar</h4>
+                    <p>Kostnadsfria appar för personer med autism och andra neuropsykiatriska diagnoser.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Länkar</h4>
+                    <ul>
+                        <li><a href="../index.html">Startsida</a></li>
+                        <li><a href="../om.html">Om oss</a></li>
+                        <li><a href="../foreningen.html">Föreningen</a></li>
+                        <li><a href="index.html">Översättningar</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Kontakt</h4>
+                    <p>📧 daniel@autismappar.se</p>
+                    <p>🐛 <a href="https://github.com/autismappar" target="_blank" rel="noopener">GitHub</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Autismappar. Senast uppdaterad: <span id="last-updated"></span></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
