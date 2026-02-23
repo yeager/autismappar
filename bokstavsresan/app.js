@@ -146,8 +146,9 @@ class BokstavsresanApp {
         this.init();
     }
 
-    init() {
+    async init() {
         this.setupServiceWorker();
+        this.setupAudio();
         this.setupElements();
         this.setupEventListeners();
         this.updateStats();
@@ -158,6 +159,13 @@ class BokstavsresanApp {
             localStorage.setItem('bokstavsresan_visited', 'true');
             this.showWelcomeMessage();
         }
+        
+        // Initialize Piper TTS (non-blocking)
+        setTimeout(() => {
+            this.initializePiperTTS().catch(error => {
+                console.log('Piper TTS initialization skipped or failed, using Web Speech API');
+            });
+        }, 1000); // Delay to let the app load first
     }
 
     setupServiceWorker() {
@@ -441,26 +449,96 @@ class BokstavsresanApp {
         }
     }
 
-    // Text-to-Speech functions
-    speak(text, lang = 'sv-SE') {
-        if ('speechSynthesis' in window) {
-            // Cancel any ongoing speech
-            speechSynthesis.cancel();
-            
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = lang;
-            utterance.rate = 0.8; // Slower for children
-            utterance.pitch = 1.1; // Slightly higher pitch
-            utterance.volume = 0.9;
-            
-            // Try to find a Swedish voice
-            const voices = speechSynthesis.getVoices();
-            const swedishVoice = voices.find(voice => voice.lang.startsWith('sv'));
-            if (swedishVoice) {
-                utterance.voice = swedishVoice;
+    // Text-to-Speech functions using Piper TTS with Web Speech fallback
+    async speak(text, lang = 'sv-SE') {
+        try {
+            // Use Piper TTS if available and initialized
+            if (window.piperTTS && window.piperTTS.getStatus().isInitialized) {
+                await window.piperTTS.speak(text, {
+                    speed: 0.8, // Slower for children
+                    speakerId: 0
+                });
+                return;
             }
             
-            speechSynthesis.speak(utterance);
+            // Fallback to Web Speech API
+            if ('speechSynthesis' in window) {
+                // Cancel any ongoing speech
+                speechSynthesis.cancel();
+                
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = lang;
+                utterance.rate = 0.8; // Slower for children
+                utterance.pitch = 1.1; // Slightly higher pitch
+                utterance.volume = 0.9;
+                
+                // Try to find a Swedish voice
+                const voices = speechSynthesis.getVoices();
+                const swedishVoice = voices.find(voice => voice.lang.startsWith('sv'));
+                if (swedishVoice) {
+                    utterance.voice = swedishVoice;
+                }
+                
+                speechSynthesis.speak(utterance);
+            }
+        } catch (error) {
+            console.error('Speech failed:', error);
+            // Final fallback - just continue without speech
+        }
+    }
+
+    // Initialize Piper TTS with loading progress
+    async initializePiperTTS() {
+        if (!window.piperTTS) return false;
+        
+        // Show loading indicator
+        const loadingDiv = document.createElement('div');
+        loadingDiv.id = 'tts-loading';
+        loadingDiv.innerHTML = `
+            <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+                        background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                        z-index: 1000; text-align: center; min-width: 300px;">
+                <h3>Laddar röst...</h3>
+                <div style="width: 100%; height: 10px; background: #e0e0e0; border-radius: 5px; margin: 10px 0;">
+                    <div id="tts-progress" style="width: 0%; height: 100%; background: #4CAF50; border-radius: 5px; transition: width 0.3s;"></div>
+                </div>
+                <p id="tts-status">Förbereder...</p>
+                <button id="tts-skip" style="margin-top: 10px; padding: 8px 16px; border: none; border-radius: 5px; background: #f44336; color: white; cursor: pointer;">
+                    Hoppa över
+                </button>
+            </div>
+        `;
+        document.body.appendChild(loadingDiv);
+        
+        const progressBar = document.getElementById('tts-progress');
+        const statusText = document.getElementById('tts-status');
+        const skipButton = document.getElementById('tts-skip');
+        
+        let skipRequested = false;
+        skipButton.onclick = () => {
+            skipRequested = true;
+            document.body.removeChild(loadingDiv);
+        };
+        
+        try {
+            const success = await window.piperTTS.initialize((progress, status) => {
+                if (skipRequested) return;
+                
+                progressBar.style.width = progress + '%';
+                statusText.textContent = status || `Laddar... ${Math.round(progress)}%`;
+            });
+            
+            if (!skipRequested) {
+                document.body.removeChild(loadingDiv);
+            }
+            
+            return success;
+        } catch (error) {
+            console.error('Failed to initialize Piper TTS:', error);
+            if (!skipRequested) {
+                document.body.removeChild(loadingDiv);
+            }
+            return false;
         }
     }
 
