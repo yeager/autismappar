@@ -58,6 +58,15 @@ body {
 }
 .stat.stars { color: var(--star); }
 .stat.streak { color: var(--streak); }
+.lang-toggle {
+  background: #f0f2f8; border: 2px solid #e8ecf4; border-radius: 12px;
+  padding: 4px 10px; font-size: 1.3rem; cursor: pointer;
+  transition: transform .15s, background .15s;
+  line-height: 1;
+}
+.lang-toggle:hover { transform: scale(1.1); background: #e0e4f0; }
+.lang-toggle:active { transform: scale(1.05); }
+
 .stat.level-badge {
   background: linear-gradient(135deg, #3498db, #2980b9);
   color: #fff;

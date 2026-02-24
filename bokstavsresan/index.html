@@ -20,36 +20,37 @@
         <header class="header">
             <div class="logo">
                 <img src="icons/icon.svg" alt="" width="44" height="44">
-                <h1 class="app-title">Bokstavsresan</h1>
+                <h1 class="app-title" data-i18n="app_title">Bokstavsresan</h1>
             </div>
             <div class="stats">
+                <button class="lang-toggle" id="lang-toggle" aria-label="Switch language">🇬🇧</button>
                 <span class="stat stars">⭐ 0</span>
                 <span class="stat streak">🔥 0</span>
-                <span class="stat level-badge">Nivå 1</span>
+                <span class="stat level-badge" data-i18n="level">Nivå 1</span>
             </div>
         </header>
 
         <!-- Menu Page -->
         <main id="page-menu" class="page active">
             <div class="menu-content">
-                <h2 class="welcome-title">Välkommen till Bokstavsresan! 🎉</h2>
-                <p class="welcome-subtitle">Välj ditt äventyr! 🗺️</p>
+                <h2 class="welcome-title" data-i18n="welcome_title">Välkommen till Bokstavsresan! 🎉</h2>
+                <p class="welcome-subtitle" data-i18n="welcome_subtitle">Välj ditt äventyr! 🗺️</p>
 
                 <div class="mode-buttons">
                     <button class="mode-btn" data-mode="explore">
                         <span class="mode-emoji">🔤</span>
-                        <span class="mode-label">Utforska bokstäver</span>
-                        <span class="mode-desc">Tryck på bokstäver för att höra namn och ljud</span>
+                        <span class="mode-label" data-i18n="explore_label">Utforska bokstäver</span>
+                        <span class="mode-desc" data-i18n="explore_desc">Tryck på bokstäver för att höra namn och ljud</span>
                     </button>
                     <button class="mode-btn" data-mode="find">
                         <span class="mode-emoji">🎯</span>
-                        <span class="mode-label">Hitta bokstaven</span>
-                        <span class="mode-desc">Lyssna på ett ljud och hitta rätt bokstav</span>
+                        <span class="mode-label" data-i18n="find_label">Hitta bokstaven</span>
+                        <span class="mode-desc" data-i18n="find_desc">Lyssna på ett ljud och hitta rätt bokstav</span>
                     </button>
                     <button class="mode-btn" data-mode="soundout">
                         <span class="mode-emoji">📖</span>
-                        <span class="mode-label">Ljuda ord</span>
-                        <span class="mode-desc">Dela upp ord i enskilda bokstavsljud</span>
+                        <span class="mode-label" data-i18n="soundout_label">Ljuda ord</span>
+                        <span class="mode-desc" data-i18n="soundout_desc">Dela upp ord i enskilda bokstavsljud</span>
                     </button>
                 </div>
 
@@ -59,54 +60,54 @@
 
         <!-- Explore Page -->
         <section id="page-explore" class="page">
-            <button class="back-btn" data-action="back">← Tillbaka</button>
-            <h2 class="game-title">🔤 Tryck på en bokstav för att höra den!</h2>
+            <button class="back-btn" data-action="back" data-i18n="back">← Tillbaka</button>
+            <h2 class="game-title" data-i18n="explore_title">🔤 Tryck på en bokstav för att höra den!</h2>
             <div class="feedback" id="explore-feedback"></div>
             <div class="letter-grid" id="explore-grid"></div>
         </section>
 
         <!-- Find the Letter Page -->
         <section id="page-find" class="page">
-            <button class="back-btn" data-action="back">← Tillbaka</button>
-            <h2 class="game-title" id="find-title">🎯 Lyssna och hitta bokstaven!</h2>
+            <button class="back-btn" data-action="back" data-i18n="back">← Tillbaka</button>
+            <h2 class="game-title" id="find-title" data-i18n="find_title">🎯 Lyssna och hitta bokstaven!</h2>
             <div class="button-row">
-                <button class="action-btn" data-action="replay-find">🔊 Spela igen</button>
+                <button class="action-btn" data-action="replay-find" data-i18n="replay">🔊 Spela igen</button>
             </div>
             <div class="feedback" id="find-feedback"></div>
             <div class="letter-grid" id="find-grid"></div>
             <div class="button-row">
-                <button class="action-btn primary hidden" id="find-next" data-action="next-find">Nästa bokstav ➡️</button>
+                <button class="action-btn primary hidden" id="find-next" data-action="next-find" data-i18n="next_letter">Nästa bokstav ➡️</button>
             </div>
         </section>
 
         <!-- Sound Out Words Page -->
         <section id="page-soundout" class="page">
-            <button class="back-btn" data-action="back">← Tillbaka</button>
-            <h2 class="game-title">📖 Ljuda ordet!</h2>
+            <button class="back-btn" data-action="back" data-i18n="back">← Tillbaka</button>
+            <h2 class="game-title" data-i18n="soundout_title">📖 Ljuda ordet!</h2>
             <div class="word-display" id="word-display"></div>
             <div class="word-hint" id="word-hint"></div>
             <div class="feedback" id="soundout-feedback"></div>
             <div class="button-row">
-                <button class="action-btn" data-action="sound-current">🔊 Ljuda denna bokstav</button>
+                <button class="action-btn" data-action="sound-current" data-i18n="sound_current">🔊 Ljuda denna bokstav</button>
             </div>
             <div class="button-row">
-                <button class="action-btn primary" data-action="next-sound">Nästa ljud ➡️</button>
-                <button class="action-btn" data-action="new-word">Nytt ord 🔄</button>
+                <button class="action-btn primary" data-action="next-sound" data-i18n="next_sound">Nästa ljud ➡️</button>
+                <button class="action-btn" data-action="new-word" data-i18n="new_word">Nytt ord 🔄</button>
             </div>
         </section>
 
         <!-- Welcome Modal -->
         <div class="modal-overlay hidden" id="welcome-modal">
             <div class="modal">
-                <h2>Välkommen till Bokstavsresan! 🎉</h2>
-                <p>Lär dig bokstäver och ljud genom roliga spel!</p>
+                <h2 data-i18n="welcome_modal_title">Välkommen till Bokstavsresan! 🎉</h2>
+                <p data-i18n="welcome_modal_desc">Lär dig bokstäver och ljud genom roliga spel!</p>
                 <ul class="welcome-list">
-                    <li>🔤 <strong>Utforska</strong> — Tryck på bokstäver för att höra dem</li>
-                    <li>🎯 <strong>Hitta bokstaven</strong> — Lyssna och hitta rätt</li>
-                    <li>📖 <strong>Ljuda ord</strong> — Dela upp ord i ljud</li>
+                    <li data-i18n="welcome_explore" data-i18n-html="1">🔤 <strong>Utforska</strong> — Tryck på bokstäver för att höra dem</li>
+                    <li data-i18n="welcome_find" data-i18n-html="1">🎯 <strong>Hitta bokstaven</strong> — Lyssna och hitta rätt</li>
+                    <li data-i18n="welcome_soundout" data-i18n-html="1">📖 <strong>Ljuda ord</strong> — Dela upp ord i ljud</li>
                 </ul>
-                <p>Du tjänar ⭐ stjärnor för varje rätt svar!<br>Håll din 🔥 streak igång för bonusstjärnor!</p>
-                <button class="action-btn primary" id="welcome-start">Börja! 🚀</button>
+                <p data-i18n="welcome_stars" data-i18n-html="1">Du tjänar ⭐ stjärnor för varje rätt svar!<br>Håll din 🔥 streak igång för bonusstjärnor!</p>
+                <button class="action-btn primary" id="welcome-start" data-i18n="start_btn">Börja! 🚀</button>
             </div>
         </div>
 
@@ -114,7 +115,7 @@
         <div class="modal-overlay hidden" id="levelup-modal">
             <div class="modal levelup">
                 <div class="levelup-text" id="levelup-text"></div>
-                <button class="action-btn primary" id="levelup-ok">Toppen! 🎉</button>
+                <button class="action-btn primary" id="levelup-ok" data-i18n="levelup_ok">Toppen! 🎉</button>
             </div>
         </div>
     </div>
