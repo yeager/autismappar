@@ -1,954 +1,418 @@
-// Bokstavsresan PWA - Swedish letter learning game for children with dyspraxia
-// © 2026 Autismappar.se - Accessible design for children with disabilities
+// Bokstavsresan PWA — Swedish letter learning game
+// © 2026 Daniel Nylander / Autismappar.se
+// Matches GTK4 Bokstavsresan v0.1.1 feature set
 
-// Swedish phonetic data (from GTK source)
+'use strict';
+
+// ── Swedish phonetic data (from GTK4 source) ──────────────────────────
 const LETTER_PHONETICS = {
-    "A": "ah", "B": "beh", "C": "seh", "D": "deh", "E": "eh",
-    "F": "eff", "G": "geh", "H": "hå", "I": "ih", "J": "jih",
-    "K": "kå", "L": "ell", "M": "emm", "N": "enn", "O": "oh",
-    "P": "peh", "Q": "kuh", "R": "err", "S": "ess", "T": "teh",
-    "U": "uh", "V": "veh", "W": "dubbelveh", "X": "eks", "Y": "yh",
-    "Z": "seta", "Å": "å", "Ä": "äh", "Ö": "öh"
+  A:'ah',B:'beh',C:'seh',D:'deh',E:'eh',F:'eff',G:'geh',H:'hå',
+  I:'ih',J:'jih',K:'kå',L:'ell',M:'emm',N:'enn',O:'oh',P:'peh',
+  Q:'kuh',R:'err',S:'ess',T:'teh',U:'uh',V:'veh',W:'dubbelveh',
+  X:'eks',Y:'yh',Z:'seta',Å:'å',Ä:'äh',Ö:'öh'
 };
 
-// Short phonetic sounds (how letters sound in words)
+// Elongated phonetic sounds for clarity (dyspraxia-friendly, from GTK4)
 const LETTER_SOUNDS = {
-    "A": "a", "B": "b", "C": "s", "D": "d", "E": "e",
-    "F": "f", "G": "g", "H": "h", "I": "i", "J": "j",
-    "K": "k", "L": "l", "M": "m", "N": "n", "O": "o",
-    "P": "p", "Q": "k", "R": "r", "S": "s", "T": "t",
-    "U": "u", "V": "v", "W": "v", "X": "ks", "Y": "y",
-    "Z": "s", "Å": "å", "Ä": "ä", "Ö": "ö"
+  A:'aaa',B:'bbb',C:'sss',D:'ddd',E:'eee',F:'fff',G:'ggg',H:'hhh',
+  I:'iii',J:'jjj',K:'kkk',L:'lll',M:'mmm',N:'nnn',O:'ooo',P:'ppp',
+  Q:'kkk',R:'rrr',S:'sss',T:'ttt',U:'uuu',V:'vvv',W:'vvv',
+  X:'ks',Y:'yyy',Z:'sss',Å:'ååå',Ä:'äää',Ö:'ööö'
 };
 
-// Swedish word lists by difficulty
+const LETTERS = Object.keys(LETTER_PHONETICS); // A-Ö, 29 letters
+
+// ── Word lists by difficulty ───────────────────────────────────────────
 const WORDS_EASY = [
-    ["SOL", "sol"], ["KAT", "katt"], ["HUS", "hus"],
-    ["BIL", "bil"], ["MUS", "mus"], ["HÅR", "hår"],
-    ["BÅT", "båt"], ["ÖGA", "öga"], ["ARM", "arm"],
-    ["BEN", "ben"], ["LÅS", "lås"], ["NÄS", "näsa"]
+  ['SOL','sol'],['KAT','katt'],['HUS','hus'],['BIL','bil'],
+  ['MUS','mus'],['HÅR','hår'],['BÅT','båt'],['ÖGA','öga'],
+  ['ARM','arm'],['BEN','ben'],['LÅS','lås'],['NÄS','näsa']
 ];
-
 const WORDS_MEDIUM = [
-    ["BOLL", "boll"], ["LAMM", "lamm"], ["FISK", "fisk"],
-    ["GRIS", "gris"], ["HUND", "hund"], ["KATT", "katt"],
-    ["STOL", "stol"], ["DÖRR", "dörr"], ["BLAD", "blad"],
-    ["SNÄL", "snäll"], ["GLAD", "glad"], ["STOR", "stor"]
+  ['BOLL','boll'],['LAMM','lamm'],['FISK','fisk'],['GRIS','gris'],
+  ['HUND','hund'],['KATT','katt'],['STOL','stol'],['DÖRR','dörr'],
+  ['BLAD','blad'],['SNÄL','snäll'],['GLAD','glad'],['STOR','stor']
 ];
-
 const WORDS_HARD = [
-    ["ÄPPLE", "äpple"], ["SKOLA", "skola"], ["BJÖRN", "björn"],
-    ["BLOMMA", "blomma"], ["STJÄRNA", "stjärna"], ["TRÄD", "träd"],
-    ["SJUNGA", "sjunga"], ["HIMMEL", "himmel"], ["VATTEN", "vatten"]
+  ['ÄPPLE','äpple'],['SKOLA','skola'],['BJÖRN','björn'],
+  ['BLOMMA','blomma'],['STJÄRNA','stjärna'],['TRÄD','träd'],
+  ['SJUNGA','sjunga'],['HIMMEL','himmel'],['VATTEN','vatten']
 ];
 
-// Encouragement messages
-const ENCOURAGEMENTS_SV = [
-    "Bra jobbat! ⭐", "Fantastiskt! 🌟", "Du är en stjärna! ✨",
-    "Fantastiskt! 🎉", "Bra gjort! 👏", "Fortsätt så! 💪",
-    "Super! 🚀", "Lysande! 🌈", "Du klarade det! 🎊",
-    "Wow, otroligt! 🏆", "Perfekt! 💯", "Mästare! 🥇"
+const ENCOURAGEMENTS = [
+  'Bra jobbat! ⭐','Fantastiskt! 🌟','Du är en stjärna! ✨',
+  'Otroligt! 🎉','Bra gjort! 👏','Fortsätt så! 💪',
+  'Super! 🚀','Lysande! 🌈','Du klarade det! 🎊',
+  'Wow! 🏆','Perfekt! 💯','Mästare! 🥇'
+];
+const TRY_AGAIN = [
+  'Nästan! Försök igen! 💪','Så nära! En gång till! 🌟',
+  'Du kan det! 🎯','Ge inte upp! 💫'
 ];
 
-const ENCOURAGEMENTS_EN = [
-    "Great job! ⭐", "Fantastic! 🌟", "You're a star! ✨",
-    "Amazing! 🎉", "Well done! 👏", "Keep going! 💪",
-    "Super! 🚀", "Brilliant! 🌈", "You did it! 🎊",
-    "Wow, incredible! 🏆", "Perfect! 💯", "Champion! 🥇"
-];
+// ── Helpers ────────────────────────────────────────────────────────────
+const $ = s => document.querySelector(s);
+const pick = a => a[Math.floor(Math.random() * a.length)];
+const shuffle = a => { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
 
-const TRY_AGAIN_SV = [
-    "Nästan! Försök igen! 💪", "Så nära! En gång till! 🌟",
-    "Du kan det! 🎯", "Ge inte upp! Fortsätt försöka! 💫"
-];
+// ── TTS via Web Speech API ─────────────────────────────────────────────
+let svVoice = null;
 
-const TRY_AGAIN_EN = [
-    "Almost! Try again! 💪", "So close! One more time! 🌟",
-    "You can do it! 🎯", "Don't give up! Keep trying! 💫"
-];
-
-// Language support
-const TRANSLATIONS = {
-    sv: {
-        appTitle: "Bokstavsresan",
-        welcomeTitle: "Välkommen till Bokstavsresan! 🎉",
-        welcomeSubtitle: "Välj ditt äventyr! 🗺️",
-        exploreTitle: "🔤 Utforska bokstäver",
-        exploreDesc: "Tryck på bokstäver för att höra namn och ljud",
-        findTitle: "🎯 Hitta bokstaven",
-        findDesc: "Lyssna på ett ljud och hitta rätt bokstav",
-        soundoutTitle: "📖 Ljuda ord",
-        soundoutDesc: "Dela upp ord i enskilda bokstavsljud",
-        level: "Nivå",
-        lettersMastered: "Bokstäver bemästrade",
-        totalCorrect: "Totalt rätt",
-        back: "← Tillbaka",
-        playAgain: "🔊 Spela igen",
-        nextLetter: "Nästa bokstav ➡️",
-        soundLetter: "🔊 Ljuda denna bokstav",
-        nextSound: "Nästa ljud ➡️",
-        newWord: "Nytt ord 🔄",
-        tapLetterHint: "🔤 Tryck på en bokstav för att höra den!",
-        findLetterHint: "🎯 Lyssna och hitta bokstaven!",
-        whichLetterSays: "🎯 Vilken bokstav säger '{sound}'?",
-        soundOutHint: "📖 Ljuda ordet!",
-        letterSoundsLike: "'{letter}' låter som '{sound}'",
-        wordComplete: "Du ljudade '{word}'! 🎉",
-        levelUp: "🎊 NIVÅ UPP! Du är nu nivå {level}! 🎊",
-        amazing: "Fantastiskt! Du klarade det!"
-    },
-    en: {
-        appTitle: "Letter Journey",
-        welcomeTitle: "Welcome to Letter Journey! 🎉",
-        welcomeSubtitle: "Choose your adventure! 🗺️",
-        exploreTitle: "🔤 Explore Letters",
-        exploreDesc: "Tap letters to hear their name and sound",
-        findTitle: "🎯 Find the Letter",
-        findDesc: "Listen to a sound and find the right letter",
-        soundoutTitle: "📖 Sound Out Words",
-        soundoutDesc: "Break words into individual letter sounds",
-        level: "Level",
-        lettersMastered: "Letters mastered",
-        totalCorrect: "Total correct",
-        back: "← Back",
-        playAgain: "🔊 Play again",
-        nextLetter: "Next letter ➡️",
-        soundLetter: "🔊 Sound this letter",
-        nextSound: "Next sound ➡️",
-        newWord: "New word 🔄",
-        tapLetterHint: "🔤 Tap a letter to hear it!",
-        findLetterHint: "🎯 Listen and find the letter!",
-        whichLetterSays: "🎯 Which letter says '{sound}'?",
-        soundOutHint: "📖 Sound out the word!",
-        letterSoundsLike: "'{letter}' sounds like '{sound}'",
-        wordComplete: "You sounded out '{word}'! 🎉",
-        levelUp: "🎊 LEVEL UP! You're now level {level}! 🎊",
-        amazing: "Amazing! You did it!"
-    }
-};
-
-// Main App class
-class BokstavsresanApp {
-    constructor() {
-        this.currentLang = 'sv'; // Default to Swedish
-        this.currentMode = 'menu';
-        this.progress = this.loadProgress();
-        this.targetLetter = null;
-        this.currentWord = null;
-        this.currentWordIndex = 0;
-        this.gameButtons = [];
-        
-        // Audio context for sound effects
-        this.audioContext = null;
-        this.setupAudio();
-        
-        // Initialize app
-        this.init();
-    }
-
-    async init() {
-        this.setupServiceWorker();
-        this.setupAudio();
-        this.setupElements();
-        this.setupEventListeners();
-        this.updateStats();
-        this.showPage('menu');
-        
-        // Check for first time visit
-        if (!localStorage.getItem('bokstavsresan_visited')) {
-            localStorage.setItem('bokstavsresan_visited', 'true');
-            this.showWelcomeMessage();
-        }
-        
-        // Initialize Piper TTS (non-blocking)
-        setTimeout(() => {
-            this.initializePiperTTS().catch(error => {
-                console.log('Piper TTS initialization skipped or failed, using Web Speech API');
-            });
-        }, 1000); // Delay to let the app load first
-    }
-
-    setupServiceWorker() {
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('./service-worker.js')
-                .then(registration => console.log('SW registered'))
-                .catch(error => console.log('SW registration failed'));
-        }
-    }
-
-    setupAudio() {
-        // Initialize Web Audio for sound effects
-        try {
-            this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        } catch(e) {
-            console.log('Web Audio not supported');
-        }
-    }
-
-    setupElements() {
-        // Cache frequently used elements
-        this.elements = {
-            appTitle: document.querySelector('.app-title'),
-            langToggle: document.querySelector('.lang-toggle'),
-            statsStars: document.querySelector('.stats-stars'),
-            statsStreak: document.querySelector('.stats-streak'),
-            statsLevel: document.querySelector('.stats-level'),
-            pages: {
-                menu: document.getElementById('menu-page'),
-                explore: document.getElementById('explore-page'),
-                find: document.getElementById('find-page'),
-                soundout: document.getElementById('soundout-page')
-            },
-            feedback: {
-                explore: document.querySelector('#explore-page .feedback'),
-                find: document.querySelector('#find-page .feedback'),
-                soundout: document.querySelector('#soundout-page .feedback')
-            }
-        };
-
-        this.updateLanguage();
-    }
-
-    setupEventListeners() {
-        // Language toggle
-        document.addEventListener('click', (e) => {
-            if (e.target.matches('.lang-toggle')) {
-                this.toggleLanguage();
-            }
-            
-            // Mode selection buttons
-            if (e.target.matches('.mode-btn')) {
-                const mode = e.target.dataset.mode;
-                this.startMode(mode);
-            }
-            
-            // Back buttons
-            if (e.target.matches('.back-btn')) {
-                this.showPage('menu');
-            }
-            
-            // Letter buttons
-            if (e.target.matches('.letter-btn')) {
-                this.handleLetterClick(e.target);
-            }
-            
-            // Action buttons
-            if (e.target.matches('.action-btn')) {
-                const action = e.target.dataset.action;
-                this.handleAction(action);
-            }
-        });
-
-        // Keyboard navigation
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                this.showPage('menu');
-            }
-        });
-
-        // Resume audio context on first user interaction
-        document.addEventListener('click', () => {
-            if (this.audioContext && this.audioContext.state === 'suspended') {
-                this.audioContext.resume();
-            }
-        }, { once: true });
-    }
-
-    toggleLanguage() {
-        this.currentLang = this.currentLang === 'sv' ? 'en' : 'sv';
-        this.updateLanguage();
-        localStorage.setItem('bokstavsresan_lang', this.currentLang);
-    }
-
-    updateLanguage() {
-        const t = TRANSLATIONS[this.currentLang];
-        
-        // Update static text
-        if (this.elements.appTitle) {
-            this.elements.appTitle.textContent = t.appTitle;
-        }
-        
-        const langToggle = document.querySelector('.lang-toggle');
-        if (langToggle) {
-            langToggle.textContent = this.currentLang === 'sv' ? '🇬🇧 EN' : '🇸🇪 SV';
-        }
-
-        // Update all translatable elements
-        document.querySelectorAll('[data-i18n]').forEach(el => {
-            const key = el.dataset.i18n;
-            if (t[key]) {
-                if (el.tagName === 'INPUT' && el.type === 'button') {
-                    el.value = t[key];
-                } else {
-                    el.textContent = t[key];
-                }
-            }
-        });
-
-        // Update page content dynamically
-        this.updateMenuPage();
-    }
-
-    updateMenuPage() {
-        const t = TRANSLATIONS[this.currentLang];
-        const welcomeTitle = document.querySelector('.welcome-title');
-        const welcomeSubtitle = document.querySelector('.welcome-subtitle');
-        const progressSummary = document.querySelector('.progress-summary');
-        
-        if (welcomeTitle) welcomeTitle.textContent = t.welcomeTitle;
-        if (welcomeSubtitle) welcomeSubtitle.textContent = t.welcomeSubtitle;
-        
-        if (progressSummary) {
-            const mastered = this.progress.letters_mastered.length;
-            const correct = this.progress.total_correct;
-            progressSummary.textContent = `${t.lettersMastered}: ${mastered}/29 | ${t.totalCorrect}: ${correct}`;
-        }
-    }
-
-    showWelcomeMessage() {
-        const t = TRANSLATIONS[this.currentLang];
-        
-        // Simple welcome alert for first-time users
-        setTimeout(() => {
-            alert(t.welcomeTitle + '\n\n' +
-                  '🔤 ' + t.exploreDesc + '\n' +
-                  '🎯 ' + t.findDesc + '\n' +
-                  '📖 ' + t.soundoutDesc + '\n\n' +
-                  'Du tjänar ⭐ stjärnor för varje rätt svar!\n' +
-                  'Håll din 🔥 streak igång för bonusstjärnor!');
-        }, 1000);
-    }
-
-    loadProgress() {
-        const saved = localStorage.getItem('bokstavsresan_progress');
-        const defaultProgress = {
-            letters_mastered: [],
-            streak: 0,
-            total_correct: 0,
-            total_attempts: 0,
-            stars: 0,
-            level: 1
-        };
-        
-        if (saved) {
-            return { ...defaultProgress, ...JSON.parse(saved) };
-        }
-        return defaultProgress;
-    }
-
-    saveProgress() {
-        localStorage.setItem('bokstavsresan_progress', JSON.stringify(this.progress));
-    }
-
-    recordCorrect(letter) {
-        this.progress.total_correct++;
-        this.progress.total_attempts++;
-        this.progress.streak++;
-        this.progress.stars++;
-        
-        if (!this.progress.letters_mastered.includes(letter)) {
-            this.progress.letters_mastered.push(letter);
-        }
-        
-        // Bonus stars for streak milestones
-        if (this.progress.streak % 5 === 0) {
-            this.progress.stars += 2;
-            this.showBonusEffect();
-        }
-        
-        // Level up check
-        if (this.progress.total_correct > 0 && this.progress.total_correct % 20 === 0) {
-            this.progress.level = Math.min(this.progress.level + 1, 3);
-            this.showLevelUp();
-        }
-        
-        this.saveProgress();
-        this.updateStats();
-    }
-
-    recordWrong() {
-        this.progress.total_attempts++;
-        this.progress.streak = 0;
-        this.saveProgress();
-        this.updateStats();
-    }
-
-    updateStats() {
-        const statsStars = document.querySelector('.stats-stars');
-        const statsStreak = document.querySelector('.stats-streak');
-        const statsLevel = document.querySelector('.stats-level');
-        
-        if (statsStars) statsStars.textContent = `⭐ ${this.progress.stars}`;
-        if (statsStreak) statsStreak.textContent = `🔥 ${this.progress.streak}`;
-        if (statsLevel) {
-            const t = TRANSLATIONS[this.currentLang];
-            statsLevel.textContent = `${t.level} ${this.progress.level}`;
-        }
-    }
-
-    showBonusEffect() {
-        this.createConfetti();
-        this.playSuccessSound();
-    }
-
-    showLevelUp() {
-        const t = TRANSLATIONS[this.currentLang];
-        const message = t.levelUp.replace('{level}', this.progress.level);
-        
-        // Create level up notification
-        const notification = document.createElement('div');
-        notification.className = 'level-up-notification';
-        notification.textContent = message;
-        notification.style.cssText = `
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            color: white;
-            padding: 30px;
-            border-radius: 20px;
-            font-size: 1.8rem;
-            font-weight: bold;
-            text-align: center;
-            z-index: 1000;
-            animation: levelUpBounce 2s ease-out forwards;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-        `;
-        
-        document.body.appendChild(notification);
-        this.createConfetti();
-        this.playLevelUpSound();
-        
-        setTimeout(() => {
-            notification.remove();
-        }, 3000);
-    }
-
-    createConfetti() {
-        // Simple confetti effect
-        const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#f9ca24', '#f0932b', '#eb4d4b'];
-        
-        for (let i = 0; i < 50; i++) {
-            const confetti = document.createElement('div');
-            confetti.style.cssText = `
-                position: fixed;
-                top: -10px;
-                left: ${Math.random() * 100}%;
-                width: 10px;
-                height: 10px;
-                background: ${colors[Math.floor(Math.random() * colors.length)]};
-                animation: confettiFall ${2 + Math.random() * 3}s linear forwards;
-                z-index: 999;
-                border-radius: 2px;
-            `;
-            
-            document.body.appendChild(confetti);
-            
-            setTimeout(() => confetti.remove(), 5000);
-        }
-    }
-
-    // Text-to-Speech functions using Piper TTS with Web Speech fallback
-    async speak(text, lang = 'sv-SE') {
-        try {
-            // Use Piper TTS if available and initialized
-            if (window.piperTTS && window.piperTTS.getStatus().isInitialized) {
-                await window.piperTTS.speak(text, {
-                    speed: 0.8, // Slower for children
-                    speakerId: 0
-                });
-                return;
-            }
-            
-            // Fallback to Web Speech API
-            if ('speechSynthesis' in window) {
-                // Cancel any ongoing speech
-                speechSynthesis.cancel();
-                
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = lang;
-                utterance.rate = 0.8; // Slower for children
-                utterance.pitch = 1.1; // Slightly higher pitch
-                utterance.volume = 0.9;
-                
-                // Try to find a Swedish voice
-                const voices = speechSynthesis.getVoices();
-                const swedishVoice = voices.find(voice => voice.lang.startsWith('sv'));
-                if (swedishVoice) {
-                    utterance.voice = swedishVoice;
-                }
-                
-                speechSynthesis.speak(utterance);
-            }
-        } catch (error) {
-            console.error('Speech failed:', error);
-            // Final fallback - just continue without speech
-        }
-    }
-
-    // Initialize Piper TTS with loading progress
-    async initializePiperTTS() {
-        if (!window.piperTTS) return false;
-        
-        // Show loading indicator
-        const loadingDiv = document.createElement('div');
-        loadingDiv.id = 'tts-loading';
-        loadingDiv.innerHTML = `
-            <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); 
-                        background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-                        z-index: 1000; text-align: center; min-width: 300px;">
-                <h3>Laddar röst...</h3>
-                <div style="width: 100%; height: 10px; background: #e0e0e0; border-radius: 5px; margin: 10px 0;">
-                    <div id="tts-progress" style="width: 0%; height: 100%; background: #4CAF50; border-radius: 5px; transition: width 0.3s;"></div>
-                </div>
-                <p id="tts-status">Förbereder...</p>
-                <button id="tts-skip" style="margin-top: 10px; padding: 8px 16px; border: none; border-radius: 5px; background: #f44336; color: white; cursor: pointer;">
-                    Hoppa över
-                </button>
-            </div>
-        `;
-        document.body.appendChild(loadingDiv);
-        
-        const progressBar = document.getElementById('tts-progress');
-        const statusText = document.getElementById('tts-status');
-        const skipButton = document.getElementById('tts-skip');
-        
-        let skipRequested = false;
-        skipButton.onclick = () => {
-            skipRequested = true;
-            document.body.removeChild(loadingDiv);
-        };
-        
-        try {
-            const success = await window.piperTTS.initialize((progress, status) => {
-                if (skipRequested) return;
-                
-                progressBar.style.width = progress + '%';
-                statusText.textContent = status || `Laddar... ${Math.round(progress)}%`;
-            });
-            
-            if (!skipRequested) {
-                document.body.removeChild(loadingDiv);
-            }
-            
-            return success;
-        } catch (error) {
-            console.error('Failed to initialize Piper TTS:', error);
-            if (!skipRequested) {
-                document.body.removeChild(loadingDiv);
-            }
-            return false;
-        }
-    }
-
-    // Sound effects using Web Audio API
-    playSuccessSound() {
-        if (!this.audioContext) return;
-        
-        const oscillator = this.audioContext.createOscillator();
-        const gainNode = this.audioContext.createGain();
-        
-        oscillator.connect(gainNode);
-        gainNode.connect(this.audioContext.destination);
-        
-        // Happy success tone sequence
-        const frequencies = [523, 659, 784]; // C, E, G
-        let time = this.audioContext.currentTime;
-        
-        frequencies.forEach((freq, i) => {
-            const osc = this.audioContext.createOscillator();
-            const gain = this.audioContext.createGain();
-            
-            osc.connect(gain);
-            gain.connect(this.audioContext.destination);
-            
-            osc.frequency.setValueAtTime(freq, time + i * 0.15);
-            gain.gain.setValueAtTime(0.3, time + i * 0.15);
-            gain.gain.exponentialRampToValueAtTime(0.01, time + i * 0.15 + 0.3);
-            
-            osc.start(time + i * 0.15);
-            osc.stop(time + i * 0.15 + 0.3);
-        });
-    }
-
-    playErrorSound() {
-        if (!this.audioContext) return;
-        
-        const oscillator = this.audioContext.createOscillator();
-        const gainNode = this.audioContext.createGain();
-        
-        oscillator.connect(gainNode);
-        gainNode.connect(this.audioContext.destination);
-        
-        oscillator.frequency.setValueAtTime(200, this.audioContext.currentTime);
-        oscillator.frequency.exponentialRampToValueAtTime(100, this.audioContext.currentTime + 0.3);
-        gainNode.gain.setValueAtTime(0.3, this.audioContext.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + 0.3);
-        
-        oscillator.start();
-        oscillator.stop(this.audioContext.currentTime + 0.3);
-    }
-
-    playLevelUpSound() {
-        if (!this.audioContext) return;
-        
-        // Triumphant fanfare
-        const frequencies = [523, 659, 784, 1047]; // C, E, G, C
-        let time = this.audioContext.currentTime;
-        
-        frequencies.forEach((freq, i) => {
-            const osc = this.audioContext.createOscillator();
-            const gain = this.audioContext.createGain();
-            
-            osc.connect(gain);
-            gain.connect(this.audioContext.destination);
-            
-            osc.frequency.setValueAtTime(freq, time + i * 0.2);
-            gain.gain.setValueAtTime(0.4, time + i * 0.2);
-            gain.gain.exponentialRampToValueAtTime(0.01, time + i * 0.2 + 0.5);
-            
-            osc.start(time + i * 0.2);
-            osc.stop(time + i * 0.2 + 0.5);
-        });
-    }
-
-    // Page navigation
-    showPage(pageName) {
-        // Hide all pages
-        document.querySelectorAll('.page').forEach(page => {
-            page.classList.remove('active');
-        });
-        
-        // Show target page
-        const page = document.getElementById(pageName + '-page');
-        if (page) {
-            page.classList.add('active');
-            this.currentMode = pageName;
-        }
-    }
-
-    // Game mode handlers
-    startMode(mode) {
-        this.currentMode = mode;
-        this.showPage(mode);
-        
-        switch(mode) {
-            case 'explore':
-                this.setupExplorePage();
-                break;
-            case 'find':
-                this.setupFindPage();
-                this.startFindRound();
-                break;
-            case 'soundout':
-                this.setupSoundoutPage();
-                this.startSoundoutRound();
-                break;
-        }
-    }
-
-    setupExplorePage() {
-        const letterGrid = document.querySelector('#explore-page .letter-grid');
-        letterGrid.innerHTML = '';
-        
-        const letters = Object.keys(LETTER_PHONETICS);
-        letters.forEach((letter, index) => {
-            const button = document.createElement('button');
-            button.className = 'letter-btn';
-            button.textContent = letter;
-            button.dataset.letter = letter;
-            letterGrid.appendChild(button);
-        });
-        
-        const t = TRANSLATIONS[this.currentLang];
-        const feedback = document.querySelector('#explore-page .feedback');
-        feedback.textContent = t.tapLetterHint;
-    }
-
-    setupFindPage() {
-        const t = TRANSLATIONS[this.currentLang];
-        const gameTitle = document.querySelector('#find-page .game-title');
-        gameTitle.textContent = t.findLetterHint;
-    }
-
-    setupSoundoutPage() {
-        const t = TRANSLATIONS[this.currentLang];
-        const gameTitle = document.querySelector('#soundout-page .game-title');
-        gameTitle.textContent = t.soundOutHint;
-    }
-
-    handleLetterClick(button) {
-        const letter = button.dataset.letter;
-        
-        switch(this.currentMode) {
-            case 'explore':
-                this.handleExploreLetter(letter, button);
-                break;
-            case 'find':
-                this.handleFindLetter(letter, button);
-                break;
-        }
-    }
-
-    handleExploreLetter(letter, button) {
-        const t = TRANSLATIONS[this.currentLang];
-        const phonetic = LETTER_PHONETICS[letter];
-        const sound = LETTER_SOUNDS[letter];
-        
-        // Update feedback
-        const feedback = document.querySelector('#explore-page .feedback');
-        feedback.textContent = t.letterSoundsLike.replace('{letter}', letter).replace('{sound}', sound);
-        feedback.className = 'feedback success';
-        
-        // Speak the letter
-        this.speak(`${letter}. ${phonetic}. ${sound}.`);
-        
-        // Visual feedback
-        button.classList.add('correct');
-        setTimeout(() => button.classList.remove('correct'), 600);
-        
-        // Record progress
-        this.recordCorrect(letter);
-        this.playSuccessSound();
-    }
-
-    startFindRound() {
-        const t = TRANSLATIONS[this.currentLang];
-        const feedback = document.querySelector('#find-page .feedback');
-        feedback.textContent = '';
-        feedback.className = 'feedback';
-        
-        // Hide next button
-        const nextBtn = document.querySelector('#find-page [data-action="next-find"]');
-        if (nextBtn) nextBtn.style.display = 'none';
-        
-        // Pick target letter and distractors
-        const letters = Object.keys(LETTER_PHONETICS);
-        this.targetLetter = letters[Math.floor(Math.random() * letters.length)];
-        
-        const choices = [this.targetLetter];
-        const distractors = letters.filter(l => l !== this.targetLetter);
-        const shuffledDistractors = distractors.sort(() => 0.5 - Math.random());
-        choices.push(...shuffledDistractors.slice(0, 5));
-        choices.sort(() => 0.5 - Math.random());
-        
-        // Create letter grid
-        const letterGrid = document.querySelector('#find-page .letter-grid');
-        letterGrid.innerHTML = '';
-        
-        choices.forEach((letter, index) => {
-            const button = document.createElement('button');
-            button.className = 'letter-btn';
-            button.textContent = letter;
-            button.dataset.letter = letter;
-            letterGrid.appendChild(button);
-        });
-        
-        // Update instruction
-        const gameTitle = document.querySelector('#find-page .game-title');
-        const phonetic = LETTER_PHONETICS[this.targetLetter];
-        gameTitle.textContent = t.whichLetterSays.replace('{sound}', phonetic);
-        
-        // Speak the target sound after short delay
-        setTimeout(() => {
-            this.speak(phonetic);
-        }, 1000);
-    }
-
-    handleFindLetter(letter, button) {
-        const t = TRANSLATIONS[this.currentLang];
-        const feedback = document.querySelector('#find-page .feedback');
-        const encouragements = this.currentLang === 'sv' ? ENCOURAGEMENTS_SV : ENCOURAGEMENTS_EN;
-        const tryAgain = this.currentLang === 'sv' ? TRY_AGAIN_SV : TRY_AGAIN_EN;
-        
-        if (letter === this.targetLetter) {
-            // Correct answer
-            feedback.textContent = encouragements[Math.floor(Math.random() * encouragements.length)];
-            feedback.className = 'feedback success';
-            
-            button.classList.add('correct');
-            this.recordCorrect(letter);
-            this.playSuccessSound();
-            
-            // Show next button
-            const nextBtn = document.querySelector('#find-page [data-action="next-find"]');
-            if (nextBtn) nextBtn.style.display = 'block';
-            
-            // Speak encouragement
-            setTimeout(() => {
-                const praise = ['Rätt!', 'Ja!', 'Bra!'][Math.floor(Math.random() * 3)];
-                this.speak(praise);
-            }, 200);
-            
-        } else {
-            // Wrong answer
-            feedback.textContent = tryAgain[Math.floor(Math.random() * tryAgain.length)];
-            feedback.className = 'feedback error';
-            
-            button.classList.add('wrong');
-            setTimeout(() => button.classList.remove('wrong'), 1000);
-            
-            this.recordWrong();
-            this.playErrorSound();
-        }
-    }
-
-    startSoundoutRound() {
-        const t = TRANSLATIONS[this.currentLang];
-        const feedback = document.querySelector('#soundout-page .feedback');
-        feedback.textContent = '';
-        feedback.className = 'feedback';
-        
-        // Select words based on level
-        let wordList = WORDS_EASY;
-        if (this.progress.level >= 2) {
-            wordList = [...WORDS_EASY, ...WORDS_MEDIUM];
-        }
-        if (this.progress.level >= 3) {
-            wordList = [...WORDS_EASY, ...WORDS_MEDIUM, ...WORDS_HARD];
-        }
-        
-        const [word, hint] = wordList[Math.floor(Math.random() * wordList.length)];
-        this.currentWord = word;
-        this.currentWordIndex = 0;
-        
-        // Update word display
-        this.updateWordDisplay();
-        
-        // Show hint
-        const wordHint = document.querySelector('#soundout-page .word-hint');
-        if (wordHint) wordHint.textContent = `(${hint})`;
-        
-        // Speak the whole word first
-        setTimeout(() => {
-            this.speak(word);
-        }, 300);
-    }
-
-    updateWordDisplay() {
-        const wordContainer = document.querySelector('#soundout-page .word-display');
-        wordContainer.innerHTML = '';
-        
-        for (let i = 0; i < this.currentWord.length; i++) {
-            const letterSpan = document.createElement('span');
-            letterSpan.className = 'word-letter';
-            letterSpan.textContent = this.currentWord[i];
-            
-            if (i < this.currentWordIndex) {
-                letterSpan.classList.add('done');
-            } else if (i === this.currentWordIndex) {
-                letterSpan.classList.add('active');
-            }
-            
-            wordContainer.appendChild(letterSpan);
-        }
-    }
-
-    handleAction(action) {
-        switch(action) {
-            case 'replay-find':
-                if (this.targetLetter) {
-                    this.speak(LETTER_PHONETICS[this.targetLetter]);
-                }
-                break;
-            case 'next-find':
-                this.startFindRound();
-                break;
-            case 'sound-current':
-                this.soundCurrentLetter();
-                break;
-            case 'next-sound':
-                this.nextSound();
-                break;
-            case 'new-word':
-                this.startSoundoutRound();
-                break;
-        }
-    }
-
-    soundCurrentLetter() {
-        if (this.currentWord && this.currentWordIndex < this.currentWord.length) {
-            const letter = this.currentWord[this.currentWordIndex];
-            const sound = LETTER_SOUNDS[letter];
-            
-            const t = TRANSLATIONS[this.currentLang];
-            const feedback = document.querySelector('#soundout-page .feedback');
-            feedback.textContent = t.letterSoundsLike.replace('{letter}', letter).replace('{sound}', sound);
-            feedback.className = 'feedback';
-            
-            this.speak(sound);
-        }
-    }
-
-    nextSound() {
-        if (!this.currentWord || this.currentWordIndex >= this.currentWord.length) return;
-        
-        const letter = this.currentWord[this.currentWordIndex];
-        this.recordCorrect(letter);
-        this.currentWordIndex++;
-        this.updateWordDisplay();
-        
-        const t = TRANSLATIONS[this.currentLang];
-        
-        if (this.currentWordIndex >= this.currentWord.length) {
-            // Word complete!
-            const feedback = document.querySelector('#soundout-page .feedback');
-            const encouragements = this.currentLang === 'sv' ? ENCOURAGEMENTS_SV : ENCOURAGEMENTS_EN;
-            const encouragement = encouragements[Math.floor(Math.random() * encouragements.length)];
-            const completeMsg = t.wordComplete.replace('{word}', this.currentWord);
-            feedback.textContent = encouragement + '\n' + completeMsg;
-            feedback.className = 'feedback success';
-            
-            this.playSuccessSound();
-            setTimeout(() => {
-                this.speak(t.amazing);
-            }, 200);
-            
-        } else {
-            // Sound next letter
-            const nextLetter = this.currentWord[this.currentWordIndex];
-            const nextSound = LETTER_SOUNDS[nextLetter];
-            
-            const feedback = document.querySelector('#soundout-page .feedback');
-            feedback.textContent = t.letterSoundsLike.replace('{letter}', nextLetter).replace('{sound}', nextSound);
-            feedback.className = 'feedback';
-            
-            setTimeout(() => {
-                this.speak(nextSound);
-            }, 100);
-        }
-    }
+function loadVoices() {
+  const voices = speechSynthesis.getVoices();
+  svVoice = voices.find(v => v.lang.startsWith('sv')) || null;
+}
+if ('speechSynthesis' in window) {
+  loadVoices();
+  speechSynthesis.onvoiceschanged = loadVoices;
 }
 
-// Add CSS animations
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes confettiFall {
-        to {
-            transform: translateY(100vh) rotate(720deg);
-        }
-    }
-    
-    @keyframes levelUpBounce {
-        0% {
-            transform: translate(-50%, -50%) scale(0);
-        }
-        50% {
-            transform: translate(-50%, -50%) scale(1.2);
-        }
-        100% {
-            transform: translate(-50%, -50%) scale(1);
-        }
-    }
-`;
-document.head.appendChild(style);
+function speak(text) {
+  if (!('speechSynthesis' in window)) return;
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'sv-SE';
+  u.rate = 0.8;
+  u.pitch = 1.1;
+  u.volume = 0.9;
+  if (svVoice) u.voice = svVoice;
+  speechSynthesis.speak(u);
+}
 
-// Initialize app when DOM is ready
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-        window.bokstavsresanApp = new BokstavsresanApp();
+// ── Sound effects (Web Audio) ──────────────────────────────────────────
+let audioCtx = null;
+function getAudioCtx() {
+  if (!audioCtx) try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch {}
+  return audioCtx;
+}
+
+function playTone(freqs, dur = 0.25, vol = 0.3) {
+  const ctx = getAudioCtx(); if (!ctx) return;
+  if (ctx.state === 'suspended') ctx.resume();
+  let t = ctx.currentTime;
+  freqs.forEach((f, i) => {
+    const o = ctx.createOscillator(), g = ctx.createGain();
+    o.connect(g); g.connect(ctx.destination);
+    o.frequency.setValueAtTime(f, t + i * dur);
+    g.gain.setValueAtTime(vol, t + i * dur);
+    g.gain.exponentialRampToValueAtTime(0.001, t + i * dur + dur);
+    o.start(t + i * dur); o.stop(t + i * dur + dur);
+  });
+}
+const playSuccess = () => playTone([523, 659, 784]);
+const playError   = () => playTone([200, 100], 0.3, 0.25);
+const playLevelUp = () => playTone([523, 659, 784, 1047], 0.2, 0.4);
+
+// ── Confetti ───────────────────────────────────────────────────────────
+function confetti(n = 40) {
+  const colors = ['#e74c3c','#3498db','#2ecc71','#f39c12','#9b59b6','#e91e63'];
+  for (let i = 0; i < n; i++) {
+    const el = document.createElement('div');
+    el.className = 'confetti';
+    el.style.left = Math.random() * 100 + '%';
+    el.style.background = pick(colors);
+    el.style.animationDuration = (2 + Math.random() * 2) + 's';
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 4500);
+  }
+}
+
+// ── Progress store (localStorage) ──────────────────────────────────────
+const PROGRESS_KEY = 'bokstavsresan_progress';
+const defaultProgress = { letters_mastered: [], streak: 0, total_correct: 0, total_attempts: 0, stars: 0, level: 1 };
+
+function loadProgress() {
+  try { return { ...defaultProgress, ...JSON.parse(localStorage.getItem(PROGRESS_KEY)) }; } catch { return { ...defaultProgress }; }
+}
+function saveProgress(p) { localStorage.setItem(PROGRESS_KEY, JSON.stringify(p)); }
+
+// ── App ────────────────────────────────────────────────────────────────
+const app = {
+  progress: loadProgress(),
+  mode: 'menu',
+  targetLetter: null,
+  currentWord: null,
+  wordIdx: 0,
+
+  init() {
+    this.updateStats();
+    this.updateProgressSummary();
+    this.bindEvents();
+    this.showPage('menu');
+
+    // Welcome modal on first visit
+    if (!localStorage.getItem('bokstavsresan_visited')) {
+      localStorage.setItem('bokstavsresan_visited', '1');
+      $('#welcome-modal').classList.remove('hidden');
+    }
+
+    // Register service worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./service-worker.js').catch(() => {});
+    }
+  },
+
+  bindEvents() {
+    document.addEventListener('click', e => {
+      const btn = e.target.closest('[data-action]');
+      if (btn) return this.handleAction(btn.dataset.action, btn);
+
+      const modeBtn = e.target.closest('[data-mode]');
+      if (modeBtn) return this.startMode(modeBtn.dataset.mode);
+
+      const letterBtn = e.target.closest('.letter-btn');
+      if (letterBtn) return this.handleLetterClick(letterBtn);
     });
+
+    // Resume audio on first tap
+    document.addEventListener('pointerdown', () => {
+      const ctx = getAudioCtx();
+      if (ctx && ctx.state === 'suspended') ctx.resume();
+    }, { once: true });
+  },
+
+  handleAction(action) {
+    switch (action) {
+      case 'back':         return this.showPage('menu');
+      case 'replay-find':  return this.targetLetter && speak(LETTER_PHONETICS[this.targetLetter]);
+      case 'next-find':    return this.startFindRound();
+      case 'sound-current':return this.soundCurrentLetter();
+      case 'next-sound':   return this.nextSound();
+      case 'new-word':     return this.startSoundoutRound();
+    }
+    // Modal buttons
+    if (action === undefined) {
+      const t = event?.target;
+      if (t?.id === 'welcome-start') $('#welcome-modal').classList.add('hidden');
+      if (t?.id === 'levelup-ok')    $('#levelup-modal').classList.add('hidden');
+    }
+  },
+
+  // ── Pages ──
+  showPage(name) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    const page = $(`#page-${name}`);
+    if (page) { page.classList.add('active'); this.mode = name; }
+    this.updateProgressSummary();
+  },
+
+  startMode(mode) {
+    this.showPage(mode);
+    if (mode === 'explore') this.buildExploreGrid();
+    if (mode === 'find')    { this.buildFindGrid(); this.startFindRound(); }
+    if (mode === 'soundout') this.startSoundoutRound();
+  },
+
+  // ── Explore ──
+  buildExploreGrid() {
+    const grid = $('#explore-grid');
+    grid.innerHTML = '';
+    LETTERS.forEach(letter => {
+      const btn = document.createElement('button');
+      btn.className = 'letter-btn';
+      btn.textContent = letter;
+      btn.dataset.letter = letter;
+      grid.appendChild(btn);
+    });
+    $('#explore-feedback').textContent = '';
+    $('#explore-feedback').className = 'feedback';
+  },
+
+  handleLetterClick(btn) {
+    const letter = btn.dataset.letter;
+    if (this.mode === 'explore') this.onExploreLetter(letter, btn);
+    else if (this.mode === 'find') this.onFindLetter(letter, btn);
+  },
+
+  onExploreLetter(letter, btn) {
+    const name = LETTER_PHONETICS[letter];
+    const sound = LETTER_SOUNDS[letter];
+    const fb = $('#explore-feedback');
+    fb.textContent = `${letter} — Namn: "${name}", Ljud: "${sound}"`;
+    fb.className = 'feedback success';
+
+    speak(`${letter}. ${name}. ${sound}.`);
+    btn.classList.add('correct');
+    setTimeout(() => btn.classList.remove('correct'), 500);
+
+    this.recordCorrect(letter);
+    playSuccess();
+  },
+
+  // ── Find the Letter ──
+  buildFindGrid() {
+    $('#find-grid').innerHTML = '';
+    $('#find-feedback').textContent = '';
+    $('#find-feedback').className = 'feedback';
+    $('#find-next').classList.add('hidden');
+  },
+
+  startFindRound() {
+    this.buildFindGrid();
+    this.targetLetter = pick(LETTERS);
+
+    const choices = shuffle([this.targetLetter, ...shuffle(LETTERS.filter(l => l !== this.targetLetter)).slice(0, 5)]);
+    const grid = $('#find-grid');
+    choices.forEach(letter => {
+      const btn = document.createElement('button');
+      btn.className = 'letter-btn';
+      btn.textContent = letter;
+      btn.dataset.letter = letter;
+      grid.appendChild(btn);
+    });
+
+    const phonetic = LETTER_PHONETICS[this.targetLetter];
+    $('#find-title').textContent = `🎯 Vilken bokstav säger "${phonetic}"?`;
+    setTimeout(() => speak(phonetic), 600);
+  },
+
+  onFindLetter(letter, btn) {
+    const fb = $('#find-feedback');
+    if (letter === this.targetLetter) {
+      fb.textContent = pick(ENCOURAGEMENTS);
+      fb.className = 'feedback success';
+      btn.classList.add('correct');
+      this.recordCorrect(letter);
+      playSuccess();
+      $('#find-next').classList.remove('hidden');
+      setTimeout(() => speak(pick(['Rätt!', 'Ja!', 'Bra!'])), 200);
+    } else {
+      fb.textContent = pick(TRY_AGAIN);
+      fb.className = 'feedback error';
+      btn.classList.add('wrong');
+      setTimeout(() => btn.classList.remove('wrong'), 800);
+      this.recordWrong();
+      playError();
+    }
+  },
+
+  // ── Sound Out Words ──
+  startSoundoutRound() {
+    const lvl = this.progress.level;
+    let words = WORDS_EASY;
+    if (lvl >= 2) words = [...WORDS_EASY, ...WORDS_MEDIUM];
+    if (lvl >= 3) words = [...WORDS_EASY, ...WORDS_MEDIUM, ...WORDS_HARD];
+
+    const [word, hint] = pick(words);
+    this.currentWord = word;
+    this.wordIdx = 0;
+
+    $('#word-hint').textContent = `(${hint})`;
+    $('#soundout-feedback').textContent = '';
+    $('#soundout-feedback').className = 'feedback';
+    this.renderWord();
+
+    setTimeout(() => speak(word), 300);
+  },
+
+  renderWord() {
+    const container = $('#word-display');
+    container.innerHTML = '';
+    for (let i = 0; i < this.currentWord.length; i++) {
+      const span = document.createElement('span');
+      span.className = 'word-letter';
+      span.textContent = this.currentWord[i];
+      if (i < this.wordIdx) span.classList.add('done');
+      else if (i === this.wordIdx) span.classList.add('active');
+      container.appendChild(span);
+    }
+  },
+
+  soundCurrentLetter() {
+    if (!this.currentWord || this.wordIdx >= this.currentWord.length) return;
+    const letter = this.currentWord[this.wordIdx];
+    const sound = LETTER_SOUNDS[letter] || letter;
+    speak(sound);
+    const fb = $('#soundout-feedback');
+    fb.textContent = `"${letter}" låter som "${sound}"`;
+    fb.className = 'feedback';
+  },
+
+  nextSound() {
+    if (!this.currentWord || this.wordIdx >= this.currentWord.length) return;
+
+    const letter = this.currentWord[this.wordIdx];
+    this.recordCorrect(letter);
+    this.wordIdx++;
+    this.renderWord();
+
+    const fb = $('#soundout-feedback');
+
+    if (this.wordIdx >= this.currentWord.length) {
+      // Word complete
+      fb.textContent = `${pick(ENCOURAGEMENTS)}\nDu ljudade "${this.currentWord}"! 🎉`;
+      fb.className = 'feedback success';
+      playSuccess();
+      confetti();
+      setTimeout(() => speak('Fantastiskt! Du klarade det!'), 200);
+
+      // Level up every 20 correct
+      if (this.progress.total_correct > 0 && this.progress.total_correct % 20 === 0 && this.progress.level < 3) {
+        this.progress.level++;
+        saveProgress(this.progress);
+        this.showLevelUp();
+      }
+    } else {
+      const next = this.currentWord[this.wordIdx];
+      const sound = LETTER_SOUNDS[next] || next;
+      fb.textContent = `"${next}" låter som "${sound}"`;
+      fb.className = 'feedback';
+      setTimeout(() => speak(sound), 100);
+    }
+  },
+
+  // ── Progress ──
+  recordCorrect(letter) {
+    const p = this.progress;
+    p.total_correct++;
+    p.total_attempts++;
+    p.streak++;
+    p.stars++;
+    if (!p.letters_mastered.includes(letter)) p.letters_mastered.push(letter);
+    if (p.streak % 5 === 0) { p.stars += 2; confetti(20); }
+    saveProgress(p);
+    this.updateStats();
+  },
+
+  recordWrong() {
+    this.progress.total_attempts++;
+    this.progress.streak = 0;
+    saveProgress(this.progress);
+    this.updateStats();
+  },
+
+  updateStats() {
+    const p = this.progress;
+    $('.stat.stars').textContent = `⭐ ${p.stars}`;
+    $('.stat.streak').textContent = `🔥 ${p.streak}`;
+    $('.stat.level-badge').textContent = `Nivå ${p.level}`;
+  },
+
+  updateProgressSummary() {
+    const el = $('.progress-summary');
+    if (el) {
+      const p = this.progress;
+      el.textContent = `Bokstäver bemästrade: ${p.letters_mastered.length}/29 | Totalt rätt: ${p.total_correct}`;
+    }
+  },
+
+  showLevelUp() {
+    playLevelUp();
+    confetti(60);
+    $('#levelup-text').textContent = `🎊 NIVÅ UPP! Du är nu nivå ${this.progress.level}! 🎊`;
+    $('#levelup-modal').classList.remove('hidden');
+  }
+};
+
+// ── Modal button handlers ──────────────────────────────────────────────
+document.addEventListener('click', e => {
+  if (e.target.id === 'welcome-start') $('#welcome-modal').classList.add('hidden');
+  if (e.target.id === 'levelup-ok') $('#levelup-modal').classList.add('hidden');
+});
+
+// ── Boot ───────────────────────────────────────────────────────────────
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => app.init());
 } else {
-    window.bokstavsresanApp = new BokstavsresanApp();
+  app.init();
 }

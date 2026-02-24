@@ -2,210 +2,123 @@
 <html lang="sv">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#764ba2">
     <meta name="description" content="Lär dig bokstäver och ljud genom interaktiva spel. För barn med dyslexi och språksvårigheter.">
     <meta name="keywords" content="bokstäver, ljud, barn, dyslexi, autism, dyspraxi, svenska, utbildning">
     
-    <title>Bokstavsresan - Utforska bokstäver och ljud</title>
+    <title>Bokstavsresan — Utforska bokstäver och ljud</title>
     
-    <!-- PWA Manifest -->
     <link rel="manifest" href="manifest.json">
-    
-    <!-- Icons -->
     <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
-    <link rel="icon" href="icons/icon.svg" sizes="any" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="icons/icon.svg">
-    
-    <!-- Styles -->
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
     <link rel="stylesheet" href="style.css">
-    
-    <!-- Preload critical resources -->
-    <link rel="preload" href="piper-tts.js" as="script">
-    <link rel="preload" href="app.js" as="script">
 </head>
 <body>
-    <!-- Language toggle button -->
-    <button class="lang-toggle" aria-label="Växla språk / Switch language">🇬🇧 EN</button>
-
     <div class="app-container">
         <!-- Header -->
         <header class="header">
             <div class="logo">
-                <img src="icons/icon.svg" alt="Bokstavsresan icon">
+                <img src="icons/icon.svg" alt="" width="44" height="44">
                 <h1 class="app-title">Bokstavsresan</h1>
             </div>
-            
             <div class="stats">
-                <div class="stat stars stats-stars">⭐ 0</div>
-                <div class="stat streak stats-streak">🔥 0</div>
-                <div class="stat level stats-level">Nivå 1</div>
+                <span class="stat stars">⭐ 0</span>
+                <span class="stat streak">🔥 0</span>
+                <span class="stat level-badge">Nivå 1</span>
             </div>
         </header>
 
-        <!-- Main Menu Page -->
-        <main id="menu-page" class="page active">
-            <div class="menu-page">
-                <h1 class="welcome-title" data-i18n="welcomeTitle">Välkommen till Bokstavsresan! 🎉</h1>
-                <p class="welcome-subtitle" data-i18n="welcomeSubtitle">Välj ditt äventyr! 🗺️</p>
-                
-                <div class="level-badge">
-                    <span data-i18n="level">Nivå</span> <span class="current-level">1</span>
-                </div>
-                
+        <!-- Menu Page -->
+        <main id="page-menu" class="page active">
+            <div class="menu-content">
+                <h2 class="welcome-title">Välkommen till Bokstavsresan! 🎉</h2>
+                <p class="welcome-subtitle">Välj ditt äventyr! 🗺️</p>
+
                 <div class="mode-buttons">
                     <button class="mode-btn" data-mode="explore">
-                        <div class="mode-btn-title" data-i18n="exploreTitle">🔤 Utforska bokstäver</div>
-                        <div class="mode-btn-desc" data-i18n="exploreDesc">Tryck på bokstäver för att höra namn och ljud</div>
+                        <span class="mode-emoji">🔤</span>
+                        <span class="mode-label">Utforska bokstäver</span>
+                        <span class="mode-desc">Tryck på bokstäver för att höra namn och ljud</span>
                     </button>
-                    
                     <button class="mode-btn" data-mode="find">
-                        <div class="mode-btn-title" data-i18n="findTitle">🎯 Hitta bokstaven</div>
-                        <div class="mode-btn-desc" data-i18n="findDesc">Lyssna på ett ljud och hitta rätt bokstav</div>
+                        <span class="mode-emoji">🎯</span>
+                        <span class="mode-label">Hitta bokstaven</span>
+                        <span class="mode-desc">Lyssna på ett ljud och hitta rätt bokstav</span>
                     </button>
-                    
                     <button class="mode-btn" data-mode="soundout">
-                        <div class="mode-btn-title" data-i18n="soundoutTitle">📖 Ljuda ord</div>
-                        <div class="mode-btn-desc" data-i18n="soundoutDesc">Dela upp ord i enskilda bokstavsljud</div>
+                        <span class="mode-emoji">📖</span>
+                        <span class="mode-label">Ljuda ord</span>
+                        <span class="mode-desc">Dela upp ord i enskilda bokstavsljud</span>
                     </button>
                 </div>
-                
-                <p class="progress-summary">
-                    <span data-i18n="lettersMastered">Bokstäver bemästrade</span>: 0/29 | 
-                    <span data-i18n="totalCorrect">Totalt rätt</span>: 0
-                </p>
+
+                <p class="progress-summary"></p>
             </div>
         </main>
 
-        <!-- Explore Letters Page -->
-        <section id="explore-page" class="page">
-            <button class="back-btn" data-i18n="back">← Tillbaka</button>
-            
-            <h2 class="game-title" data-i18n="tapLetterHint">🔤 Tryck på en bokstav för att höra den!</h2>
-            
-            <div class="feedback"></div>
-            
-            <div class="letter-grid"></div>
+        <!-- Explore Page -->
+        <section id="page-explore" class="page">
+            <button class="back-btn" data-action="back">← Tillbaka</button>
+            <h2 class="game-title">🔤 Tryck på en bokstav för att höra den!</h2>
+            <div class="feedback" id="explore-feedback"></div>
+            <div class="letter-grid" id="explore-grid"></div>
         </section>
 
         <!-- Find the Letter Page -->
-        <section id="find-page" class="page">
-            <button class="back-btn" data-i18n="back">← Tillbaka</button>
-            
-            <h2 class="game-title" data-i18n="findLetterHint">🎯 Lyssna och hitta bokstaven!</h2>
-            
+        <section id="page-find" class="page">
+            <button class="back-btn" data-action="back">← Tillbaka</button>
+            <h2 class="game-title" id="find-title">🎯 Lyssna och hitta bokstaven!</h2>
             <div class="button-row">
-                <button class="action-btn" data-action="replay-find" data-i18n="playAgain">🔊 Spela igen</button>
+                <button class="action-btn" data-action="replay-find">🔊 Spela igen</button>
             </div>
-            
-            <div class="feedback"></div>
-            
-            <div class="letter-grid"></div>
-            
+            <div class="feedback" id="find-feedback"></div>
+            <div class="letter-grid" id="find-grid"></div>
             <div class="button-row">
-                <button class="action-btn primary" data-action="next-find" data-i18n="nextLetter" style="display: none;">Nästa bokstav ➡️</button>
+                <button class="action-btn primary hidden" id="find-next" data-action="next-find">Nästa bokstav ➡️</button>
             </div>
         </section>
 
         <!-- Sound Out Words Page -->
-        <section id="soundout-page" class="page">
-            <button class="back-btn" data-i18n="back">← Tillbaka</button>
-            
-            <h2 class="game-title" data-i18n="soundOutHint">📖 Ljuda ordet!</h2>
-            
-            <div class="word-container">
-                <div class="word-display"></div>
-                <div class="word-hint"></div>
-            </div>
-            
-            <div class="feedback"></div>
-            
+        <section id="page-soundout" class="page">
+            <button class="back-btn" data-action="back">← Tillbaka</button>
+            <h2 class="game-title">📖 Ljuda ordet!</h2>
+            <div class="word-display" id="word-display"></div>
+            <div class="word-hint" id="word-hint"></div>
+            <div class="feedback" id="soundout-feedback"></div>
             <div class="button-row">
-                <button class="action-btn" data-action="sound-current" data-i18n="soundLetter">🔊 Ljuda denna bokstav</button>
+                <button class="action-btn" data-action="sound-current">🔊 Ljuda denna bokstav</button>
             </div>
-            
             <div class="button-row">
-                <button class="action-btn primary" data-action="next-sound" data-i18n="nextSound">Nästa ljud ➡️</button>
-                <button class="action-btn" data-action="new-word" data-i18n="newWord">Nytt ord 🔄</button>
+                <button class="action-btn primary" data-action="next-sound">Nästa ljud ➡️</button>
+                <button class="action-btn" data-action="new-word">Nytt ord 🔄</button>
             </div>
         </section>
+
+        <!-- Welcome Modal -->
+        <div class="modal-overlay hidden" id="welcome-modal">
+            <div class="modal">
+                <h2>Välkommen till Bokstavsresan! 🎉</h2>
+                <p>Lär dig bokstäver och ljud genom roliga spel!</p>
+                <ul class="welcome-list">
+                    <li>🔤 <strong>Utforska</strong> — Tryck på bokstäver för att höra dem</li>
+                    <li>🎯 <strong>Hitta bokstaven</strong> — Lyssna och hitta rätt</li>
+                    <li>📖 <strong>Ljuda ord</strong> — Dela upp ord i ljud</li>
+                </ul>
+                <p>Du tjänar ⭐ stjärnor för varje rätt svar!<br>Håll din 🔥 streak igång för bonusstjärnor!</p>
+                <button class="action-btn primary" id="welcome-start">Börja! 🚀</button>
+            </div>
+        </div>
+
+        <!-- Level Up Overlay -->
+        <div class="modal-overlay hidden" id="levelup-modal">
+            <div class="modal levelup">
+                <div class="levelup-text" id="levelup-text"></div>
+                <button class="action-btn primary" id="levelup-ok">Toppen! 🎉</button>
+            </div>
+        </div>
     </div>
 
-    <!-- Scripts -->
-    <script src="piper-tts.js"></script>
     <script src="app.js"></script>
-    
-    <!-- Optional: Register service worker inline for better performance -->
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./service-worker.js')
-                    .then(registration => {
-                        console.log('SW registered: ', registration);
-                    })
-                    .catch(registrationError => {
-                        console.log('SW registration failed: ', registrationError);
-                    });
-            });
-        }
-        
-        // Install prompt handling
-        let deferredPrompt;
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            
-            // Show install button after 10 seconds if not installed
-            setTimeout(() => {
-                if (deferredPrompt) {
-                    const installBtn = document.createElement('button');
-                    installBtn.textContent = '📱 Installera appen';
-                    installBtn.className = 'action-btn';
-                    installBtn.style.cssText = `
-                        position: fixed;
-                        bottom: 20px;
-                        right: 20px;
-                        z-index: 1000;
-                        animation: pulse 2s infinite;
-                    `;
-                    
-                    installBtn.addEventListener('click', async () => {
-                        deferredPrompt.prompt();
-                        const { outcome } = await deferredPrompt.userChoice;
-                        console.log(`User response to install prompt: ${outcome}`);
-                        deferredPrompt = null;
-                        installBtn.remove();
-                    });
-                    
-                    document.body.appendChild(installBtn);
-                }
-            }, 10000);
-        });
-
-        window.addEventListener('appinstalled', (evt) => {
-            console.log('App was installed');
-        });
-    </script>
-    
-    <!-- Analytics (optional, privacy-friendly) -->
-    <script>
-        // Simple privacy-friendly analytics
-        if (navigator.sendBeacon && !localStorage.getItem('bokstavsresan_analytics_opt_out')) {
-            const startTime = Date.now();
-            
-            window.addEventListener('beforeunload', () => {
-                const sessionTime = Date.now() - startTime;
-                const data = JSON.stringify({
-                    sessionTime,
-                    userAgent: navigator.userAgent.substring(0, 100), // Truncated for privacy
-                    referrer: document.referrer.substring(0, 100),
-                    timestamp: new Date().toISOString()
-                });
-                
-                // Send to a privacy-friendly analytics endpoint if needed
-                // navigator.sendBeacon('/analytics', data);
-            });
-        }
-    </script>
 </body>
 </html>
