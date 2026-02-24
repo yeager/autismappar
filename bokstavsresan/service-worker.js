@@ -1,4 +1,4 @@
-const CACHE_NAME = 'bokstavsresan-v3.0.0';
+const CACHE_NAME = 'bokstavsresan-v3.1.0';
 const CACHE_URLS = [
   './',
   './index.html',

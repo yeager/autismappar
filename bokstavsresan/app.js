@@ -55,19 +55,74 @@ const $ = s => document.querySelector(s);
 const pick = a => a[Math.floor(Math.random() * a.length)];
 const shuffle = a => { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
 
-// ── TTS via Web Speech API ─────────────────────────────────────────────
-let svVoice = null;
+// ── TTS via Piper WASM (primary) with Web Speech API fallback ──────────
+const PIPER_VOICE_ID = 'sv_SE-nst-medium';
+let piperTTS = null;       // module reference once loaded
+let piperReady = false;
+let piperFailed = false;
+let piperLoading = false;
+let speakQueue = [];       // queue speech while loading
 
-function loadVoices() {
-  const voices = speechSynthesis.getVoices();
-  svVoice = voices.find(v => v.lang.startsWith('sv')) || null;
+// Loading indicator
+function showTTSLoading(show) {
+  let el = document.getElementById('tts-loading');
+  if (!el && show) {
+    el = document.createElement('div');
+    el.id = 'tts-loading';
+    el.style.cssText = 'position:fixed;top:0;left:0;right:0;z-index:9999;background:#764ba2;color:#fff;text-align:center;padding:10px;font-size:14px;';
+    el.innerHTML = '🔊 Laddar röstmodell… <span id="tts-loading-pct"></span>';
+    document.body.prepend(el);
+  }
+  if (el && !show) el.remove();
 }
-if ('speechSynthesis' in window) {
+
+function updateTTSProgress(progress) {
+  const pctEl = document.getElementById('tts-loading-pct');
+  if (pctEl && progress.total) {
+    pctEl.textContent = Math.round(progress.loaded * 100 / progress.total) + '%';
+  }
+}
+
+async function initPiper() {
+  if (piperReady || piperFailed || piperLoading) return;
+  piperLoading = true;
+  try {
+    piperTTS = await import('https://cdn.jsdelivr.net/npm/@mintplex-labs/piper-tts-web@1.0.4/+esm');
+    // Pre-download model with progress indicator
+    const stored = await piperTTS.stored();
+    if (!stored.includes(PIPER_VOICE_ID)) {
+      showTTSLoading(true);
+      await piperTTS.download(PIPER_VOICE_ID, updateTTSProgress);
+      showTTSLoading(false);
+    }
+    piperReady = true;
+    piperLoading = false;
+    // Flush queued speech
+    for (const text of speakQueue) speak(text);
+    speakQueue = [];
+  } catch (err) {
+    console.warn('Piper TTS init failed, falling back to Web Speech API:', err);
+    piperFailed = true;
+    piperLoading = false;
+    showTTSLoading(false);
+    initWebSpeechFallback();
+    for (const text of speakQueue) speak(text);
+    speakQueue = [];
+  }
+}
+
+// Web Speech API fallback
+let svVoice = null;
+function initWebSpeechFallback() {
+  if (!('speechSynthesis' in window)) return;
+  const loadVoices = () => {
+    svVoice = speechSynthesis.getVoices().find(v => v.lang.startsWith('sv')) || null;
+  };
   loadVoices();
   speechSynthesis.onvoiceschanged = loadVoices;
 }
 
-function speak(text) {
+function speakWebSpeech(text) {
   if (!('speechSynthesis' in window)) return;
   speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(text);
@@ -78,6 +133,35 @@ function speak(text) {
   if (svVoice) u.voice = svVoice;
   speechSynthesis.speak(u);
 }
+
+let currentAudio = null;
+
+async function speakPiper(text) {
+  try {
+    if (currentAudio) { currentAudio.pause(); currentAudio = null; }
+    const wav = await piperTTS.predict({
+      text: text,
+      voiceId: PIPER_VOICE_ID,
+    });
+    const audio = new Audio();
+    audio.src = URL.createObjectURL(wav);
+    currentAudio = audio;
+    audio.play();
+  } catch (err) {
+    console.warn('Piper speak error, using fallback:', err);
+    speakWebSpeech(text);
+  }
+}
+
+function speak(text) {
+  if (piperReady) return speakPiper(text);
+  if (piperFailed) return speakWebSpeech(text);
+  // Still loading — queue it
+  speakQueue.push(text);
+}
+
+// Start loading Piper immediately
+initPiper();
 
 // ── Sound effects (Web Audio) ──────────────────────────────────────────
 let audioCtx = null;
