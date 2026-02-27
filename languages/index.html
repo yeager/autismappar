@@ -1,153 +1,176 @@
 <!DOCTYPE html>
 <html lang="sv">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Translation Hall of Fame - Autismappar</title>
-    <meta name="description" content="Live translation progress for Autismappar's multilingual accessibility apps">
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" href="../images/favicon.png">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7136584968766500" crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Översättningar — Autismappar</title>
+<meta name="description" content="Help translate Autismappar's free accessibility apps into your language.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+<style>
+.lang-table{width:100%;border-collapse:collapse;margin:24px 0;}
+.lang-table th,.lang-table td{text-align:left;padding:12px 16px;border-bottom:1px solid var(--border);}
+.lang-table th{font-size:0.75rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);font-weight:700;}
+.lang-table tr:hover{background:var(--blue-light);}
+.lang-flag{font-size:1.4rem;margin-right:8px;vertical-align:middle;}
+.progress-bar{background:var(--border);border-radius:50px;height:12px;overflow:hidden;min-width:120px;display:inline-block;width:120px;vertical-align:middle;}
+.progress-fill{height:100%;border-radius:50px;transition:width 0.5s;}
+.fill-100{background:var(--green);}
+.fill-mid{background:var(--blue);}
+.fill-low{background:var(--orange);}
+.fill-zero{background:var(--border);}
+.pct{font-weight:700;font-size:0.9rem;min-width:48px;display:inline-block;}
+.steps-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:20px;margin-top:24px;}
+.step-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:28px;text-align:center;}
+.step-card .step-num{font-size:2rem;margin-bottom:8px;display:block;}
+.step-card h3{font-size:1rem;font-weight:700;margin-bottom:6px;}
+.step-card p{color:var(--muted);font-size:0.85rem;line-height:1.6;}
+.cta-box{background:linear-gradient(135deg,#1e3a5f 0%,#2563eb 100%);color:#fff;border-radius:var(--radius);padding:40px;text-align:center;margin:32px 0;}
+.cta-box h3{font-size:1.4rem;font-weight:800;margin-bottom:8px;}
+.cta-box p{opacity:0.9;margin-bottom:20px;font-size:1rem;}
+.cta-btn{display:inline-block;background:#fff;color:var(--blue);font-weight:700;padding:14px 32px;border-radius:50px;font-size:0.95rem;transition:all 0.2s;}
+.cta-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.2);text-decoration:none;}
+.updated{font-size:0.75rem;color:var(--muted);text-align:right;margin-top:8px;}
+</style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <nav class="navbar">
-                <a href="../index.html" class="logo">
-                    <img src="../images/logo.png" alt="Autismappar" height="40">
-                </a>
-                <ul class="nav-links">
-                    <li><a href="../index.html">Hem</a></li>
-                    <li><a href="../om.html">Om oss</a></li>
-                    <li><a href="../foreningen.html">Föreningen</a></li>
-                    <li><a href="index.html" class="active">Översättningar</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+<div class="lang-switch" role="group" aria-label="Språkval">
+<button onclick="setLang('sv')" id="btn-sv" class="active" aria-label="Svenska">🇸🇪 Sv</button>
+<button onclick="setLang('en')" id="btn-en" aria-label="English">🇬🇧 En</button>
+</div>
+<nav class="site-nav" role="navigation" aria-label="Huvudnavigation">
+<div class="nav-inner">
+<a href="../index.html" class="nav-logo">🧩 Autismappar</a>
+<div class="nav-links">
+<a href="../index.html"><span data-sv="Hem" data-en="Home">Hem</span></a>
+<a href="../om.html"><span data-sv="Om projektet" data-en="About">Om projektet</span></a>
+<a href="../dataskydd.html"><span data-sv="Dataskydd" data-en="Privacy">Dataskydd</span></a>
+<a href="index.html" class="active"><span data-sv="Översättningar" data-en="Translations">Översättningar</span></a>
+</div>
+</div>
+</nav>
 
-    <main>
-        <div class="hero">
-            <div class="container">
-                <h1>🌍 Translation Hall of Fame</h1>
-                <p class="subtitle">Autismappar.se går global! Hjälp oss översätta våra appar till fler språk.</p>
-                <div class="stats-overview">
-                    <div class="stat-card">
-                        <div class="stat-number" id="total-languages">11</div>
-                        <div class="stat-label">Målspråk</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number" id="total-projects">89</div>
-                        <div class="stat-label">Projekt</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number" id="total-strings">0</div>
-                        <div class="stat-label">Totalt antal strängar</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number" id="completed-languages">0</div>
-                        <div class="stat-label">Färdiga språk (100%)</div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<header class="hero">
+<div class="hero-inner">
+<span class="hero-emoji" role="img" aria-label="globe">🌍</span>
+<h1 data-sv="Hjälp oss nå fler familjer" data-en="Help us reach more families">Hjälp oss nå fler familjer</h1>
+<p class="subtitle" data-sv="Autismappars 37 appar finns idag på svenska och engelska. Vi vill göra dem tillgängliga på fler språk — och vi behöver din hjälp." data-en="Autismappar's 37 apps are currently available in Swedish and English. We want to make them accessible in more languages — and we need your help.">Autismappars 37 appar finns idag på svenska och engelska. Vi vill göra dem tillgängliga på fler språk — och vi behöver din hjälp.</p>
+</div>
+</header>
 
-        <section class="world-map-section">
-            <div class="container">
-                <h2>🗺️ Världskarta - Översättningsstatus</h2>
-                <p>Länder "lyser upp" när språket når 100% översättning!</p>
-                <div class="map-container" id="world-map">
-                    <!-- SVG World Map will be inserted here -->
-                </div>
-                <div class="map-legend">
-                    <div class="legend-item">
-                        <div class="legend-color incomplete"></div>
-                        <span>Pågående översättning</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-color complete"></div>
-                        <span>100% färdig!</span>
-                    </div>
-                </div>
-            </div>
-        </section>
+<div class="stats-bar">
+<div class="stats-grid">
+<div><div class="stat-number">37</div><div class="stat-label" data-sv="appar" data-en="apps">appar</div></div>
+<div><div class="stat-number">2 810</div><div class="stat-label" data-sv="översättningsbara strängar" data-en="translatable strings">översättningsbara strängar</div></div>
+<div><div class="stat-number">2</div><div class="stat-label" data-sv="färdiga språk" data-en="completed languages">färdiga språk</div></div>
+<div><div class="stat-number">13</div><div class="stat-label" data-sv="språk som behöver hjälp" data-en="languages needing help">språk som behöver hjälp</div></div>
+</div>
+</div>
 
-        <section class="progress-section">
-            <div class="container">
-                <h2>📊 Översättningsstatus per språk</h2>
-                <div class="languages-grid" id="languages-grid">
-                    <!-- Language progress bars will be inserted here -->
-                </div>
-            </div>
-        </section>
+<section class="section">
+<div class="section-header">
+<span class="section-tag tag-blue" data-sv="Aktuell status" data-en="Current status">Aktuell status</span>
+<h2 class="section-title" data-sv="Översättningsstatus per språk" data-en="Translation status by language">Översättningsstatus per språk</h2>
+<p class="section-sub" data-sv="Verklig statistik direkt från Transifex. Uppdaterad 27 februari 2026." data-en="Real statistics from Transifex. Updated 27 February 2026.">Verklig statistik direkt från Transifex. Uppdaterad 27 februari 2026.</p>
+</div>
 
-        <section class="badges-section">
-            <div class="container">
-                <h2>🏆 Milstolpar & Utmärkelser</h2>
-                <div class="badges-container" id="badges-container">
-                    <!-- Achievement badges will be inserted here -->
-                </div>
-            </div>
-        </section>
+<table class="lang-table">
+<thead>
+<tr>
+<th data-sv="Språk" data-en="Language">Språk</th>
+<th data-sv="Framsteg" data-en="Progress">Framsteg</th>
+<th data-sv="Strängar" data-en="Strings">Strängar</th>
+</tr>
+</thead>
+<tbody>
+<tr><td><span class="lang-flag">🇸🇪</span> Svenska</td><td><span class="pct">100%</span> <div class="progress-bar"><div class="progress-fill fill-100" style="width:100%"></div></div></td><td>2 810 / 2 810</td></tr>
+<tr><td><span class="lang-flag">🇬🇧</span> English</td><td><span class="pct">100%</span> <div class="progress-bar"><div class="progress-fill fill-100" style="width:100%"></div></div></td><td>2 810 / 2 810</td></tr>
+<tr><td><span class="lang-flag">🇩🇰</span> Dansk</td><td><span class="pct">0%</span> <div class="progress-bar"><div class="progress-fill fill-zero" style="width:0%"></div></div></td><td>0 / 2 083</td></tr>
+<tr><td><span class="lang-flag">🇳🇴</span> Norsk bokmål</td><td><span class="pct">0%</span> <div class="progress-bar"><div class="progress-fill fill-zero" style="width:0%"></div></div></td><td>0 / 2 083</td></tr>
+<tr><td><span class="lang-flag">🇫🇮</span> Suomi</td><td><span class="pct">0%</span> <div class="progress-bar"><div class="progress-fill fill-zero" style="width:0%"></div></div></td><td>0 / 2 083</td></tr>
+<tr><td><span class="lang-flag">🇩🇪</span> Deutsch</td><td><span class="pct">0%</span> <div class="progress-bar"><div class="progress-fill fill-zero" style="width:0%"></div></div></td><td>0 / 2 518</td></tr>
+<tr><td><span class="lang-flag">🇫🇷</span> Français</td><td><span class="pct">0%</span> <div class="progress-bar"><div class="progress-fill fill-zero" style="width:0%"></div></div></td><td>0 / 2 518</td></tr>
+<tr><td><span class="lang-flag">🇪🇸</span> Español</td><td><span class="pct">0%</span> <div class="progress-bar"><div class="progress-fill fill-zero" style="width:0%"></div></div></td><td>0 / 2 518</td></tr>
+<tr><td><span class="lang-flag">🇳🇱</span> Nederlands</td><td><span class="pct">0%</span> <div class="progress-bar"><div class="progress-fill fill-zero" style="width:0%"></div></div></td><td>0 / 2 476</td></tr>
+<tr><td><span class="lang-flag">🇮🇹</span> Italiano</td><td><span class="pct">0%</span> <div class="progress-bar"><div class="progress-fill fill-zero" style="width:0%"></div></div></td><td>0 / 2 518</td></tr>
+<tr><td><span class="lang-flag">🇵🇱</span> Polski</td><td><span class="pct">0%</span> <div class="progress-bar"><div class="progress-fill fill-zero" style="width:0%"></div></div></td><td>0 / 2 083</td></tr>
+<tr><td><span class="lang-flag">🇧🇷</span> Português (Brasil)</td><td><span class="pct">0%</span> <div class="progress-bar"><div class="progress-fill fill-zero" style="width:0%"></div></div></td><td>0 / 2 518</td></tr>
+<tr><td><span class="lang-flag">🇯🇵</span> 日本語</td><td><span class="pct">0%</span> <div class="progress-bar"><div class="progress-fill fill-zero" style="width:0%"></div></div></td><td>0 / 489</td></tr>
+<tr><td><span class="lang-flag">🇰🇷</span> 한국어</td><td><span class="pct">0%</span> <div class="progress-bar"><div class="progress-fill fill-zero" style="width:0%"></div></div></td><td>0 / 489</td></tr>
+<tr><td><span class="lang-flag">🇨🇳</span> 中文 (简体)</td><td><span class="pct">0%</span> <div class="progress-bar"><div class="progress-fill fill-zero" style="width:0%"></div></div></td><td>0 / 226</td></tr>
+</tbody>
+</table>
+<p class="updated" data-sv="Statistiken visar antal översatta strängar summerat över alla 37 appar. Varje språk är inte aktiverat i alla appar, därav variationen i totalt antal." data-en="Statistics show translated strings summed across all 37 apps. Not every language is enabled in every app, hence the variation in totals.">Statistiken visar antal översatta strängar summerat över alla 37 appar. Varje språk är inte aktiverat i alla appar, därav variationen i totalt antal.</p>
+</section>
 
-        <section class="contribute-section">
-            <div class="container">
-                <h2>🤝 Bidra till översättningarna!</h2>
-                <div class="contribute-grid">
-                    <div class="contribute-card">
-                        <h3>📝 Gå med som översättare</h3>
-                        <p>Hjälp oss översätta Autismappars appar till ditt språk. Varje bidrag gör skillnad!</p>
-                        <a href="https://www.transifex.com/danielnylander/" class="btn-primary" target="_blank" rel="noopener">
-                            Översätt på Transifex
-                        </a>
-                    </div>
-                    <div class="contribute-card">
-                        <h3>🐛 Rapportera fel</h3>
-                        <p>Hittat ett översättningsfel eller förbättringsförslag? Vi uppskattar din feedback!</p>
-                        <a href="mailto:daniel@autismappar.se" class="btn-secondary">
-                            Kontakta oss
-                        </a>
-                    </div>
-                    <div class="contribute-card">
-                        <h3>💜 Stöd projektet</h3>
-                        <p>Hjälp oss utveckla och underhålla våra kostnadsfria appar för autismspektrumet.</p>
-                        <a href="../foreningen.html" class="btn-secondary">
-                            Bli medlem
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
+<section class="section" style="background:#fff;padding:64px 0;">
+<div style="max-width:1100px;margin:0 auto;padding:0 24px;">
+<div class="section-header">
+<span class="section-tag tag-green" data-sv="Bli översättare" data-en="Become a translator">Bli översättare</span>
+<h2 class="section-title" data-sv="Så kan du hjälpa till" data-en="How you can help">Så kan du hjälpa till</h2>
+<p class="section-sub" data-sv="Du behöver inga tekniska kunskaper — bara ditt språk och lite tid. Varje översatt mening hjälper ett barn." data-en="You don't need any technical skills — just your language and a bit of time. Every translated sentence helps a child.">Du behöver inga tekniska kunskaper — bara ditt språk och lite tid. Varje översatt mening hjälper ett barn.</p>
+</div>
 
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>Autismappar</h4>
-                    <p>Kostnadsfria appar för personer med autism och andra neuropsykiatriska diagnoser.</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Länkar</h4>
-                    <ul>
-                        <li><a href="../index.html">Startsida</a></li>
-                        <li><a href="../om.html">Om oss</a></li>
-                        <li><a href="../foreningen.html">Föreningen</a></li>
-                        <li><a href="index.html">Översättningar</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Kontakt</h4>
-                    <p>📧 daniel@autismappar.se</p>
-                    <p>🐛 <a href="https://github.com/autismappar" target="_blank" rel="noopener">GitHub</a></p>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 Autismappar. Senast uppdaterad: <span id="last-updated"></span></p>
-            </div>
-        </div>
-    </footer>
+<div class="steps-grid">
+<div class="step-card">
+<span class="step-num">1️⃣</span>
+<h3 data-sv="Skapa ett konto" data-en="Create an account">Skapa ett konto</h3>
+<p data-sv="Gå till Transifex och skapa ett gratis konto. Det tar under en minut." data-en="Go to Transifex and create a free account. It takes less than a minute.">Gå till Transifex och skapa ett gratis konto. Det tar under en minut.</p>
+</div>
+<div class="step-card">
+<span class="step-num">2️⃣</span>
+<h3 data-sv="Gå med i projektet" data-en="Join the project">Gå med i projektet</h3>
+<p data-sv="Sök efter 'danielnylander' på Transifex och begär att gå med. Vi godkänner snabbt!" data-en="Search for 'danielnylander' on Transifex and request to join. We approve quickly!">Sök efter "danielnylander" på Transifex och begär att gå med. Vi godkänner snabbt!</p>
+</div>
+<div class="step-card">
+<span class="step-num">3️⃣</span>
+<h3 data-sv="Välj ditt språk" data-en="Pick your language">Välj ditt språk</h3>
+<p data-sv="Välj det språk du vill översätta till. Du ser direkt vilka strängar som saknas." data-en="Choose the language you want to translate to. You'll see right away which strings are missing.">Välj det språk du vill översätta till. Du ser direkt vilka strängar som saknas.</p>
+</div>
+<div class="step-card">
+<span class="step-num">4️⃣</span>
+<h3 data-sv="Börja översätta!" data-en="Start translating!">Börja översätta!</h3>
+<p data-sv="Översätt i din egen takt. Varje sträng du gör gör apparna tillgängliga för fler familjer." data-en="Translate at your own pace. Every string you do makes the apps accessible to more families.">Översätt i din egen takt. Varje sträng du gör gör apparna tillgängliga för fler familjer.</p>
+</div>
+</div>
 
-    <script src="app.js"></script>
+<div class="cta-box">
+<h3 data-sv="Redo att göra skillnad?" data-en="Ready to make a difference?">Redo att göra skillnad?</h3>
+<p data-sv="Dessa appar hjälper barn med autism, språkstörning och ADHD i sin vardag. Genom att översätta gör du dem tillgängliga för familjer i hela världen." data-en="These apps help children with autism, language disorder and ADHD in their daily lives. By translating, you make them accessible to families around the world.">Dessa appar hjälper barn med autism, språkstörning och ADHD i sin vardag. Genom att översätta gör du dem tillgängliga för familjer i hela världen.</p>
+<a href="https://www.transifex.com/danielnylander/" class="cta-btn" target="_blank" rel="noopener" data-sv="Börja översätta på Transifex →" data-en="Start translating on Transifex →">Börja översätta på Transifex →</a>
+</div>
+</div>
+</section>
+
+<section class="section">
+<div class="section-header">
+<span class="section-tag tag-purple" data-sv="Vanliga frågor" data-en="FAQ">Vanliga frågor</span>
+<h2 class="section-title" data-sv="Frågor och svar" data-en="Questions and answers">Frågor och svar</h2>
+</div>
+<div class="content" style="padding-top:0;">
+<h3 data-sv="Varför är nästan allt på 0%?" data-en="Why is almost everything at 0%?">Varför är nästan allt på 0%?</h3>
+<p data-sv="Vi har precis börjat! Apparna utvecklades först på svenska, sedan lades engelska till. Nu har vi lagt upp alla strängar på Transifex och väntar på översättare. Det är därför vi behöver dig." data-en="We just got started! The apps were first developed in Swedish, then English was added. Now we've uploaded all strings to Transifex and are waiting for translators. That's why we need you.">Vi har precis börjat! Apparna utvecklades först på svenska, sedan lades engelska till. Nu har vi lagt upp alla strängar på Transifex och väntar på översättare. Det är därför vi behöver dig.</p>
+
+<h3 data-sv="Behöver jag kunna programmera?" data-en="Do I need to know programming?">Behöver jag kunna programmera?</h3>
+<p data-sv="Nej! Transifex har ett enkelt webbgränssnitt. Du ser originaltexten och skriver din översättning. Det är allt." data-en="No! Transifex has a simple web interface. You see the original text and type your translation. That's it.">Nej! Transifex har ett enkelt webbgränssnitt. Du ser originaltexten och skriver din översättning. Det är allt.</p>
+
+<h3 data-sv="Kan jag översätta till ett språk som inte finns i listan?" data-en="Can I translate into a language not on the list?">Kan jag översätta till ett språk som inte finns i listan?</h3>
+<p data-sv="Absolut! Kontakta oss så lägger vi till ditt språk. Ju fler språk, desto fler familjer kan vi nå." data-en="Absolutely! Contact us and we'll add your language. The more languages, the more families we can reach.">Absolut! Kontakta oss så lägger vi till ditt språk. Ju fler språk, desto fler familjer kan vi nå.</p>
+</div>
+</section>
+
+<footer class="site-footer">
+<ul class="footer-links">
+<li><a href="../index.html" data-sv="Hem" data-en="Home">Hem</a></li>
+<li><a href="../om.html" data-sv="Om projektet" data-en="About">Om projektet</a></li>
+<li><a href="../dataskydd.html" data-sv="Dataskydd" data-en="Privacy">Dataskydd</a></li>
+<li><a href="https://github.com/yeager/" target="_blank">GitHub</a></li>
+<li><a href="https://www.transifex.com/danielnylander/" target="_blank">Transifex</a></li>
+</ul>
+<p style="font-size:0.8rem;">&copy; 2025 Daniel Nylander — <span data-sv="Alla appar är gratis och öppen källkod" data-en="All apps are free and open source">Alla appar är gratis och öppen källkod</span></p>
+</footer>
+
+<script src="../lang.js"></script>
 </body>
 </html>

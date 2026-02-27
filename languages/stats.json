@@ -1,16 +1,107 @@
 {
-  "lastUpdated": "2024-02-23T07:54:40Z",
+  "lastUpdated": "2026-02-27T15:56:00Z",
+  "projectCount": 37,
+  "totalStrings": 2810,
   "languages": {
-    "sv": {"total": 8945, "translated": 8945, "percentage": 100},
-    "da": {"total": 8945, "translated": 7156, "percentage": 80},
-    "de": {"total": 8945, "translated": 6401, "percentage": 72},
-    "es": {"total": 8945, "translated": 4472, "percentage": 50},
-    "fi": {"total": 8945, "translated": 6709, "percentage": 75},
-    "fr": {"total": 8945, "translated": 5367, "percentage": 60},
-    "it": {"total": 8945, "translated": 3578, "percentage": 40},
-    "nb_NO": {"total": 8945, "translated": 8945, "percentage": 100},
-    "nl": {"total": 8945, "translated": 2684, "percentage": 30},
-    "pl": {"total": 8945, "translated": 1789, "percentage": 20},
-    "pt_BR": {"total": 8945, "translated": 895, "percentage": 10}
+    "ar": {
+      "total": 54,
+      "translated": 0,
+      "percentage": 0.0
+    },
+    "da": {
+      "total": 2083,
+      "translated": 0,
+      "percentage": 0.0
+    },
+    "de": {
+      "total": 2518,
+      "translated": 0,
+      "percentage": 0.0
+    },
+    "el": {
+      "total": 54,
+      "translated": 0,
+      "percentage": 0.0
+    },
+    "en": {
+      "total": 2810,
+      "translated": 2810,
+      "percentage": 100.0
+    },
+    "en_GB": {
+      "total": 54,
+      "translated": 0,
+      "percentage": 0.0
+    },
+    "es": {
+      "total": 2518,
+      "translated": 0,
+      "percentage": 0.0
+    },
+    "fi": {
+      "total": 2083,
+      "translated": 0,
+      "percentage": 0.0
+    },
+    "fr": {
+      "total": 2518,
+      "translated": 0,
+      "percentage": 0.0
+    },
+    "he": {
+      "total": 54,
+      "translated": 0,
+      "percentage": 0.0
+    },
+    "it": {
+      "total": 2518,
+      "translated": 0,
+      "percentage": 0.0
+    },
+    "ja": {
+      "total": 489,
+      "translated": 0,
+      "percentage": 0.0
+    },
+    "ko": {
+      "total": 489,
+      "translated": 0,
+      "percentage": 0.0
+    },
+    "nb_NO": {
+      "total": 2083,
+      "translated": 0,
+      "percentage": 0.0
+    },
+    "nl": {
+      "total": 2476,
+      "translated": 0,
+      "percentage": 0.0
+    },
+    "pl": {
+      "total": 2083,
+      "translated": 0,
+      "percentage": 0.0
+    },
+    "pt_BR": {
+      "total": 2518,
+      "translated": 0,
+      "percentage": 0.0
+    },
+    "ru": {
+      "total": 54,
+      "translated": 0,
+      "percentage": 0.0
+    },
+    "sv": {
+      "total": 2810,
+      "translated": 2810,
+      "percentage": 100.0
+    },
+    "zh_CN": {
+      "total": 226,
+      "translated": 0,
+      "percentage": 0.0
+    }
   }
 }
