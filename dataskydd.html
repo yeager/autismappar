@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dataskydd — Autismappar</title>
+<meta name="description" content="Hur Autismappar hanterar data: allt stannar lokalt. Ingen spårning, inga konton.">
+<meta property="og:title" content="Dataskydd — Autismappar">
+<meta property="og:description" content="Hur Autismappar hanterar data: allt stannar lokalt. Ingen spårning, inga konton.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="sv_SE">
+<link rel="canonical" href="https://autismappar.se/dataskydd.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="lang-switch" role="group" aria-label="Språkval">
+<button onclick="setLang('sv')" id="btn-sv" class="active" aria-label="Svenska">🇸🇪 Sv</button>
+<button onclick="setLang('en')" id="btn-en" aria-label="English">🇬🇧 En</button>
+</div>
+<nav class="site-nav" role="navigation" aria-label="Huvudnavigation">
+<div class="nav-inner">
+<a href="index.html" class="nav-logo">🧩 Autismappar</a>
+<div class="nav-links"><a href="index.html"><span data-sv="Hem" data-en="Home">Hem</span></a>
+<a href="om.html"><span data-sv="Om projektet" data-en="About">Om projektet</span></a>
+<a href="dataskydd.html" class="active"><span data-sv="Dataskydd" data-en="Privacy">Dataskydd</span></a>
+<a href="blogg.html"><span data-sv="Blogg" data-en="Blog">Blogg</span></a>
+</div>
+</div></nav>
+
+<header class="hero" style="background:linear-gradient(135deg,#065f46 0%,#059669 60%,#34d399 100%);">
+<div class="hero-inner">
+<span class="hero-emoji">🔒</span>
+<h1 data-sv="Dataskydd" data-en="Privacy">Dataskydd</h1>
+<p class="subtitle" data-sv="Din data stannar på din enhet. Punkt." data-en="Your data stays on your device. Period.">Din data stannar på din enhet. Punkt.</p>
+</div>
+</header>
+
+<div class="content">
+<div class="callout" style="background:#d1fae5;border-color:#059669;"><p style="color:#065f46;" data-sv="Autismappar samlar inte in någon data. Inga konton, ingen spårning, inga annonser, inga cookies. All information stannar lokalt på din enhet." data-en="Autism Apps does not collect any data. No accounts, no tracking, no ads, no cookies. All information stays locally on your device.">Autismappar samlar inte in någon data. Inga konton, ingen spårning, inga annonser, inga cookies. All information stannar lokalt på din enhet.</p></div>
+
+<h2 data-sv="Vad är en PWA?" data-en="What is a PWA?">Vad är en PWA?</h2>
+<p data-sv="PWA (Progressive Web App) är en webbapp som installeras direkt från webbläsaren. Den laddas ner till din enhet och fungerar sedan helt offline — precis som en vanlig app. Ingen app-butik behövs och all data stannar lokalt." data-en="A PWA (Progressive Web App) is a web app installed directly from the browser. It downloads to your device and works completely offline — just like a regular app. No app store needed and all data stays local.">PWA (Progressive Web App) är en webbapp som installeras direkt från webbläsaren. Den laddas ner till din enhet och fungerar sedan helt offline — precis som en vanlig app. Ingen app-butik behövs och all data stannar lokalt.</p>
+
+<h2 data-sv="Vilken data lagras?" data-en="What data is stored?">Vilken data lagras?</h2>
+<ul>
+<li data-sv="<strong>Inställningar</strong> — språkval, teman, ljudvolym. Sparas i localStorage." data-en="<strong>Settings</strong> — language, themes, volume. Saved in localStorage."><strong>Inställningar</strong> — språkval, teman, ljudvolym. Sparas i localStorage.</li>
+<li data-sv="<strong>Sparad data</strong> — scheman, brädor, dagboksinlägg. Sparas lokalt i IndexedDB." data-en="<strong>Saved data</strong> — schedules, boards, diary entries. Saved locally in IndexedDB."><strong>Sparad data</strong> — scheman, brädor, dagboksinlägg. Sparas lokalt i IndexedDB.</li>
+<li data-sv="<strong>Appfiler</strong> — bilder, ljud, videor. Cachas lokalt av Service Worker." data-en="<strong>App files</strong> — images, sounds, videos. Cached locally by Service Worker."><strong>Appfiler</strong> — bilder, ljud, videor. Cachas lokalt av Service Worker.</li>
+</ul>
+
+<h2 data-sv="Vad vi INTE gör" data-en="What we DON'T do">Vad vi INTE gör</h2>
+<ul>
+<li>❌ <span data-sv="Ingen datainsamling — vi vet inte vem du är" data-en="No data collection — we don't know who you are">Ingen datainsamling — vi vet inte vem du är</span></li>
+<li>❌ <span data-sv="Inga konton — ingen registrering krävs" data-en="No accounts — no registration required">Inga konton — ingen registrering krävs</span></li>
+<li>❌ <span data-sv="Ingen spårning — inga analytics, inget Google, inget Facebook" data-en="No tracking — no analytics, no Google, no Facebook">Ingen spårning — inga analytics, inget Google, inget Facebook</span></li>
+<li>❌ <span data-sv="Inga annonser — aldrig" data-en="No ads — never">Inga annonser — aldrig</span></li>
+<li>❌ <span data-sv="Inga cookies" data-en="No cookies">Inga cookies</span></li>
+<li>❌ <span data-sv="Ingen data skickas från enheten" data-en="No data leaves the device">Ingen data skickas från enheten</span></li>
+</ul>
+
+<h2 data-sv="Talsyntes" data-en="Speech synthesis">Talsyntes</h2>
+<p data-sv="Apparna använder Piper TTS — en helt offline talsyntesmotor. Inga röstdata skickas till molnet." data-en="The apps use Piper TTS — a fully offline speech synthesis engine. No voice data is sent to the cloud.">Apparna använder Piper TTS — en helt offline talsyntesmotor. Inga röstdata skickas till molnet.</p>
+
+<h2 data-sv="Radera all data" data-en="Delete all data">Radera all data</h2>
+<p data-sv="All data lagras lokalt. Radera genom webbläsarens inställningar eller avinstallera appen." data-en="All data is stored locally. Delete via browser settings or uninstall the app.">All data lagras lokalt. Radera genom webbläsarens inställningar eller avinstallera appen.</p>
+
+<h2 data-sv="Öppen källkod" data-en="Open source">Öppen källkod</h2>
+<p data-sv="All kod är öppen källkod. Granska själv:" data-en="All code is open source. Verify yourself:">All kod är öppen källkod. Granska själv:</p>
+<p>🐙 <a href="https://github.com/yeager">github.com/yeager</a></p>
+
+<h2 data-sv="Kontakt" data-en="Contact">Kontakt</h2>
+<p>✉️ <a href="mailto:daniel@danielnylander.se">daniel@danielnylander.se</a></p>
+</div>
+
+<footer class="site-footer">
+<ul class="footer-links">
+<li><a href="index.html" data-sv="Hem" data-en="Home">Hem</a></li>
+<li><a href="om.html" data-sv="Om projektet" data-en="About">Om projektet</a></li>
+<li><a href="dataskydd.html" data-sv="Dataskydd" data-en="Privacy">Dataskydd</a></li>
+<li><a href="blogg.html" data-sv="Blogg" data-en="Blog">Blogg</a></li>
+<li><a href="https://github.com/yeager">GitHub</a></li>
+</ul>
+<p><a href="mailto:daniel@danielnylander.se">daniel@danielnylander.se</a></p>
+<p class="copy">© 2026 Daniel Nylander · <span data-sv="Alla appar är fria och öppen källkod" data-en="All apps are free and open source">Alla appar är fria och öppen källkod</span></p>
+</footer>
+<script src="lang.js"></script>
+</body></html>
