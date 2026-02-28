@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Sidan hittades inte</title>
+<script>
+  // SPA routing for /launcher/* paths on GitHub Pages
+  // GitHub Pages serves this 404.html for any unknown path.
+  // For /launcher/* routes, we redirect to /launcher/ and let
+  // SvelteKit's client-side router handle the route.
+  (function(){
+    var p = window.location.pathname;
+    if (p.startsWith('/launcher/') || p === '/launcher') {
+      // The launcher/index.html has the SvelteKit SPA with fallback
+      // Just need to serve it — but we can't from 404.html directly.
+      // Use the single-page-apps-for-github-pages technique:
+      // Encode the path in sessionStorage and redirect to /launcher/
+      sessionStorage.setItem('spa-redirect', p + window.location.search + window.location.hash);
+      window.location.replace('/launcher/');
+    }
+  })();
+</script>
+</head>
+<body>
+<p>Sidan hittades inte. <a href="/">Gå till startsidan</a></p>
+</body>
+</html>
