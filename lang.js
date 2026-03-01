@@ -3,6 +3,10 @@ function setLang(l){
   document.querySelectorAll('[data-sv]').forEach(function(e){e.innerHTML=e.getAttribute('data-'+l);});
   document.getElementById('btn-sv').classList.toggle('active',l==='sv');
   document.getElementById('btn-en').classList.toggle('active',l==='en');
+  // Show/hide language-specific elements
+  document.querySelectorAll('[data-lang]').forEach(function(e){
+    e.style.display = e.getAttribute('data-lang') === l ? '' : 'none';
+  });
   localStorage.setItem('lang',l);
 }
 (function(){var s=localStorage.getItem('lang');var b=navigator.language.startsWith('sv')?'sv':'en';setLang(s||b);})();
