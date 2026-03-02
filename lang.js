@@ -18,3 +18,18 @@ function filterCat(c){
     card.style.display=(c==='all'||card.dataset.cat===c)?'':'none';
   });
 }
+
+// Close hamburger menu when clicking outside or on a link
+document.addEventListener('click', function(e) {
+  var nav = document.querySelector('.nav-links');
+  var btn = document.querySelector('.nav-hamburger');
+  if (nav && nav.classList.contains('open') && !nav.contains(e.target) && e.target !== btn) {
+    nav.classList.remove('open');
+  }
+});
+document.addEventListener('click', function(e) {
+  if (e.target.closest('.nav-links a')) {
+    var nav = document.querySelector('.nav-links');
+    if (nav) nav.classList.remove('open');
+  }
+});
