@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Autismappar — Fria appar för autism, språkstörning och ADHD</title>
-<meta name="description" content="53 fria PWA-appar med bildstöd, PECS, visuella scheman och talsyntes för barn med autism, språkstörning och ADHD.">
+<meta name="description" content="66 fria PWA-appar med bildstöd, PECS, visuella scheman och talsyntes för barn med autism, språkstörning och ADHD.">
 <meta property="og:title" content="Autismappar — Fria appar för autism, språkstörning och ADHD">
-<meta property="og:description" content="53 fria PWA-appar med bildstöd, PECS, visuella scheman och talsyntes för barn med autism, språkstörning och ADHD.">
+<meta property="og:description" content="66 fria PWA-appar med bildstöd, PECS, visuella scheman och talsyntes för barn med autism, språkstörning och ADHD.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://autismappar.se/images/og-image.png">
 <meta property="og:image:width" content="1200">
@@ -22,7 +22,7 @@
   "@type": "WebSite",
   "name": "Autismappar",
   "url": "https://autismappar.se",
-  "description": "53 fria PWA-appar med bildstöd, PECS, visuella scheman och talsyntes för barn med autism, språkstörning och ADHD.",
+  "description": "66 fria PWA-appar med bildstöd, PECS, visuella scheman och talsyntes för barn med autism, språkstörning och ADHD.",
   "inLanguage": ["sv", "en"],
   "author": {
     "@type": "Person",
@@ -45,6 +45,7 @@
 <nav class="site-nav" role="navigation" aria-label="Huvudnavigation">
 <div class="nav-inner">
 <a href="index.html" class="nav-logo">🧩 Autismappar</a>
+<button class="nav-hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Meny">☰</button>
 <div class="nav-links"><a href="index.html" class="active"><span data-sv="Hem" data-en="Home">Hem</span></a>
 <a href="om.html"><span data-sv="Om projektet" data-en="About">Om projektet</span></a>
 <a href="dataskydd.html"><span data-sv="Dataskydd" data-en="Privacy">Dataskydd</span></a>
@@ -63,7 +64,7 @@
 <div class="hero-inner">
 <span class="hero-emoji" role="img" aria-label="pussel">🧩</span>
 <h1 data-sv="Fria appar för barn med autism, språkstörning och ADHD" data-en="Free apps for children with autism, language disorder and ADHD">Fria appar för barn med autism, språkstörning och ADHD</h1>
-<p class="subtitle" data-sv="53 evidensbaserade PWA-appar som fungerar offline på alla enheter. Skapade av en pappa som vet hur vardagen ser ut." data-en="53 evidence-based PWA apps that work offline on any device. Created by a dad who knows what everyday life looks like.">53 evidensbaserade PWA-appar som fungerar offline på alla enheter. Skapade av en pappa som vet hur vardagen ser ut.</p>
+<p class="subtitle" data-sv="66 evidensbaserade PWA-appar som fungerar offline på alla enheter. Skapade av en pappa som vet hur vardagen ser ut." data-en="66 evidence-based PWA apps that work offline on any device. Created by a dad who knows what everyday life looks like.">66 evidensbaserade PWA-appar som fungerar offline på alla enheter. Skapade av en pappa som vet hur vardagen ser ut.</p>
 <div class="hero-badges">
 <span class="hero-badge" data-sv="✨ 100% gratis" data-en="✨ 100% free">✨ 100% gratis</span>
 <span class="hero-badge" data-sv="📱 Fungerar offline" data-en="📱 Works offline">📱 Fungerar offline</span>
@@ -77,7 +78,7 @@
 
 <div class="stats-bar">
 <div class="stats-grid">
-<div><div class="stat-number">53</div><div class="stat-label" data-sv="appar" data-en="apps">appar</div></div>
+<div><div class="stat-number">66</div><div class="stat-label" data-sv="appar" data-en="apps">appar</div></div>
 <div><div class="stat-number">2</div><div class="stat-label" data-sv="språk" data-en="languages">språk</div></div>
 <div><div class="stat-number">1105</div><div class="stat-label" data-sv="översatta texter" data-en="translated strings">översatta texter</div></div>
 <div><div class="stat-number">100%</div><div class="stat-label" data-sv="gratis och öppen källkod" data-en="free and open source">gratis och öppen källkod</div></div>
@@ -104,7 +105,7 @@
 <div style="max-width:1100px;margin:0 auto;padding:0 24px;">
 <div class="section-header">
 <span class="section-tag tag-purple" data-sv="Alla appar" data-en="All apps">Alla appar</span>
-<h2 class="section-title" data-sv="53 appar i 6 kategorier" data-en="53 apps in 6 categories">53 appar i 6 kategorier</h2>
+<h2 class="section-title" data-sv="66 appar i 8 kategorier" data-en="66 apps in 8 categories">66 appar i 8 kategorier</h2>
 </div>
 <div class="cat-filter"><button class="cat-btn active" onclick="filterCat('all')" data-sv="Alla" data-en="All">Alla</button>
 <button class="cat-btn" onclick="filterCat('communication')" data-sv="💬 Kommunikation" data-en="💬 Communication">💬 Kommunikation</button>
@@ -112,6 +113,9 @@
 <button class="cat-btn" onclick="filterCat('time')" data-sv="⏰ Tid och planering" data-en="⏰ Time & Planning">⏰ Tid och planering</button>
 <button class="cat-btn" onclick="filterCat('emotions')" data-sv="💜 Känslor och lugn" data-en="💜 Emotions & Calm">💜 Känslor och lugn</button>
 <button class="cat-btn" onclick="filterCat('learning')" data-sv="📚 Lärande" data-en="📚 Learning">📚 Lärande</button>
+<button class="cat-btn" onclick="filterCat('speech')" data-sv="🗣️ Tal och språk" data-en="🗣️ Speech & Language">🗣️ Tal och språk</button>
+<button class="cat-btn" onclick="filterCat('cognitive')" data-sv="🧠 Kognitivt" data-en="🧠 Cognitive">🧠 Kognitivt</button>
+<button class="cat-btn" onclick="filterCat('stories')" data-sv="📖 Berättelser" data-en="📖 Stories">📖 Berättelser</button>
 <button class="cat-btn" onclick="filterCat('play')" data-sv="🎮 Minne och lek" data-en="🎮 Memory & Play">🎮 Minne och lek</button>
 </div>
 <div class="apps-grid" id="apps-grid"><a href="/launcher/apps/board-builder" class="app-card" data-cat="communication" style="text-decoration:none;color:inherit;">
@@ -183,6 +187,47 @@
 <h3><span class="cat-dot" style="background:#E67E22"></span><span data-sv="Kommunikationsboken" data-en="Communication Book">Kommunikationsboken</span></h3>
 <p data-sv="Digital kommunikationsbok med flikar, foton och piktogram" data-en="Digital communication book with tabs, photos and pictograms">Digital kommunikationsbok med flikar, foton och piktogram</p>
 <div class="tags"><span class="tag">AKK</span><span class="tag">Kommunikationsbok</span></div>
+</a>
+
+<a href="/launcher/apps/melody-therapy" class="app-card" data-cat="speech" style="text-decoration:none;color:inherit;">
+<h3><span class="cat-dot" style="background:#16A085"></span><span data-sv="Meloditerapi" data-en="Melody Therapy">Meloditerapi</span></h3>
+<p data-sv="Melodisk intonationsterapi (MIT) för tal" data-en="Melodic intonation therapy (MIT) for speech">Melodisk intonationsterapi (MIT) för tal</p>
+<div class="tags"><span class="tag">MIT</span><span class="tag">Talterapi</span></div>
+</a>
+<a href="/launcher/apps/mouth-motor" class="app-card" data-cat="speech" style="text-decoration:none;color:inherit;">
+<h3><span class="cat-dot" style="background:#16A085"></span><span data-sv="Mungymnastik" data-en="Mouth Motor">Mungymnastik</span></h3>
+<p data-sv="Munmotoriska övningar med visuell guide" data-en="Oral motor exercises with visual guide">Munmotoriska övningar med visuell guide</p>
+<div class="tags"><span class="tag">Munmotorik</span><span class="tag">CAS</span></div>
+</a>
+<a href="/launcher/apps/prompt-guide" class="app-card" data-cat="speech" style="text-decoration:none;color:inherit;">
+<h3><span class="cat-dot" style="background:#16A085"></span><span data-sv="PROMPT-guide" data-en="PROMPT Guide">PROMPT-guide</span></h3>
+<p data-sv="Taktila ledtrådar för talproduktion" data-en="Tactile cues for speech production">Taktila ledtrådar för talproduktion</p>
+<div class="tags"><span class="tag">PROMPT</span><span class="tag">Talterapi</span></div>
+</a>
+<a href="/launcher/apps/prosody-trainer" class="app-card" data-cat="speech" style="text-decoration:none;color:inherit;">
+<h3><span class="cat-dot" style="background:#16A085"></span><span data-sv="Prosoditräning" data-en="Prosody Trainer">Prosoditräning</span></h3>
+<p data-sv="Träna betoning och intonation" data-en="Practice stress and intonation">Träna betoning och intonation</p>
+<div class="tags"><span class="tag">Prosodi</span><span class="tag">Talterapi</span></div>
+</a>
+<a href="/launcher/apps/rest-trainer" class="app-card" data-cat="speech" style="text-decoration:none;color:inherit;">
+<h3><span class="cat-dot" style="background:#16A085"></span><span data-sv="ReST-träning" data-en="ReST Trainer">ReST-träning</span></h3>
+<p data-sv="Rapid Syllable Transition Training" data-en="Rapid Syllable Transition Training">Rapid Syllable Transition Training</p>
+<div class="tags"><span class="tag">ReST</span><span class="tag">CAS</span></div>
+</a>
+<a href="/launcher/apps/speech-rhythm" class="app-card" data-cat="speech" style="text-decoration:none;color:inherit;">
+<h3><span class="cat-dot" style="background:#16A085"></span><span data-sv="Talrytmen" data-en="Speech Rhythm">Talrytmen</span></h3>
+<p data-sv="Träna talhastighet och rytm" data-en="Practice speech rate and rhythm">Träna talhastighet och rytm</p>
+<div class="tags"><span class="tag">Prosodi</span><span class="tag">Talrytm</span></div>
+</a>
+<a href="/launcher/apps/tongue-viewer" class="app-card" data-cat="speech" style="text-decoration:none;color:inherit;">
+<h3><span class="cat-dot" style="background:#16A085"></span><span data-sv="Tungspegel" data-en="Tongue Viewer">Tungspegel</span></h3>
+<p data-sv="Visuell guide för tungpositioner" data-en="Visual guide for tongue positions">Visuell guide för tungpositioner</p>
+<div class="tags"><span class="tag">Artikulation</span><span class="tag">CAS</span></div>
+</a>
+<a href="/launcher/apps/mouth-gym" class="app-card" data-cat="speech" style="text-decoration:none;color:inherit;">
+<h3><span class="cat-dot" style="background:#16A085"></span><span data-sv="Mungymnastiken" data-en="Mouth Gym">Mungymnastiken</span></h3>
+<p data-sv="Styrketräning för munmuskler" data-en="Strength training for oral muscles">Styrketräning för munmuskler</p>
+<div class="tags"><span class="tag">Munmotorik</span><span class="tag">Styrketräning</span></div>
 </a>
 
 <a href="/launcher/apps/day-planner" class="app-card" data-cat="daily" style="text-decoration:none;color:inherit;">
@@ -290,6 +335,11 @@
 <p data-sv="Visuell dagbok med bilder och text" data-en="Visual diary with pictures and text">Visuell dagbok med bilder och text</p>
 <div class="tags"><span class="tag">Reflektion</span><span class="tag">Visuellt stöd</span></div>
 </a>
+<a href="/launcher/apps/sound-lottery" class="app-card" data-cat="emotions" style="text-decoration:none;color:inherit;">
+<h3><span class="cat-dot" style="background:#9B59B6"></span><span data-sv="Ljudlotteriet" data-en="Sound Lottery">Ljudlotteriet</span></h3>
+<p data-sv="Matcha ljud med bilder — lyssna och gissa" data-en="Match sounds with pictures — listen and guess">Matcha ljud med bilder — lyssna och gissa</p>
+<div class="tags"><span class="tag">Auditiv</span><span class="tag">Ljuddiskriminering</span></div>
+</a>
 <a href="/launcher/apps/word-builder" class="app-card" data-cat="learning" style="text-decoration:none;color:inherit;">
 <h3><span class="cat-dot" style="background:#F1C40F"></span><span data-sv="Ordbyggaren" data-en="Word Builder">Ordbyggaren</span></h3>
 <p data-sv="Bygg ord bokstav för bokstav" data-en="Build words letter by letter">Bygg ord bokstav för bokstav</p>
@@ -325,23 +375,51 @@
 <p data-sv="Lär dig om pengar och att ge tillbaka växel" data-en="Learn about money and making change">Lär dig om pengar och att ge tillbaka växel</p>
 <div class="tags"><span class="tag">Vardagsmatematik</span><span class="tag">ADL</span></div>
 </a>
-<a href="/launcher/apps/oral-motor" class="app-card" data-cat="learning" style="text-decoration:none;color:inherit;">
-<h3><span class="cat-dot" style="background:#F1C40F"></span><span data-sv="Munmotoriken" data-en="Oral Motor">Munmotoriken</span></h3>
+
+<a href="/launcher/apps/category-sort" class="app-card" data-cat="cognitive" style="text-decoration:none;color:inherit;">
+<h3><span class="cat-dot" style="background:#8E44AD"></span><span data-sv="Kategorispelet" data-en="Category Sort">Kategorispelet</span></h3>
+<p data-sv="Sortera föremål i rätt kategori" data-en="Sort objects into the right category">Sortera föremål i rätt kategori</p>
+<div class="tags"><span class="tag">Kognitivt</span><span class="tag">Kategorisering</span></div>
+</a>
+<a href="/launcher/apps/perspective-taking" class="app-card" data-cat="cognitive" style="text-decoration:none;color:inherit;">
+<h3><span class="cat-dot" style="background:#8E44AD"></span><span data-sv="Perspektivbyte" data-en="Perspective Taking">Perspektivbyte</span></h3>
+<p data-sv="Träna att se saker ur andras perspektiv" data-en="Practice seeing things from others' perspectives">Träna att se saker ur andras perspektiv</p>
+<div class="tags"><span class="tag">Socialt</span><span class="tag">ToM</span></div>
+</a>
+<a href="/launcher/apps/sensory-profile" class="app-card" data-cat="cognitive" style="text-decoration:none;color:inherit;">
+<h3><span class="cat-dot" style="background:#8E44AD"></span><span data-sv="Sensorisk profil" data-en="Sensory Profile">Sensorisk profil</span></h3>
+<p data-sv="Kartlägg sensoriska preferenser" data-en="Map sensory preferences">Kartlägg sensoriska preferenser</p>
+<div class="tags"><span class="tag">Sensorik</span><span class="tag">Profil</span></div>
+</a>
+<a href="/launcher/apps/sequence-trainer" class="app-card" data-cat="cognitive" style="text-decoration:none;color:inherit;">
+<h3><span class="cat-dot" style="background:#8E44AD"></span><span data-sv="Sekvensträning" data-en="Sequence Trainer">Sekvensträning</span></h3>
+<p data-sv="Ordna händelser i rätt ordning" data-en="Put events in the right order">Ordna händelser i rätt ordning</p>
+<div class="tags"><span class="tag">Sekvensering</span><span class="tag">Kognitivt</span></div>
+</a>
+
+<a href="/launcher/apps/sagostunden" class="app-card" data-cat="stories" style="text-decoration:none;color:inherit;">
+<h3><span class="cat-dot" style="background:#D4A574"></span><span data-sv="Sagostunden" data-en="Story Time">Sagostunden</span></h3>
+<p data-sv="Interaktiva berättelser med piktogram och tal" data-en="Interactive stories with pictograms and speech">Interaktiva berättelser med piktogram och tal</p>
+<div class="tags"><span class="tag">Berättande</span><span class="tag">Talsyntes</span></div>
+</a>
+
+<a href="/launcher/apps/oral-motor" class="app-card" data-cat="speech" style="text-decoration:none;color:inherit;">
+<h3><span class="cat-dot" style="background:#16A085"></span><span data-sv="Munmotoriken" data-en="Oral Motor">Munmotoriken</span></h3>
 <p data-sv="Öva munmotoriska rörelser för tal — tunga, läppar, käke och andning" data-en="Practice oral motor movements for speech — tongue, lips, jaw and breathing">Öva munmotoriska rörelser för tal — tunga, läppar, käke och andning</p>
 <div class="tags"><span class="tag">Munmotorik</span><span class="tag">Talträning</span></div>
 </a>
-<a href="/launcher/apps/sound-chain" class="app-card" data-cat="learning" style="text-decoration:none;color:inherit;">
-<h3><span class="cat-dot" style="background:#F1C40F"></span><span data-sv="Ljudkedjan" data-en="Sound Chain">Ljudkedjan</span></h3>
+<a href="/launcher/apps/sound-chain" class="app-card" data-cat="speech" style="text-decoration:none;color:inherit;">
+<h3><span class="cat-dot" style="background:#16A085"></span><span data-sv="Ljudkedjan" data-en="Sound Chain">Ljudkedjan</span></h3>
 <p data-sv="Kedja ihop ljud till stavelser och ord — visuella kedjelänkar" data-en="Chain sounds together into syllables and words — visual chain links">Kedja ihop ljud till stavelser och ord — visuella kedjelänkar</p>
 <div class="tags"><span class="tag">Fonetik</span><span class="tag">Ljudsyntes</span></div>
 </a>
-<a href="/launcher/apps/speech-practice" class="app-card" data-cat="learning" style="text-decoration:none;color:inherit;">
-<h3><span class="cat-dot" style="background:#F1C40F"></span><span data-sv="Pratpraktiken" data-en="Speech Practice">Pratpraktiken</span></h3>
+<a href="/launcher/apps/speech-practice" class="app-card" data-cat="speech" style="text-decoration:none;color:inherit;">
+<h3><span class="cat-dot" style="background:#16A085"></span><span data-sv="Pratpraktiken" data-en="Speech Practice">Pratpraktiken</span></h3>
 <p data-sv="Strukturerad talträning med DTTC-metoden — lyssna, härma, öva" data-en="Structured speech training with the DTTC method — listen, imitate, practice">Strukturerad talträning med DTTC-metoden — lyssna, härma, öva</p>
 <div class="tags"><span class="tag">DTTC</span><span class="tag">Talträning</span></div>
 </a>
-<a href="/launcher/apps/syllable-jump" class="app-card" data-cat="learning" style="text-decoration:none;color:inherit;">
-<h3><span class="cat-dot" style="background:#F1C40F"></span><span data-sv="Stavelsehoppet" data-en="Syllable Jump">Stavelsehoppet</span></h3>
+<a href="/launcher/apps/syllable-jump" class="app-card" data-cat="speech" style="text-decoration:none;color:inherit;">
+<h3><span class="cat-dot" style="background:#16A085"></span><span data-sv="Stavelsehoppet" data-en="Syllable Jump">Stavelsehoppet</span></h3>
 <p data-sv="Hoppa genom stavelser — klappa takten och bygg ord" data-en="Jump through syllables — clap the rhythm and build words">Hoppa genom stavelser — klappa takten och bygg ord</p>
 <div class="tags"><span class="tag">Fonologisk medvetenhet</span><span class="tag">Stavelser</span></div>
 </a>
@@ -359,6 +437,21 @@
 <h3><span class="cat-dot" style="background:#E74C3C"></span><span data-sv="Väljaren" data-en="Chooser">Väljaren</span></h3>
 <p data-sv="Hjälp att göra val mellan alternativ" data-en="Help making choices between options">Hjälp att göra val mellan alternativ</p>
 <div class="tags"><span class="tag">Beslutsfattande</span><span class="tag">Visuellt stöd</span></div>
+</a>
+<a href="/launcher/apps/the-mimic" class="app-card" data-cat="play" style="text-decoration:none;color:inherit;">
+<h3><span class="cat-dot" style="background:#E74C3C"></span><span data-sv="Härmaren" data-en="The Mimic">Härmaren</span></h3>
+<p data-sv="Härma ljud och rörelser" data-en="Imitate sounds and movements">Härma ljud och rörelser</p>
+<div class="tags"><span class="tag">Imitation</span><span class="tag">Motorik</span></div>
+</a>
+<a href="/launcher/apps/story-workshop" class="app-card" data-cat="play" style="text-decoration:none;color:inherit;">
+<h3><span class="cat-dot" style="background:#E74C3C"></span><span data-sv="Sagoverkstaden" data-en="Story Workshop">Sagoverkstaden</span></h3>
+<p data-sv="Skapa egna berättelser med bilder" data-en="Create your own stories with pictures">Skapa egna berättelser med bilder</p>
+<div class="tags"><span class="tag">Berättande</span><span class="tag">Kreativitet</span></div>
+</a>
+<a href="/launcher/apps/word-parade" class="app-card" data-cat="play" style="text-decoration:none;color:inherit;">
+<h3><span class="cat-dot" style="background:#E74C3C"></span><span data-sv="Ordparaden" data-en="Word Parade">Ordparaden</span></h3>
+<p data-sv="Lär dig nya ord med bilder och ljud" data-en="Learn new words with pictures and sound">Lär dig nya ord med bilder och ljud</p>
+<div class="tags"><span class="tag">Ordförråd</span><span class="tag">Talsyntes</span></div>
 </a>
 </div>
 </div>
